@@ -4,7 +4,9 @@ Here it is, possibly. My new personal website, portfolio, blog. Whatever this mi
 
 Soon it will all be clear. It's going to be a good time.
 
-## Developing
+Until this is ready, the live project is to be found at the confusingly similar repository name [simon-w.xyz](https://github.com/mister-simon/simon-w.xyz). The dash in the repo name was a mistake, tbh.
+
+## Dev
 
 Once you've created a project and installed dependencies with `pnpm i`:
 
