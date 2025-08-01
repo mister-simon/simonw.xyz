@@ -1,4 +1,3 @@
-import type { PageServerLoad } from './$types';
 import { read } from '$app/server';
 import artPath from '$lib/assets/logo-42.txt';
 
