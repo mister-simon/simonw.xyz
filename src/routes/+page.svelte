@@ -1,7 +1,12 @@
 <script lang="ts">
-	import type { PageProps } from './$types';
+	import Layout from '$lib/layout.svelte';
 
-	let { data }: PageProps = $props();
+	let { data } = $props();
 </script>
 
-<pre class="font-mono leading-none">{data.art}</pre>
+<Layout></Layout>
+
+<!-- 
+<pre
+	class="inline-block aspect-square overflow-clip rounded-full font-mono leading-[1.125] tracking-normal"
+	aria-hidden="true">{data.art}</pre> -->

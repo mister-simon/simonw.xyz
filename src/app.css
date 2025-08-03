@@ -1,3 +1,80 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+@plugin "@iconify/tailwind4" {
+	prefixes: pixel;
+}
+
+@theme {
+	/* Base 16 theming */
+	--color-00: #261632;
+	--color-01: #60377d;
+	--color-02: #766549;
+	--color-03: #b590d1;
+	--color-04: #daa9d8;
+	--color-05: #f1daeb;
+	--color-06: #f7deef;
+	--color-07: #ffddee;
+	--color-08: #8e9296;
+	--color-09: #8e9194;
+	--color-0A: #8e9196;
+	--color-0B: #8e9296;
+	--color-0C: #8e9296;
+	--color-0D: #b07bd3;
+	--color-0E: #8e9296;
+	--color-0F: #8e9296;
+
+	/* Basic surfaces and text */
+	--color-default-surface: var(--color-00);
+	--color-alternate-surface: var(--color-01);
+	--color-selection-surface: var(--color-02);
+	--color-default-text: var(--color-05);
+	--color-alternate-text: var(--color-04);
+	--color-warning: var(--color-0A);
+	--color-urgent: var(--color-09);
+	--color-error: var(--color-08);
+
+	/* Windows + sections */
+	--color-unfocused-window: var(--color-03);
+	--color-focused-window: var(--color-0D);
+	--color-urgent-window: var(--color-08);
+	--color-window-title: var(--color-05);
+
+	/* Popups + progress */
+	--color-popup-window-border: var(--color-0D);
+	--color-popup-surface-color: var(--color-00);
+	--color-popup-text: var(--color-05);
+	--color-popup-urgent-border: var(--color-08);
+	--color-popup-warning-border: var(--color-03);
+	--color-popup-incomplete: var(--color-01);
+	--color-popup-complete: var(--color-02);
+}
+
+@layer base {
+	body {
+		background-color: var(--color-default-surface);
+		color: var(--color-default-text);
+	}
+}
+
+@layer utilities {
+	.prose {
+		/* Prose */
+		--tw-prose-body: var(--color-default-text);
+		--tw-prose-headings: var(--color-window-title);
+		--tw-prose-lead: var(--color-alternate-text);
+		--tw-prose-links: var(--color-popup-text);
+		--tw-prose-bold: var(--color-alternate-text);
+		--tw-prose-counters: var(--color-default-text);
+		--tw-prose-bullets: var(--color-default-text);
+		--tw-prose-hr: var(--color-unfocused-window);
+		--tw-prose-quotes: var(--color-alternate-text);
+		--tw-prose-quote-borders: var(--color-alternate-text);
+		--tw-prose-captions: var(--color-default-text);
+		--tw-prose-code: var(--color-alternate-text);
+		--tw-prose-pre-code: var(--color-alternate-text);
+		--tw-prose-pre-bg: var(--color-alternate-surface);
+		--tw-prose-th-borders: var(--color-focused-window);
+		--tw-prose-td-borders: var(--color-unfocused-window);
+	}
+}
