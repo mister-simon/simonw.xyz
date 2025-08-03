@@ -1,9 +1,35 @@
 <main>
 	<header></header>
-	<nav>
+	<nav class="main">
 		<ul>
 			<li>
-				<span class="iconify size-16 pixel--home">Home</span>
+				<a href="#" class="flex items-center gap-2"
+					><span class="iconify size-[1lh] pixel--home-solid"></span> Home</a
+				>
+			</li>
+			<li>
+				<a href="#" class="flex items-center gap-2"
+					><span class="iconify size-[1lh] pixel--sparkles-solid"></span> Portfolio</a
+				>
+			</li>
+			<li>
+				<a href="#" class="flex items-center gap-2"
+					><span class="iconify size-[1lh] pixel--book-heart-solid"></span> Bloggin'</a
+				>
+			</li>
+			<li>
+				<a href="#" class="flex items-center gap-2"
+					><span class="iconify size-[1lh] pixel--user-solid"></span> Contact</a
+				>
+			</li>
+		</ul>
+	</nav>
+	<nav class="secondary">
+		<ul>
+			<li>
+				<a href="#" class="flex items-center gap-2"
+					><span class="iconify size-[1lh] pixel--writing"></span> Home</a
+				>
 			</li>
 		</ul>
 	</nav>
