@@ -73,4 +73,10 @@ const nav = [
 	})
 ];
 
-export default nav;
+export function handle(url: string) {
+	//
+	console.log(
+		url,
+		url.split('/').filter((s) => s !== '')
+	);
+}

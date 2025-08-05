@@ -1,6 +1,14 @@
-import nav from '$lib/navigation';
+import { handle as handlePathname } from '$lib/navigation';
+import { redirect } from '@sveltejs/kit';
 
-export const load = async ({ params, route }) => {
-	console.log(params, route);
+export const load = async ({ params, route, url }) => {
+	const { pathname } = url;
+
+	if (pathname === '/') {
+		redirect(307, '/home');
+	}
+
+	handlePathname(pathname);
+
 	return {};
 };
