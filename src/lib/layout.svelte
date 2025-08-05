@@ -9,7 +9,10 @@
 		{ icon: 'pixel--book-heart-solid', name: 'Thoughts', url: '/thoughts', active: false },
 		{ icon: 'pixel--user-solid', name: 'Contact', url: '/contact', active: false }
 	];
-	let secondary = [{ icon: 'pixel--writing', name: 'Index', url: '/home', active: true }];
+	let secondary = [
+		{ icon: 'pixel--folder', name: 'Index', url: '/home/list', active: false },
+		{ icon: 'pixel--writing', name: 'Index', url: '/home', active: true }
+	];
 </script>
 
 <div class="layout font-mono">
