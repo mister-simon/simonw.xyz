@@ -16,46 +16,81 @@ function createListing(parts: string[]) {
 	};
 } */
 
+class TreeNode {
+	#listing: string | null = null;
+	#children: { [key: string]: TreeNode } = {};
+	#parent: TreeNode | null;
+
+	constructor(parent: TreeNode | null = null) {
+		this.#parent = parent;
+	}
+
+	setListing(listing: string) {
+		this.#listing = listing;
+	}
+
+	addChild(key: string, listing: TreeNode) {
+		this.#children[key] = listing;
+		return listing;
+	}
+
+	getChild(key: string): TreeNode | null {
+		return this.#children[key] ?? null;
+	}
+
+	get children() {
+		return this.#children;
+	}
+
+	get siblings() {
+		return this.#parent?.children;
+	}
+
+	tree(): { listing: string | null; children: { [key: string]: ReturnType<TreeNode['tree']> } } {
+		return {
+			listing: this.#listing,
+			children: Object.keys(this.#children).reduce(
+				(result, key) => {
+					return {
+						...result,
+						[key]: this.#children[key]?.tree()
+					};
+				},
+				{} as { [key: string]: ReturnType<TreeNode['tree']> }
+			)
+		};
+	}
+}
+
 /**
  * Create a list of page urls
  */
-function pageCollection(): string[] {
+function getTree(): TreeNode {
 	// Get pages from svelte files
 	return Object.keys(import.meta.glob('/src/routes/*/**/+page.svelte'))
 		.map((path) => path.replace(/^\/src\/routes\//, ''))
-		.reduce(
-			(pages, path) => {
-				let node = pages;
+		.reduce((tree, path) => {
+			let item = tree;
 
-				for (const part of path.split('/')) {
-					if (part.endsWith('.svelte')) {
-						(node as { listing?: string }).listing = path;
-						break;
-					}
+			for (const part of path.split('/')) {
+				if (part.endsWith('.svelte')) {
+					item.setListing(path);
 
-					if ((node as { children?: any }).children) {
-						node = (node as { children: any }).children;
-					}
-
-					if (!Object.hasOwn(node, part)) {
-						node[part] = {
-							listing: null,
-							children: {}
-						};
-					}
-
-					node = node[part];
+					break;
 				}
 
-				return pages;
-			},
-			{ listing: null, children: {} }
-		);
+				item = item.getChild(part) ?? item.addChild(part, new TreeNode(item));
+			}
+
+			return tree;
+		}, new TreeNode());
 }
 
 export function handle(pathname: string) {
 	const currentPath = pathname.replace(/^\/+/, '').split('/');
 
-	// Take the list of paths, and reduce them down to leaf nodes
-	const pages = pageCollection();
+	// Get the entire app as a class tree
+	const root = getTree();
+
+	console.log(root.tree());
 }
