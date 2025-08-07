@@ -5,7 +5,7 @@
 </script>
 
 <div class="relative w-full overflow-clip">
-	<div class="prose ml-8 py-8">
+	<div class="mx-8 prose py-8">
 		<h2>Some inner content</h2>
 		<p class="lead">
 			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit assumenda dignissimos, ratione

@@ -95,22 +95,33 @@ export class TreeNode {
  * Create a list of page urls
  */
 export function getTree(): TreeNode {
+	const postPaths = Object.keys(import.meta.glob('$lib/posts/*.svx')).map((path) =>
+		path.replace(/^\/src\/lib\/posts\//, 'thoughts/').replace(/\.svx$/, '')
+	);
+
+	const sveltePaths = Object.keys(import.meta.glob('/src/routes/*/**/+page.svelte')).map((path) =>
+		path.replace(/^\/src\/routes\//, '')
+	);
+
 	// Get pages from svelte files
-	return Object.keys(import.meta.glob('/src/routes/*/**/+page.svelte'))
-		.map((path) => path.replace(/^\/src\/routes\//, ''))
-		.reduce((tree, path) => {
-			let item = tree;
+	return [...sveltePaths, ...postPaths].reduce((tree, path) => {
+		let item = tree;
 
-			const parts = path.split('/');
+		const parts = path.split('/');
 
-			parts.forEach((part, i) => {
-				item = item.getChild(part) ?? item.addChild(part, new TreeNode(item));
-				item.setListing(parts.slice(0, i + 1).join('/'));
-				item.setName(part);
-			});
+		parts.forEach((part, i) => {
+			let param = part.match(/^\[(.+)\]$/);
+			if (param?.length) {
+				console.log('AH', param);
+				return;
+			}
+			item = item.getChild(part) ?? item.addChild(part, new TreeNode(item));
+			item.setListing(parts.slice(0, i + 1).join('/'));
+			item.setName(part);
+		});
 
-			return tree;
-		}, new TreeNode());
+		return tree;
+	}, new TreeNode());
 }
 
 export function getNavData(pathname: string) {
