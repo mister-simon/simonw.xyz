@@ -29,7 +29,7 @@
 
 <div class="layout font-mono">
 	<header>
-		<h1 class="text-xl">~/Home/Index</h1>
+		<h1 class="text-xl">~/{current.listing}</h1>
 	</header>
 	<main>
 		<nav class="primary">
@@ -114,6 +114,27 @@
 			max-width: 100%;
 			overflow: auto;
 			z-index: 0;
+		}
+	}
+
+	@media (max-aspect-ratio: 1) {
+		main {
+			grid-template-columns: auto;
+			grid-template-rows:
+				var(--primary-width)
+				var(--secondary-width)
+				var(--content-width);
+		}
+		.primary,
+		.secondary {
+			writing-mode: vertical-rl;
+		}
+
+		.primary {
+			border-radius: var(--border-radius) var(--border-radius) 0 0;
+		}
+		article {
+			border-radius: 0 0 var(--border-radius) var(--border-radius);
 		}
 	}
 </style>

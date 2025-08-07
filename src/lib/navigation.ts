@@ -1,5 +1,6 @@
 export class TreeNode {
 	#listing: string | null = null;
+	#name: string | null = null;
 	#children: { [key: string]: TreeNode } = {};
 	#parent: TreeNode | null;
 	#active: boolean = false;
@@ -10,6 +11,10 @@ export class TreeNode {
 
 	setListing(listing: string) {
 		this.#listing = listing;
+	}
+
+	setName(name: string) {
+		this.#name = name;
 	}
 
 	addChild(key: string, child: TreeNode) {
@@ -27,6 +32,10 @@ export class TreeNode {
 
 	get listing() {
 		return this.#listing;
+	}
+
+	get name() {
+		return this.#name;
 	}
 
 	get parent() {
@@ -52,26 +61,23 @@ export class TreeNode {
 
 		const url = this.listing.replace('/+page.svelte', '');
 
+		if (url.startsWith('/')) {
+			return url;
+		}
+
 		return `/${url}`;
 	}
 
-	get name() {
-		if (!this.listing) {
-			return 'N/A?';
-		}
-
-		// if (this.listing?.endsWith('+page.svelte')) {
-		// 	return 'Index';
-		// }
-
-		const parts = this.listing.split('/');
-
-		return parts.shift();
-	}
-
-	tree(): { listing: string | null; children: { [key: string]: ReturnType<TreeNode['tree']> } } {
+	tree(): {
+		listing: string | null;
+		name: string | null;
+		url: string | null;
+		children: { [key: string]: ReturnType<TreeNode['tree']> };
+	} {
 		return {
 			listing: this.#listing,
+			name: this.#name,
+			url: this.url,
 			children: Object.keys(this.#children).reduce(
 				(result, key) => {
 					return {
@@ -95,15 +101,13 @@ export function getTree(): TreeNode {
 		.reduce((tree, path) => {
 			let item = tree;
 
-			for (const part of path.split('/')) {
-				if (part.endsWith('.svelte')) {
-					item.setListing(path);
+			const parts = path.split('/');
 
-					break;
-				}
-
+			parts.forEach((part, i) => {
 				item = item.getChild(part) ?? item.addChild(part, new TreeNode(item));
-			}
+				item.setListing(parts.slice(0, i + 1).join('/'));
+				item.setName(part);
+			});
 
 			return tree;
 		}, new TreeNode());
@@ -120,10 +124,31 @@ export function getNavData(pathname: string) {
 		node.setActive(true);
 	}
 
+	const svelteNode = node.getChild('+page.svelte') ?? null;
+
+	if (svelteNode) {
+		node = svelteNode;
+		node.setActive(true);
+	}
+
+	let primary = { ...node?.parent?.siblings };
+
+	if (node?.parent?.parent && node.parent.parent.listing) {
+		primary.parent = new TreeNode();
+		primary.parent.setName('../');
+		primary.parent.setListing(node.parent.parent.listing);
+	}
+
+	let secondary = node?.siblings;
+
+	if (node === root) {
+		secondary = root.children;
+	}
+
 	return {
 		root: root,
-		primary: node?.parent?.siblings,
-		secondary: node?.siblings,
+		primary,
+		secondary,
 		current: node
 	};
 }

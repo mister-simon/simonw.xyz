@@ -7,14 +7,18 @@
 	}: {
 		items: Record<string, TreeNode> | undefined;
 	} = $props();
+
+	const list = $derived.by(() => {
+		return Object.keys(items ?? {})
+			.map((key) => [key, (items ?? {})[key]])
+			.filter(([key, item]) => item);
+	});
 </script>
 
 <ul class="inner">
-	{#if items}
-		{#each Object.values(items) as item}
-			<ListItem {item} />
-		{/each}
-	{/if}
+	{#each list as [key, item]}
+		<ListItem {item} {key} />
+	{/each}
 </ul>
 
 <style>
