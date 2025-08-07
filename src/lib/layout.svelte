@@ -1,18 +1,18 @@
 <script lang="ts">
 	import ListIndex from './list-index.svelte';
 
-	let { children } = $props();
+	let { primary, secondary, children } = $props();
 
-	let primary = [
-		{ icon: 'pixel--home-solid', name: 'Home', url: '/home', active: true },
-		{ icon: 'pixel--sparkles-solid', name: 'My Work', url: '/my-work', active: false },
-		{ icon: 'pixel--book-heart-solid', name: 'Thoughts', url: '/thoughts', active: false },
-		{ icon: 'pixel--user-solid', name: 'Contact', url: '/contact', active: false }
-	];
-	let secondary = [
-		{ icon: 'pixel--folder', name: 'Index', url: '/home/list', active: false },
-		{ icon: 'pixel--writing', name: 'Index', url: '/home', active: true }
-	];
+	// let primary = [
+	// 	{ icon: 'pixel--home-solid', name: 'Home', url: '/home', active: true },
+	// 	{ icon: 'pixel--sparkles-solid', name: 'My Work', url: '/my-work', active: false },
+	// 	{ icon: 'pixel--book-heart-solid', name: 'Thoughts', url: '/thoughts', active: false },
+	// 	{ icon: 'pixel--user-solid', name: 'Contact', url: '/contact', active: false }
+	// ];
+	// let secondary = [
+	// 	{ icon: 'pixel--folder', name: 'Index', url: '/home/list', active: false },
+	// 	{ icon: 'pixel--writing', name: 'Index', url: '/home', active: true }
+	// ];
 </script>
 
 <div class="layout font-mono">
