@@ -1,25 +1,8 @@
-/* type Listing = {
-	name: string;
-	path: string;
-	type: 'file' | 'folder';
-	children?: Listing[];
-};
-
-function createListing(parts: string[]) {
-	console.log(parts);
-	const [part, ...remainder] = parts;
-
-	return {
-		name: part,
-		url: parts.join('/'),
-		parents: remainder.length ? createListing(remainder) : null
-	};
-} */
-
-class TreeNode {
+export class TreeNode {
 	#listing: string | null = null;
 	#children: { [key: string]: TreeNode } = {};
 	#parent: TreeNode | null;
+	#active: boolean = false;
 
 	constructor(parent: TreeNode | null = null) {
 		this.#parent = parent;
@@ -29,13 +12,29 @@ class TreeNode {
 		this.#listing = listing;
 	}
 
-	addChild(key: string, listing: TreeNode) {
-		this.#children[key] = listing;
-		return listing;
+	addChild(key: string, child: TreeNode) {
+		this.#children[key] = child;
+		return child;
+	}
+
+	setActive(isActive: boolean) {
+		this.#active = isActive;
 	}
 
 	getChild(key: string): TreeNode | null {
 		return this.#children[key] ?? null;
+	}
+
+	get listing() {
+		return this.#listing;
+	}
+
+	get parent() {
+		return this.#parent;
+	}
+
+	get active() {
+		return this.#active;
 	}
 
 	get children() {
@@ -44,6 +43,30 @@ class TreeNode {
 
 	get siblings() {
 		return this.#parent?.children;
+	}
+
+	get url() {
+		if (!this.listing) {
+			return null;
+		}
+
+		const url = this.listing.replace('/+page.svelte', '');
+
+		return `/${url}`;
+	}
+
+	get name() {
+		if (!this.listing) {
+			return 'N/A?';
+		}
+
+		// if (this.listing?.endsWith('+page.svelte')) {
+		// 	return 'Index';
+		// }
+
+		const parts = this.listing.split('/');
+
+		return parts.shift();
 	}
 
 	tree(): { listing: string | null; children: { [key: string]: ReturnType<TreeNode['tree']> } } {
@@ -65,7 +88,7 @@ class TreeNode {
 /**
  * Create a list of page urls
  */
-function getTree(): TreeNode {
+export function getTree(): TreeNode {
 	// Get pages from svelte files
 	return Object.keys(import.meta.glob('/src/routes/*/**/+page.svelte'))
 		.map((path) => path.replace(/^\/src\/routes\//, ''))
@@ -86,11 +109,21 @@ function getTree(): TreeNode {
 		}, new TreeNode());
 }
 
-export function handle(pathname: string) {
-	const currentPath = pathname.replace(/^\/+/, '').split('/');
-
-	// Get the entire app as a class tree
+export function getNavData(pathname: string) {
 	const root = getTree();
 
-	console.log(root.tree());
+	const currentPath = pathname.replace(/^\/+/, '').split('/');
+
+	let node = root;
+	for (const part of currentPath) {
+		node = node.getChild(part) ?? node;
+		node.setActive(true);
+	}
+
+	return {
+		root: root,
+		primary: node?.parent?.siblings,
+		secondary: node?.siblings,
+		current: node
+	};
 }

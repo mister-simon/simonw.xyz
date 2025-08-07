@@ -4,4 +4,4 @@
 	let { data } = $props();
 </script>
 
-<Layout></Layout>
+<pre>{JSON.stringify(data, null, 2)}</pre>

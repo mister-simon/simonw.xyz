@@ -1,4 +1,3 @@
-import { handle as handlePathname } from '$lib/navigation';
 import { redirect } from '@sveltejs/kit';
 
 export const load = async ({ params, route, url }) => {
@@ -7,8 +6,6 @@ export const load = async ({ params, route, url }) => {
 	if (pathname === '/') {
 		redirect(307, '/home');
 	}
-
-	handlePathname(pathname);
 
 	return {};
 };

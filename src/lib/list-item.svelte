@@ -1,5 +1,7 @@
 <script lang="ts">
-	let { item } = $props();
+	import type { TreeNode } from './navigation';
+
+	let { item }: { item: TreeNode } = $props();
 </script>
 
 <li>

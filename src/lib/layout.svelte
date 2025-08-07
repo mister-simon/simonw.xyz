@@ -1,7 +1,19 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import ListIndex from './list-index.svelte';
+	import type { TreeNode } from './navigation';
 
-	let { primary, secondary, children } = $props();
+	let {
+		primary,
+		secondary,
+		current,
+		children
+	}: {
+		primary: Record<string, TreeNode> | undefined;
+		secondary: Record<string, TreeNode> | undefined;
+		current: TreeNode;
+		children: Snippet;
+	} = $props();
 
 	// let primary = [
 	// 	{ icon: 'pixel--home-solid', name: 'Home', url: '/home', active: true },

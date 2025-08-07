@@ -1,13 +1,20 @@
 <script lang="ts">
 	import ListItem from './list-item.svelte';
+	import type { TreeNode } from './navigation';
 
-	let { items } = $props();
+	let {
+		items
+	}: {
+		items: Record<string, TreeNode> | undefined;
+	} = $props();
 </script>
 
 <ul class="inner">
-	{#each items as item}
-		<ListItem {item} />
-	{/each}
+	{#if items}
+		{#each Object.values(items) as item}
+			<ListItem {item} />
+		{/each}
+	{/if}
 </ul>
 
 <style>

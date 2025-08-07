@@ -1,12 +1,18 @@
 <script lang="ts">
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-	
+	import Layout from '$lib/layout.svelte';
+	import { page } from '$app/state';
+	import { getNavData } from '$lib/navigation';
+
 	let { children } = $props();
+	let navData = $derived(getNavData(page.url.pathname));
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{@render children?.()}
+<Layout primary={navData.primary} secondary={navData.secondary} current={navData.current}>
+	{@render children?.()}
+</Layout>
