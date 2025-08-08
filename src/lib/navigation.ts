@@ -81,6 +81,28 @@ export class TreeNode {
 		return '';
 	}
 
+	get order() {
+		const specialOrder = {
+			'../': 0,
+			home: 100,
+			'my-work': 200,
+			thoughts: 300,
+			contact: 400,
+			'+page.svelte': 500,
+			'+error.svelte': 600
+		};
+
+		if (this.name && Object.hasOwn(specialOrder, this.name)) {
+			return specialOrder[this.name as keyof typeof specialOrder];
+		}
+
+		if (Object.values(this.children).length !== 0) {
+			return 450;
+		}
+
+		return 550;
+	}
+
 	get url() {
 		if (!this.listing) {
 			return null;
@@ -88,11 +110,7 @@ export class TreeNode {
 
 		const url = this.listing.replace('/+page.svelte', '');
 
-		if (url.startsWith('/')) {
-			return url;
-		}
-
-		return `/${url}`;
+		return url.startsWith('/') ? url : `/${url}`;
 	}
 
 	tree(): {
@@ -116,6 +134,16 @@ export class TreeNode {
 			)
 		};
 	}
+}
+
+export function sortMenu(menu: TreeNode[]) {
+	return menu.sort(function (a, b) {
+		if (a.order === b.order) {
+			return (a.listing ?? '').localeCompare(b.listing ?? '');
+		}
+
+		return a.order - b.order;
+	});
 }
 
 /**
@@ -167,42 +195,43 @@ export function getNavData(pathname: string) {
 	}
 
 	// Primary menu shows siblings of parent
-	let primary = { ...node?.parent?.siblings };
+	let primary = Object.values(node?.parent?.siblings ?? {});
 
 	// Add a "../" entry unless primary is a root
 	if (node?.parent?.parent && node.parent.parent.listing) {
-		primary.parent = new TreeNode();
-		primary.parent.setName('../');
-		primary.parent.setListing(node.parent.parent.listing);
+		const parentNode = new TreeNode();
+		parentNode.setName('../');
+		parentNode.setListing(node.parent.parent.listing);
+		primary.push(parentNode);
 	}
 
 	// Secondary menu shows siblings of current node
-	let secondary = { ...(node?.siblings ?? {}) };
+	let secondary = Object.values(node?.siblings ?? {});
 
 	// Something's gone wrong and we're at the root.
 	// This makes sure something gets shown
 	if (node === root) {
-		secondary = { ...root.children };
+		secondary = Object.values(root.children);
 	}
 
 	// Add an error listing to secondary menu
-	if (page.error && secondary) {
+	if (page.error && secondary && Object.values(node.children).length === 0) {
 		for (const node in secondary) {
 			secondary[node].setActive(false);
 		}
 
 		const errorNode = new TreeNode();
 		errorNode.setName('+error.svelte');
-		errorNode.setListing('+error.svelte');
+		// errorNode.setListing('+error.svelte');
 		errorNode.setActive(true);
 
-		secondary['+error.svelte'] = errorNode;
+		secondary.push(errorNode);
 	}
 
 	return {
 		root: root,
-		primary,
-		secondary,
+		primary: sortMenu(primary),
+		secondary: sortMenu(secondary),
 		current: node
 	};
 }

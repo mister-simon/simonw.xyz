@@ -9,8 +9,8 @@
 		current,
 		children
 	}: {
-		primary: Record<string, TreeNode> | undefined;
-		secondary: Record<string, TreeNode> | undefined;
+		primary: TreeNode[];
+		secondary: TreeNode[];
 		current: TreeNode;
 		children: Snippet;
 	} = $props();

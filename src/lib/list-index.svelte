@@ -6,21 +6,13 @@
 		items,
 		useAriaCurrent = false
 	}: {
-		items: Record<string, TreeNode> | undefined;
+		items: TreeNode[];
 		useAriaCurrent?: boolean;
 	} = $props();
-
-	const list = $derived.by(() => {
-		const listItems = items ?? {};
-
-		return Object.keys(listItems)
-			.map((key) => listItems[key])
-			.filter((item) => item);
-	});
 </script>
 
 <ul class="inner">
-	{#each list as item}
+	{#each items as item}
 		<ListItem {item} {useAriaCurrent} />
 	{/each}
 </ul>
