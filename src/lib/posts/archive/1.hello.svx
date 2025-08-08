@@ -1,0 +1,31 @@
+---
+title: 'Hello There!'
+description: "I've just installed the content module... Let's see what it can do!"
+date: '2024-01-26'
+navigation:
+  title: 'Hello'
+  icon: '🙋'
+---
+My intention here is mostly to try and document / link out to other useful articles that I come across in my day-to-day.
+<!--more-->
+
+So, to get started I dropped this into my terminal:
+
+```bash
+npm install -D @tailwindcss/typography
+```
+
+I tend to read a handful of articles each day. Most of them lead to more questions. Sometimes they give me answers to questions I have down the line... And sometimes when I want those answers they only exist in my mind as the frustrating knowledge that I've forgotten all relevant specific information I'll need.
+
+---
+
+Ok, so this is a little while later. I've been trying to implement a couple of things here:
+
+1. An index page that shows extracts of the blog posts with a link
+2. A list of blog posts using the "ContentNavigation" component system
+
+Sounds simple right? Weeeeell, not exactly. It's simple enough, but the documentation is pretty bad. For example, currently I can't decide how I would simply output the nav list of content `/content/thoughts-and-things/*` because wildcards don't seem to be a thing, and the documentation also doesn't point you in the direction of dealing with the recursion you'll need to handle to deal with displaying navigation children.
+
+Well... I'll come back to this next week.
+
+So far, this is progress.

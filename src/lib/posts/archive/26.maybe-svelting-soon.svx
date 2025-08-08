@@ -1,0 +1,18 @@
+---
+title: "Maybe Svelting Soon"
+description: "I've had another look at svelte / sveltekit and... I want it."
+date: '2024-07-02'
+navigation:
+  title: "Maybe Svelting Soon"
+  icon: '§'
+---
+
+I've been doing some work with next.js and that experience has made me want to check out sveltekit.
+
+<!--more-->
+
+There's honestly not that much more to say about it. The docs for Svelte and Sveltekit seem really good. The way that it works seems very smart. A lot of things about it remind me of some of the things I really like about Vue, along with many of the good parts of react. The fact that it is compiled into pretty much standard JS means that the code should be nice and predictable and portable.
+
+There's just a lot to like about it - looking at it from the outside in.
+
+I'll give it a go soon I hope, and maybe I'll even start using it for a production application soon too.

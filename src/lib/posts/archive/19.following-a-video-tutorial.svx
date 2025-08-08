@@ -1,0 +1,46 @@
+---
+title: "Let's learn next.js too"
+description: "Spotted a tutorial video that crams a lot into a relatively short time, so I'll give it a go."
+date: '2024-04-15'
+navigation:
+  title: "Let's learn next.js too"
+  icon: '⏭'
+---
+
+I've had a vague interest in React. I've also built this whole site up using Nuxt and vercel, so it stands to reason that I could learn a thing or two from Next.JS. So... Let's do that with the help of Theo Browne / Theo T3.gg. 
+
+<!--more-->
+
+Here's [the video link](https://youtu.be/d5x0JCZbAJs). I was zzwatching at 1.5x speed, because I figured it would be more efficient this way as I pay attention to an instructions or explanations, pause and implement the thing myself, and repeat, all the way through. That proved to be a pretty good move mostly!
+
+Got to say that the tutorial is pretty solid. I also like that it assumes a reasonable amount of programming knowledge. The whole thing would've been many times longer if every point were laboured and babied.
+
+I stopped about an hour in, as I needed to grab some lunch. But so far I've managed to:
+
+- Install pnpm (I know I'm late to the party...)
+- Set up the project
+- Use the github cli to set up a new repo (I have to agree that it was a jank experience, but got the job done)
+- Push the project to [vercel](https://vercel.com/)
+- Set up [vercel postgres](https://vercel.com/docs/storage/vercel-postgres)
+- Connect the app to postgres
+- Create and modify a db schema to add an images table (via [drizzle](https://orm.drizzle.team/))
+- Create some dummy data
+- Use Theo's [uploadthing](https://uploadthing.com/) to push some images to the cloud
+- Set up [Clerk](https://clerk.com/) for auth using their beta
+- Fully scaffold the UI for authentication
+- Test everything locally and in production.
+
+So my current implementation [looks like this](https://t3gallery-gules.vercel.app/):
+
+![Guest user - message shown to sign in](/assets/content/t3gallery-signedout.png)<!-- {.rounded .bordered} -->
+![Authenticated user - displays the dummy images loaded from the db](/assets/content/t3gallery-signedin.png)<!-- {.rounded .bordered} -->
+
+I have to get back to making progress at work proper, but this has been a solid start and I've definitely learnt some stuff here. It's also been quite nice not to fall into the trap of getting sucked into optimising some specific dumb thing and just keep moving onto the next topic.
+
+I'll be continuing on next time [from 54 minutes in](https://youtu.be/d5x0JCZbAJs?t=3261) where we're about to start implementing the ability for an authenticated user to upload content to uploadthing...
+
+Of course, while my intention here is to just learn some stuff, I'll need to come back to this later on and make sure that nothing I publish is likely to incur costs if anyone bad gets a hold of it... This is the world we live in.
+
+---
+
+As an aside, one of the takeaways I already have from this project is that Theo said "you shouldn't serve your assets from the public folder because you may incur costs". I saw another of his videos with something of a case study on that... So that's something I should add to my todo list here, really.

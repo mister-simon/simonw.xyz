@@ -1,0 +1,26 @@
+---
+title: "Better but Busy"
+description: "I'm feeling better, but busy with other work. So here's an update for my own benefit."
+date: '2024-03-11'
+navigation:
+  title: "Better but Busy"
+  icon: '😌'
+---
+
+In the last 2 days I've started to feel better. I'm busy with some other work now so I've had to take a step back from my musing and tinkering here... So this is just a little update for my own benefit.
+
+<!--more-->
+
+So, I got sick a week before my <!-- :content-link{to="im-back-and-im-sick"} -->[11th post]. That was almost 5 weeks ago... I had an awesome month aside from being poorly all the way through.
+
+I'm pretty excited for the rest of the month to come. Got some nice plans, including my birthday.
+
+Recently I've thought of some more things I'd like to try out with web tech. Today I wondered, could I replicate the "smaller pictures falling to create a larger picture" we see in [this music video from Jacob Collier's new album](https://youtu.be/AFN5U_pH9AA?list=OLAK5uy_kHGG33wNaEuTYg2djAgDzMf325WghVoBU). I'm imagining it with just some CSS animations / transitions. I'm wondering how rough it would be on a user's phone managing about a thousand different transitions coming together like that though 🤔...
+
+I should probably actually designate a part of the site for things that I want to test out with any links if / when I get around to tring it out. An idea repo.
+
+I'm noticing that most of what I'm interested in at the moment is leaning towards visual things. Things that do stuff. Systems and connections are important but they're harder to excite me with.
+
+---
+
+Anyway... I've got work to do, so bye for now. I'll be back.

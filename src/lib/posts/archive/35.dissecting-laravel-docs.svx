@@ -1,0 +1,35 @@
+---
+title: "Dissecting Laravel Docs"
+description: "A case study in good design"
+date: '2025-04-23'
+navigation:
+  title: "Dissecting Laravel Docs"
+  icon: '🔍'
+draft: true
+---
+ 
+I'm interested in the design of things because it's not my strong suit. Let's study, shall we?
+
+<!--more-->
+
+I believe that the Laravel site was designed by [Jack McDade](https://bsky.app/profile/jackmcdade.bsky.social) (also the creator of [statamic](https://statamic.com/), another thing I need to check out some time). I'm not sure if that's still the case as there have been many changes to the site in the past year or so, but I couldn't find anywhere stating it plainly that the newest design iteration is his work.
+
+## Overall Layout
+
+- Classic Docs Layout - Nav, content (aside-nav, main, subnav), footer.
+- There are anchor links for each heading. To ensure the content is always visible, scroll-padding is applied to the `html` element: `html:has(.sticky-nav) { scroll-padding-top: 8rem; }`
+
+## The Nav
+
+- Sticks using `sticky` - Style changes when a `#nav-trigger` element scrolls off the top of the page
+- Responsive / mobile sized devices can use a popover `#docs-nav-mobile`. Activated by a `button` with `[popovertarget]` set. Icon is updated using `body:not(:has(.main-nav-popover:popover-open)) .close-menu` where `.close-menu` is an svg within the button.
+- Theme switcher - Uses localstorage and updates the `html` element's `[class]`, `[data-theme]`, and `[color-scheme]`
+  - Use of `:where(.dark, .dark *)` allows theme specific styles to be activated based on the html's given theme class, `.dark *` is acting as a "parent selector".
+
+## Content
+
+- The `aside` contains topic navigation within the docs, with subsections for specific subtopics
+- The `section` contains the main content for the given subtopic
+- An additional `div` contains the Table of Contents for the current page, up to two headings deep.
+- All of this is laid out across a grid of 12, with reactivity handled via `col-span` classes.
+- The `aside` sticks in place, while it's height is set to `calc(100dvh - 5.5rem)` or `calc(100dvh - 9rem)` when the navbar is undocked. The change for this doesn't seem syncronised with the header sticking, and also seems to take effect by swapping the classes via JS. This could be cleaned up with css variables.

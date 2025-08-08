@@ -1,0 +1,55 @@
+---
+title: "Checking In"
+description: "Continuing to be busy, but wanting to do something here."
+date: '2024-04-04'
+navigation:
+  title: "Checking In"
+  icon: '👀'
+---
+
+Time for another tiny update. I'm 31 years old now! That's something. I'll write about some other things too.
+
+<!--more-->
+
+I got some bamboo monitor risers for my birthday. My desk is starting to look a lot nicer now. I've also ordered a new desk mat, which should be the final peice in the puzzle. Anything else I end up getting is just a bonus.
+
+---
+
+I've been busy with a big project, whereby I'm merging a CMS system into a webapp. Both projects are running on Laravel, but the CMS project is running on a very old version, and with entirely custom made CMS functionality. The webapp eventually needed some additional features adding and they were handled using Laravel Nova, so at this point it just makes sense to drop the CMS and move all the logic over to Nova and maintain a single codebase with a more versatile framework structure.
+
+Long story short it's a whole thing with upgrading systems, merging data, ensuring that everything is handled with care and consistency. Especially given that the CMS was also powering the mobile apps, with some pretty strict functional requirements.
+
+So... That's where I've been. Things have been going reasonably well since I stopped feeling so ill towards the end of February / mid March.
+
+---
+
+I'm also approaching the date of my first BSL exam, which is daunting but exciting too. It's been fascinating to learn something entirely outside the scope of my education up to this point.
+
+---
+
+I've intermittently been thinking about this blog and specifically the drum machine project. I think that the next time I start to work on it I'll need to move it out of the flow of article content. While it's really cool to be able to drop it into the flow of content, I think it's also going to restrict the interface too much. The limitations of your context will inform your project's design decisions, and I don't think I ever intended to see this through entirely within the article content flow.
+
+I also keep thinking about how nice it could be to create a breakout layout for this article content. For any cases where I do want images or components within the article to make full use of the available screen space.
+
+---
+
+It's been a while since I've done any other projects here, so it would be nice to dip my toes in again... Perhaps I'll start setting aside 30 minutes or so every other day to make something.
+
+Like many other people, I find it hard to see a project through to the end a lot of the time, and that's a habit that kills creativity and productivity. You never see your project as "done". You never get the payoff that your goals were achieved. And you never get to evaluate how things went and learn from the overall experience. So - I need to finish more things.
+
+Given that goal perhaps one of my next 30 mins I take should be trying to create a breakout layout for article content.
+
+I also can't forget that <!-- :content-link{to="im-back-and-im-sick#recap"} -->[I wrote out a list of things that I was working on for the site]. I should definitely reference.
+
+---
+
+As always I'm also trying to keep curious and reading around web things. I've tried to keep an eye on the progress of the XZ exploit that hit the OSS / linux community. Scary stuff. Recently I was testing a LazyVim setup in a Fedora VM, to see how I would get on with that - specifically from a Laravel / PHP dev perspective. It seems promising, but also hardly a drop in solution - too much setup for it to be a simple transition. For now I stick with VSCode.
+
+Split keyboards are also a regular search... Given how enjoyable it's been adapting to using a 59 key ortholinear non-split layout and learning Colemak at the same time, I feel like I could be ready to try the next step soon... Perhaps something low profile? A corne, a lily, a voyager? ... Yeah, I don't have £288 to throw at a keyboard right now. Even a really nice one.
+
+---
+
+So yeah... That's some stuff. What an update. Wew.
+GG.
+
+BYE!

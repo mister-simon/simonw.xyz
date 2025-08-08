@@ -1,0 +1,88 @@
+---
+title: "Doing More Stuff"
+description: "Fixing some bugs and then following some more lines of interest"
+date: '2024-01-31'
+navigation:
+  title: 'More Improvements'
+  icon: '✍️'
+---
+
+Started the day by fixing a handful of bugs on the site, mostly around styling...
+
+<!--more-->
+
+So, I clearly need to be careful with how css rules are being pruned in production. When making use of locally scoped styles with some level of nesting / dynamics sometimes the styles can get purged:
+
+```vue
+<script setup>
+// ... Stuff
+figure.classList.toggle('active', isIntersecting)
+// ... More Stuff
+</script>
+
+<template>
+    <section>
+        <figure class="active">
+            <!-- Stuff goes here... -->
+        </figure>
+    </section>
+</template>
+
+<style>
+section {
+    figure {
+        @apply opacity-0;
+
+        /* This style never made it to production
+           it had "0 references"                  */
+        &.active {
+            @apply opacity-100;
+        }
+    }
+}
+</style>
+```
+
+There were a few instances of things like this happening on the site... I'll have to think about how I would've avoided that happening in the first place. Perhaps the better approach would be making use of state management and conditionally applying classes - rather than applying styles based on a singular "active" state... Not sure.
+
+---
+
+Ok... Next question is why are my content queries not actually sorting by date.
+
+```js
+const thingsQuery = queryContent({
+    path: 'thoughts-and-things',
+    sort: [{ date: -1, $numeric: false }]
+});
+```
+
+Ok... This is bothering me. I ran into a lot of deadends trying to work this one out and took a break to refactor the blog layout into it's own "layouts/blog.vue" file.
+
+Following on from that I wanted to abstract out the "composable" blog query that will be reused here and there. Turns out the composables system is very easy to get into:
+
+```js {}["composables/useBlogQuery.js"]
+export const useBlogQuery = async () => await queryContent({
+    sort: [{ date: -1, $numeric: true }],
+    where: [{ layout: 'blog' }],
+});
+```
+
+```js ["layouts/blog.vue"]{2}
+<script setup>
+const blogQuery = useBlogQuery();
+</script>
+```
+
+It's just a shame that the built in content components seem to just completely ignore the sorting still.
+
+In any case, we're moving in the right direction I guess.
+
+---
+
+Okay... I've just spent some time on another tangent, I wanted to know why the default Content `ProsePre` / `ProseCode` components that render out markdown code blocks don't make any use of the attributes and filename you can provide it. It's clearly hinted at in their docs, but then just... Isn't the default. Weird.
+
+None of this would be that frustrating to me if I wasn't able to see how good this all *could* be.
+
+Well... We continue tomorrow.
+
+Just before I wrapped up I stumbled across [Nuxt Typography](https://typography.nuxt.space/). Maybe that'll turn out to be something.

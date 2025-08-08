@@ -1,0 +1,52 @@
+---
+title: "Making a Drum Machine"
+description: "Let's make a drum machine"
+date: '2024-02-07'
+navigation:
+  title: "Making a Drum Machine"
+  icon: '🥁'
+---
+
+Yesterday I decided to make a drum machine. Hopefully this component will become part of the site's 404 page. Let's get to building.
+
+<!--more-->
+
+## Recap
+
+Yesterday we achieved some things. Defined some of the features, outlined some nice-to-haves, decided on an MVP. Finally we started testing out some audio api basics.
+
+I've started my day today by revisiting the [MDN guide to web audio api](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API). I've had a realisation that I'm definitely going to need to work with it to avoid running into roadblocks down the line. They put it well:
+
+> The Web Audio API does not replace the `<audio>` media element, but rather complements it, just like `<canvas>` coexists alongside the `<img>` element.
+
+So, that frames the Web Audio API as a much more powerful and flexible tool. That's exactly what we'll need to achieve what we're looking for.
+
+> If you want to carry out more complex audio processing, as well as playback, the Web Audio API provides much more power and control.
+
+We'll be processing our input sources in two stages:
+
+- Individual track controls
+- Global track controls
+
+If we can build a graph of Web Audio API nodes to manage the flow of those controls, then tweak the parameters via the UI we'll save a lot of headaches.
+
+I've also come across a bunch of [extremely helpful code examples from MDN](https://github.dev/mdn/webaudio-examples/blob/main).
+
+After posting that link I spent a long time really scrutinising the examples and drawing inspiration from them. As a result I've put together what I think the node graph is going to look like for this. It's likely to change, no doubt, but this feels reasonable for now.
+
+![3 rows of input sources (hihat, snare, kick), nodes process the audio, merge the tracks, process the merged channels, then output to a destination node](/assets/content/web-audio-api-node-flow.png)<!-- {.rounded-lg .bg-neutral-300 .p-4} --> -->
+
+So, each input source will be trimmed using an [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer). The buffered audio will be connected to a stack of nodes ([GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode) for volume + mute, [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode), [DynamicsCompressorNode](https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode) perhaps [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode), etc). Each track will then be connected together via a Channel Merger. The merged audio will then pass through a [GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode) node for master volume + mute settings, then finally piped out to the [AudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioDestinationNode).
+
+In all, it should end up being fairly simple (?) and there's room for flexibility given the modular nature of the Web Audio API.
+
+---
+
+Okay, once again I've spent too much time researching and planning. It's time to actually make something. Let's start with the layout!
+
+<!-- ::drum-machine-1
+:: -->
+
+OK, we have a very basic layout. It looks like a sequencer. It's a little bit janky for mobile, but it's a starting point!
+
+Once again, I'm out of time. Took some time away from this to prep for some other work I need to do. Perhaps tomorrow I'll come back to this and start wiring some things up.

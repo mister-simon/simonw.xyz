@@ -1,0 +1,276 @@
+---
+title: "Use:ing Svelte"
+description: "A satisfying svelte snippet"
+date: '2024-08-29'
+navigation:
+  title: "Use:ing Svelte"
+  icon: ':'
+---
+
+I need to use a bunch of intersection observers - so let's make an action to wrap that.
+
+<!--more-->
+
+## Intersection Intro
+
+You may already know about intersection observers. If you don't then I recommend you learn about them because they will solve all of your problems.
+
+The [MDN page explains](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API):
+
+> The Intersection Observer API provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport.
+
+This makes it extremely useful for a whole load of different things. It can be used to animate an element in when you scroll down to it. You can lazy load images or create an infinite wall of images when the user hits the end of your container... The list goes on.
+
+## What does it look like?
+
+Say you want to fade an image in when it comes into view:
+
+```js
+// Get a reference to your node
+const target = document.querySelector('img');
+
+// Set up the observer
+function handler([entry]){
+    entry.target.classList.toggle(
+        'is-on-screen',
+        !entry.isIntersecting
+    );
+}
+
+const options = { threshold: 1 };
+
+const observer = new IntersectionObserver(handler, options);
+
+// Point the observer at the node
+observer.observe(target);
+```
+
+Some things to note:
+
+- There are [several options you can use](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#creating_an_intersection_observer). Here, a threshold of 1 means 100% of the target element is visible within the viewport. Therefore, the handler will be run when the element enters or leaves the state of being fully visible. The handler will *only* run based on that threshold - it won't run all the time.
+- The handler function starts `([entry])`, this is because the observer will fire the handler function and pass through an array of [IntersectionObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) entries. In our case we only care about the latest one, so we destructure it out and ignore the rest. However, for more complex use cases you can use that entry history to work out a lot about the changing state of the intersection.
+- `.observe(target)` can be run on multiple elements to add them to the set. Therefore allowing reuse of the same observer. You could easily attach one observer to any number of elements on your page - provided that they use the same observer options.
+
+## Make it Svelte
+
+My [initial solution using svelte 5](https://svelte-5-preview.vercel.app/#H4sIAAAAAAAAA2WQwU7rMBBFf2VksQhSU2DxNqapxA5WfABhkdjTxKozjjyTQIny709OWijvbSz7zPjeOzOpg_PISr9NiqoOlVZPfa82Sk59evCIXlBtFIchmkR2bKLrZV-SRwHHLyQYGY04aqCAG5ZKMLt9PNe7f2BJN3g4oJEsu4ViD1NJACYQC4SaoQDCD_jRDPRaM8YRY5YaAbI3JImn9-Xzf-5Lbfsbb0oqpZRJ2ojcBm81PMyJrXEg-W7D6pK5rrngiDJEgjVm6rGOTSBK2VPPnI7d3fc6StpZN64pja-Yi1LV4bNUV0g7zgPlbCIiFdPvoPPaWDuyWlrHxeS6Zt6v9Bm9D8nPunE1Yzl5TFfZ1uEzLTKN2VWxcZTXPpijhof7-7F9XCsLytl9oYY_V7gyxyaGgayG2g94xtZx76uThiY6e2a9rwzmJpAgiQaDKfxSW_a5vR7ukuda_qN1ctE3wYeYHCtzvEjs7taZ1EZ1wbqDQ6u0xAHn9_kv5ZKq4akCAAA=):
+
+```svelte
+<script>
+let isIntersecting = $state();
+let box = $state();
+
+$effect(() => {
+    const obs = new IntersectionObserver(
+        ([entry]) => isIntersecting = entry.isIntersecting,
+		{threshold: 1}
+	);
+
+    obs.observe(box);
+
+    return () => obs.disconnect();
+});
+</script>
+
+<div
+    class="box"
+    class:is-on-screen={isIntersecting}
+    bind:this={box}>
+    Hello
+</div>
+
+<style>
+	.box {
+		margin-block: 100vh;
+		block-size: 50vh;
+		background: blue;
+		display: grid;
+		place-content: center;
+	}
+	.is-on-screen {
+		background: white;
+		color: black;
+	}
+</style>
+```
+
+This does the trick. It uses an effect to set up the observer and attach it to the box (or image, or whatever), and returns a function that also disconnects the observer to clean up when changes occur.
+
+However, imagine we need to apply similar observers in several different components. Or even just multiple times in the same component. That's going to leave us with a lot of overlapping boilerplate and some ugly namespaced variable names.
+
+## Aaaaand... Actions
+
+We can make use of [svelte actions](https://svelte.dev/docs/svelte-action) which can be hooked right onto a node in your markup to create the satisfying snippet I originally wanted to write this post about:
+
+```svelte [ObserveIntersections.svelte.ts]
+export default function createObserver(options, defaultState = true) {
+	let isIntersecting = $state(defaultState);
+
+	return {
+		getIntersection: () => isIntersecting,
+		observer(node) {
+			let handler = ([entry]) => (isIntersecting = entry.isIntersecting);
+
+			const observer = new IntersectionObserver(handler, {
+				threshold: 0,
+				...options
+			});
+
+			$effect(() => {
+				observer.observe(node);
+
+				return () => observer.disconnect();
+			});
+		}
+	};
+}
+```
+
+We export a function that roughly follows the [svelte custom store](https://svelte-5-preview.vercel.app/docs/universal-reactivity) example from the universal reactivity section of the preview docs.
+
+The input to the function are as follows:
+
+- `options`: Are any options you want to set on the intersection observer. These are destructured on line 11 to override any defaults you want to set. In this case I'm using threshold 0 to immediately update the observer as soon as it enters the viewport.
+- `defaultState`: Assuming an intersection will mean an active state for the node, we can prevent it from "popping in" when it should already be on screen by setting the default state to true. Therefore when the observer first fires it will only transition the state from `true` to `true`.
+
+The returns from the function:
+
+- `getIntersection`: Is similar to the svelte custom store example, but returning a plain function instead of a getter. This function can be used for deriving the inner state of the intersection. This frees us up a bit in how we use / destructure the functions output... But we'll get to that next.
+- `observer`: Takes a node parameter, which is automatically passed through using [svelte actions](https://svelte.dev/docs/svelte-action). Similar to the previous example, the effect then sets up the observer and handles disconnecting when relevant.
+
+Ok, this looks good, but how is it used?
+
+```svelte
+<script>
+import createObserver from './ObserveIntersections.svelte.ts';
+let { getIntersection, observer } = createObserver();
+let isIntersecting = $derived.by(getIntersection);
+</script>
+
+<div
+    class="box"
+    class:is-on-screen={isIntersecting}
+    use:observer>
+    Hello
+</div>
+
+<style>
+	.box {
+		margin-block: 100vh;
+		block-size: 50vh;
+		background: blue;
+		display: grid;
+		place-content: center;
+	}
+	.is-on-screen {
+		background: white;
+		color: black;
+	}
+</style>
+```
+Looks a lot neater, right?! So what's happening here:
+
+1. We import our `createObserver` custom store - a win for reusability.
+2. We set up the store and destructure out the the function to get the intersection state, and the action function that we want a node to use.
+3. We derive the `isIntersecting` state from the function. `$derived.by` is a handy way to derive state directly from a function.
+
+And just like that, it works. It's reusable. It's flexible. It's neat. It's great!
+
+## Final Thoughts
+
+One final thing to address is the case that you want to use this multiple times... With this current implementation, we simplify the logic by directly linking the returned state rune to the observer handler. Therefore, you can't link multiple nodes to the same observer and expect discrete outputs for each element.
+
+To deal with that you'll need to set up observer stores for each element you're tracking, like so:
+
+```svelte [ObserveIntersections.svelte.ts]
+return {
+    // getIntersection: () => {},
+    // observer(){},
+    get isIntersecting() {
+        return isIntersecting;
+    },
+}
+```
+
+You can then either use each store via dot notation:
+
+```svelte
+<script>
+import createObserver from './ObserveIntersections.svelte.ts';
+let aboutUsSectionObs = createObserver();
+let headerImgObs = createObserver();
+let contactSectionObs = createObserver();
+</script>
+
+<header use:headerImgObs.observer>
+    <img class:animate-fade-in={headerImgObs.isIntersecting}/>
+</header>
+
+<section use:aboutUsSectionObs.observer>
+    {aboutUsSectionObs.isIntersecting}
+</section>
+
+<footer use:contactSectionObs.observer>
+    {contactSectionObs.isIntersecting}
+</footer>
+```
+
+Or rewrite the action such that you can pass your own state into it:
+
+```svelte [ObserveIntersections.svelte.ts]
+export default function observeIntersection(node, { options, setIntersection }) {
+	const handler = ([entry]) => setIntersection(entry.isIntersecting);
+
+	const observer = new IntersectionObserver(handler, {
+		threshold: 0,
+		...options
+	});
+
+	$effect(() => {
+		observer.observe(node);
+
+		return () => observer.disconnect();
+	});
+}
+```
+
+```svelte
+<script>
+import observe from './ObserveIntersections.svelte.ts';
+let imgIntersection = $state();
+let aboutIntersection = $state();
+let contactIntersection = $state();
+</script>
+
+<header use:observe={{
+    setIntersection: (intersecting) => imgIntersection = intersecting}
+}>
+    <img class:animate-fade-in={imgIntersection}/>
+</header>
+
+<section use:observe={{
+    setIntersection: (intersecting) => aboutIntersection = intersecting}
+}>
+    {aboutIntersection}
+</section>
+
+<footer use:observe={{
+    setIntersection: (intersecting) => contactIntersection = intersecting}
+}>
+    {contactIntersection}
+</footer>
+```
+
+Finally, the only other option I've not explored yet is setting this all up within a containing component that can provide the scope for the intersection... But I want to avoid that option because that seems like a shortcut to having no idea about what state is coming from where and passing things up and down. No, I'd rather try to compose everything together in situ as much as possible.
+
+Anyway. That's it! This turned into way more of an in-depth thing than I'd anticipated, but such is the life of a developer trying to simplify and improve a thing.
+
+Bye!
+
+---
+
+## Addendum
+
+I came up with another approach which makes use of custom events to be able to reuse one observer for multiple nodes. [Check it out in the Svelte 5 playground](https://svelte-5-preview.vercel.app/#H4sIAAAAAAAAA7WUUWvbMBDHv8phCnEgcdqEwXDjlrLtoU976GPVB1k-x6KKZKRz2sz4uw9ZtnG3FkZhb9Zfd3_97nRWG5VSoYvSxzbS_IhRGt3VdbSK6Fz7hTuhIoxWkTONFV7ZO2FlTTdMl40WJI0Gkzu0J4xN7ZduBQWWvFH0QJwQMiDb4BJaphkppDHcXjPtpcmm4rpQGD-iJnt-GhIY9cuEuD0gJYV0NSdR_TihpjgEMNL4At8aR-YY9IXUhNZh77tYQQsFEpcqhWAm3f0UoA_QLYPR0hNRF7AsUmM1jHSxNgVOTBdYligojpeQ3Ywio80GHpCaGqjCqUyQJWgU6By35zFy2ry9zcDj38-Ifw6bceiI56fKoquMKlK4XEGSJEOvoVsObRzOvyPiouoBPPGf5yXjXfXlvE39ju-mDo0IpU4-jf7LiRh1Qwuvme6Y9pfNA082DUk7KyX50if4uPwKMrhwfmLiSdu-o-3eavvNNI9M7wt5YhoAQCjuXMai3LyyaCal0q2NXjthEXXW5ldd2GwcpgE1FGL0fISyNm7DBHV9F3rYQbgJBvfAj9DmV3ALiwWksNCGYNHJ2ZwlnraQp0-ibj-Huv0Idfv_UHefQ919hLr7Z1RHZ4X-k5LcvI5_5pHbg9TrXBnxnMLXy1M1zGuvrJ38hSl8mclcPB-saXSRQq4aHGT_-Ch-TuFgZTFoteIC18Jo_06lINCjTe8IJfPOjDhz-5dK0ugvjDLWn8jF82ix34SSolV0NIUsJRZR6h_U7qn7Da4pGli9BQAA).
+
+I'm done now.

@@ -1,0 +1,54 @@
+---
+title: "Making a Drum Machine - Part 2"
+description: "Let's continue to make a drum machine!"
+date: '2024-02-08'
+navigation:
+  title: "Making a Drum Machine Part 2"
+  icon: '🪘'
+---
+
+We did some more research yesterday and started defining the drum machine's layout and node graph.
+
+<!--more-->
+
+## Recap
+
+Yesterday we did some more research and realised that we would need to use the [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API).
+
+We also found a bunch of [extremely helpful code examples from MDN](https://github.dev/mdn/webaudio-examples/blob/main) which we can use as examples whenever we get stuck.
+
+We decided on the node graph (though this may change...):
+
+![3 rows of input sources (hihat, snare, kick), nodes process the audio, merge the tracks, process the merged channels, then output to a destination node](/assets/content/web-audio-api-node-flow.png)<!-- {.rounded-lg .bg-neutral-300 .p-4} -->
+
+And finally we set up a basic layout:
+
+<!-- ::drum-machine-1
+:: -->
+
+---
+
+## Let's get moving!
+
+There's a few things I don't like about the layout:
+
+- When scrolling along I don't want the step measure at the top to be visible above the track names
+- Default scrollbar is super ugly
+- No whitespace under the tracks
+- Not a lot of whitespace around steps
+- Hard-coded track listings
+- Lax grid system will cause misalignments when I start changing track lengths
+- No lane lines could make things feel a little 
+
+I got to work fixing the layout. Sprinkled in a little bit of Vue logic and some subgrid and here we are - I think it's an improvement:
+
+::drum-machine-2
+::
+
+So far I've not paid a lot of attention to any of the buttons (play, pause, mute). So those will probably get an overhaul along the way to the final product. But this is a decent bit of progress.
+
+## Wrapping up again
+
+Okay... I've been terribly distracted today with various things. My phone has returned to me repaired and I've had some other work to continue preparations for.
+
+It's bugging me that I've still not made the move to get this thing making sounds... BUT SOON!

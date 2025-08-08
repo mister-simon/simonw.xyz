@@ -1,0 +1,189 @@
+---
+title: "What plan?"
+description: "Yesterday I decided that I would fix the blog's article sorting... But I don't feel like it today."
+date: '2024-02-06'
+navigation:
+  title: "What plan?"
+  icon: '❔'
+---
+
+Yesterday I decided I would finish fixing the blog's article sorting... But I just don't feel like doing that today. I have a different idea, and right now I want to pursue that creative impulse.
+
+<!--more-->
+
+## The idea
+
+Okay, so here's the idea... I want to make a very basic drum machine sequencer and use it as the site's 404 page. Every time you hit a dead link or try to browse somewhere you were't supposed to you'll get a randomised drum beat.
+
+Bonus points if I can:
+
+- Use the failed url as a seed for the randomised beat
+- Create a system with tracks that can be differing lengths (to create polyrhythms)
+- Use some interesting web audio APIs
+- Sync the sounds from the tracks with one or more video player or canvas
+- Allow the user to save / share their beat creation without encoding the whole thing into a long url string?
+- Accept midi input somehow / record mode?
+
+## The plan
+
+1. Create a base component - "controller". This will contain and coordinate relevant data and sub-components.
+   1. One player / interface (play/pause, tempo, combines / individual playhead mode(?) etc)
+   2. One sequencer
+      1. Multiple tracks (each track has it's own playhead which may be sync'd by the controller)
+         1. One options interface (mute / solo, # of steps, sound / file to play, trim to apply to sound / file, current "mode" of the track (velocity))
+         2. Multiple steps (each step may confer velocity / panning / other audio api shenanigans)
+   3. One "player" which may handle video / visualiser output
+      1. ???
+
+Questions / unknowns:
+
+- Should each track contain multiple sub-tracks, one for each property (velocity, panning, etc), where only one will be displayed at a time, or perhaps can be dropped down / overlayed in some way?
+  - Multiple sub-tracks shown / hidden helps to flatten the data + component structure
+- What is the MVP for this?
+  - I'll do a deep dive on this
+- Some level of feature detection (prog enhancement / graceful degradation)
+  - Avoid limiting self, just degrade at the end based on feature support
+- ARIA / A11y
+  - Menus etc
+  - Volume / start-stop (avoid autoplay)
+- Are there any good / not overly complicated Audio APIs to play with?
+  - [MDN is always a good place to start](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+  - [MDN "using web audio api" guide](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)
+  - Intellisense from inputting `(new AudioContext).` shows there are lots of interesting nodes to connect
+- What is the minimum bundle that I can ship (think mobile devices)
+  - Reduce source file sizes
+- Can I make it responsive?
+  - Probably? Scrollable panes. Minimisable interfaces?
+- Should the whole thing just be handled via canvas to have complete control over render?
+  - Probably not? Play to the strengths of Vue for display. Maybe reconsider down the line.
+
+## MVP
+
+We must start with the basics to have any hope of even starting at all:
+
+- Drum Machine
+  - Start / Stop
+  - Tracker
+    - 1 Track, static step count, randomised booleans, single audio source
+
+We'll have one drum machine component, our controller. It will have a start / stop button within. It will also have our tracker, which will contain one track. The initial state of the track will be randomised. That track's single audio source will be loaded and played based on a fixed play rate. All of the data should be managed from the drum machine. The mutations of the data should come from the relevant sub-components.
+
+There's still a decent amount of complexity there. But it's a system that can be held in your head all in one go at least.
+
+## We begin
+
+### One audio source
+
+Earlier this morning I went around my house filming things that could be used as drum samples...
+
+<video src="/assets/drum-machine/bass.mp4" controls></video>
+
+So the sound in this isn't great. So I think I want to pre-process this a little bit. Using Audacity I've added some compression and EQ:
+
+![Upping the bass and a small higher end notch](/assets/content/drum-machine-bass-eq.png)
+
+Here's the result:
+
+<audio src="/assets/drum-machine/bass.mp3" controls></audio>
+
+I want to be able to overlay this improved audio onto the original video. I wonder if you can do that using video / audio tracks just using the html elements. Seemingly the answer is [yes and no](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/audioTracks). It doesn't seem super straightforward and isn't supported by anyone.
+
+We've got our audio. Moving on. Let's build a component that can play the audio programatically and gather some information about it's state.
+
+<!-- ::drum-machine-example-1
+:: -->
+
+Here's some of the code:
+
+```vue [DrumMachineExample1.vue]
+<script setup>
+import bass from '/assets/drum-machine/bass.mp3';
+const playable = ref(null);
+const duration = ref(null);
+const currentTime = ref(0);
+let audio;
+
+onMounted(() => {
+    audio = new Audio(bass);
+    audio.addEventListener('canplaythrough', () => (playable.value = true));
+    audio.addEventListener('loadedmetadata', () => (duration.value = audio.duration));
+    audio.addEventListener('durationchange', () => (duration.value = audio.duration));
+    audio.addEventListener('timeupdate', () => (currentTime.value = audio.currentTime));
+});
+
+const playSound = () => {
+    playable.value
+        ? audio.play()
+        : null;
+};
+</script>
+<template>
+  <button
+    @click="playSound"
+    class="border rounded-lg px-3 py-2 hover:bg-neutral-400 hover:text-neutral-900"
+    :disabled="!playable">
+    Play Sound
+  </button>
+  <p v-show="!playable">
+    {{ 'loading' }}
+  </p>
+  <p v-show="playable">
+      {{ currentTime }} / {{ duration }}
+  </p>
+</template>
+```
+
+- We import the bass audio
+- Prepare some variables and assign them based on event listeners
+  - `canplaythrough` -> `playable` - Can the audio be played all the way through
+  - `loadedmetadata`/`durationchange` -> `duration` - The full duration of the audio
+  - `timeupdate` -> `currentTime` - The current playback position
+- A function to start playing the audio when the audio is playable, bound to the click event of the button
+- Display the current time of playback + the total duration
+- (Not shown) - Some logic to add a linear background with a stop based on the % played.
+
+This has been a pretty good. I've learned some things. The next thing I want to resolve is the ability to trim the audio clip down.
+
+<!-- ::drum-machine-example-2
+:: -->
+
+I'm not entirely sure about this implementation... It's progress:
+
+
+```vue [DrumMachineExample2.vue]
+<script setup>
+// ... Same stuff as before
+let playBetween = [0.25, 0.7];
+let timeoutDuration = (playBetween[1] - playBetween[0]) * 1000;
+let playTimeout;
+
+const playSound = () => {
+    if (!playable.value) return;
+
+    clearTimeout(playTimeout);
+
+    audio.currentTime = playBetween[0];
+    audio.play();
+
+    playTimeout = setTimeout(
+        () => audio.pause(),
+        timeoutDuration
+    );
+};
+// ... Same stuff as before
+</script>
+```
+
+This is a pretty crude way to approach the issue, but it's also the path of least resistance right now. Whenever we hit the play function, we reset the playhead to our start time and play it. We register a timeout for the duration we want to play and simply pause when the time elapses.
+
+It's janky for a few reasons, but one of the main ones I'm noticing is that the `currentTime` just doesn't update that frequently...
+
+I'm starting to suspect that I'll need to use some of the more complicated audio apis to do anything with precision... But we'll press on with what we've learnt so far.
+
+---
+
+Small aside... I'm starting to notice that longer articles like this one are hard to traverse. So perhaps I also need to look into [adding a table of contents](https://content.nuxt.com/document-driven/use-content#table-of-contents-component).
+
+---
+
+I'm wrapping up for the day now. But I think tomorrow I want to start the next steps of **implementing some stuff**.

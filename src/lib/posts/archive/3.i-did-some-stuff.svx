@@ -1,0 +1,23 @@
+---
+title: "Improving The Blog Some More"
+description: "This blog has seen some improvements today. I might write more about it tomorrow."
+date: '2024-01-30'
+navigation:
+  title: 'Blog Improvements'
+  icon: '↗'
+---
+
+Actually making progress improving this blog section. More focussed on improving functionality and understanding the Nuxt Content module than researching stuff today.
+
+<!--more-->
+
+So there's not much time left in my day to actually talk about what I've done in any detail...
+
+In short:
+
+1. Got to grips with content queries
+   1. ... Why is my sort not sorting how I expected - newest first
+2. Dropped custom rendering of ContentNavigation to see what defaults are used
+3. Added a layout to the blog area
+   1. Todo: Refactor this layout into an actual layout... Or at least make use of components.
+4. Added some style to the index page + increased homepage text sizes

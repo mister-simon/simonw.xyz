@@ -1,0 +1,79 @@
+---
+title: "A Smol Fix"
+description: "A satisfying svelte snippet"
+date: '2024-08-30'
+navigation:
+  title: "A Smol Fix"
+  icon: '🤏'
+---
+
+Fixing the grid issues on this blog via smarter people than I...
+
+<!--more-->
+
+## The Problem
+
+This blog uses a grid layout, with a "breakout" area and a "main" area for content. All elements are positioned into the main area that should be a max of `65ch` wide up to 100% of the available width.
+
+The breakout should expand on this area by... Some amount. Previously I was trying to allow it to fill the available but the amount isn't hugely important so long as it's larger than the main area by some amount.
+
+This just... Wasn't working properly with my implementation...
+
+
+```css
+grid-template-columns:
+    [breakout-start]
+        auto
+        [main-start]
+            minmax(auto, 65ch)
+        [main-end]
+        auto
+    [breakout-end];
+```
+
+This is not the only iteration of this grid layout I tried. I made it more and more complicated with many more minmaxes and mins and maxes and percentages and frs and all sorts until a little while ago I just gave up and stripped it back to the simplest working version I could. The breakout simply didn't work and caused everything to overflow at smaller screen sizes.
+
+## The Fix
+
+The incredible [SmolCSS](https://smolcss.dev/#smol-breakout-grid) has the answer of course. After the implementation and a little bit of tweaking my code now looks like this:
+
+```css
+--max-content-width: 65ch;
+--breakout-difference: .5;
+
+/*  Compute total allowed grid width to `--breakout-difference` larger than content area  */
+--breakout-grid-width: calc(
+    var(--max-content-width) + (var(--max-content-width) * var(--breakout-difference))
+);
+
+grid-template-columns:
+    [breakout-start]
+        1fr
+        [main-start]
+            minmax(min(100%, var(--max-content-width)), 1fr)
+        [main-end]
+        1fr
+    [breakout-end];
+
+width: min(100% - 2rem, var(--breakout-grid-width));
+margin-inline: auto;
+```
+
+One of the obvious changes here is the complete removal of `auto`. I always assumed that auto would be necessary to get the effect that I wanted, but now the job of filling space has been offloaded to `margin-inline` and everything within the grid can be more purposefully sized. Applying a `width` and `margin-inline` also means that on very large monitors the breakout area isn't going to look comically disproportionate to the main content.
+
+The interesting thing to me here is that use of `1fr`. The maximum size of each column is equal in width. However the minimum size of the middle column is nearly always larger than that - up to 100% of the available space. What is stopping the breakout columns from matching this larger size - but instead shrinking down to make use of the space left by the main area?
+
+From a quick test, in my specific implementation I see no difference between the above `grid-template-columns` and the following:
+
+```css
+grid-template-columns:
+    [breakout-start]
+        1fr
+        [main-start]
+            min(100%, var(--max-content-width))
+        [main-end]
+        1fr
+    [breakout-end];
+```
+
+I'm going to roll with this even smoller version for a while and see if I run into any issues. Maybe someone knows why you might want that extra `fr` in there.

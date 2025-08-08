@@ -1,0 +1,47 @@
+---
+title: "Email Thoughts"
+description: "Thinking about emails."
+date: '2024-04-29'
+draft: true
+navigation:
+  title: "Email Thoughts"
+  icon: '✉️'
+---
+
+Thinking about how I use email... How I sign up for services. What information the world gets about me. The world can't be trusted, so what can you do?
+
+<!--more-->
+
+## Problems.
+
+One of my email addresses has been around for a very long time. It's withstood several hacks and exposures. I've constantly battled with the idea of security given that my identity is so tied to that address. How can I be sure that the "free" service that runs my email address can be trusted. How can I be sure that my email address won't just go away one day... Or more insidiously the terms of it's use could change slowly over time. Gradually eating away at my privacy and access to the service.
+
+## Fix 1: Email Forwarding
+
+Okay, so issue number 1 - everything is tied to one address. If my address is compromised for something I've signed up for then that address is out in the world forever to be traded and hoarded by anyone. The solution for me seemed to be an email forwarder service - bulc.club.
+
+However... I don't believe they are necessarily up to the task of maintaining their service for free in the long run. I spotted signs of their system not being well maintained and when I highlighted the issue to them they ghosted me for a month, then told me they were focussed on just maintenance unless they get bought out by a company that can run the service for them full time. So I now want to migrate away from their service.
+
+I will probably only use their service for non-critical signups. Anything that I wouldn't lose sleep over if bulc club were to disappear. Most likely I'll start handling more critical things via fix number 2.
+
+## Fix 2: Proton
+
+I've signed up for proton unlimited. That'll give me access to several different handy services. In particular I'm going to make use of proton mail. I can maintain several different email addresses via their domain name, which is nice to distribute my point of failure. I also have some custom domains which I can configure proton to catch-all from. That should also let me make some addresses on the fly quite nicely.
+
+Sadly, this does mean that I'm locking myself into paid services... I need to maintain my domains and my proton subscription. However, at this point it feels justified.
+
+There's also the benefit of not having to spell out my email address... Every. Single. Time.
+
+## Fix 3: Simplelogin aliases
+
+I've not had a chance to play with this yet, but I should be able to create even more aliases on the fly Proton's integration with simplelogin... We'll see how this works out.
+
+## Conclusion?
+
+So! Between bulc.club, proton w/ custom domains, and simplelogin aliases I should be able to start retiring my old email addresses. I'll have a more distributed surface for my identity. I can be slightly more confident in the security of my mail data. I will make use of email addresses that are actually easy to speak aloud for the first time in my life. I generally just have a lot of tools at my disposal now to set things up the way I want.
+
+## Conclusion.
+
+Right now this is all pretty hypothetical. I don't know the problems I'm signing up for yet. I paid for a proton pass subscription before all of this and ended up dumping it almost immediately because it couldn't integrate well with my browser. But if it did I would switch immediately for sure.
+
+Unknown unknowns. We shall see.

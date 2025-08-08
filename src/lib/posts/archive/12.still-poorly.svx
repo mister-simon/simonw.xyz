@@ -1,0 +1,62 @@
+---
+title: "Still poorly"
+description: "Probably just some musings..."
+date: '2024-02-29'
+navigation:
+  title: "Still poorly"
+  icon: '😷'
+---
+
+Well... I'm still not well. It's approaching 3 weeks and my consistent cough is at least shifting form again away from rattly chesty discomfort to something on the drier side. Great. I've spent a lot of time doing nothing, and I'm tired of it. So perhaps today things can happen again.
+
+<!--more-->
+
+I just spotted this code in my drum machine mockup:
+
+```vue
+<script setup>
+const tracks = ref([
+    { steps: 24 },
+    { steps: 8 },
+    { steps: 4 }
+]);
+const maxSteps = tracks.value.reduce(
+    (acc, cur) => Math.max(acc, cur.steps),
+    0
+);
+</script>
+```
+
+And I wondered to myself... Why am I running max over the whole array like that in a reduction, rather than pulling the items out into an array, and destructuring that array into the `Math.max` call?
+
+```js
+const tracks = [23, 53, 4, 8];
+const maxSteps = Math.max(...tracks);
+```
+
+Is this a thing I can do? ... Yes! It's little things like this that make programming actually feel fun. Identifying a tiny puzzle and solving it. Repeat that enough times and you can build something spectacular.
+
+So, in vue terms code terms we end up with this:
+
+```vue
+<script setup>
+const tracks = ref([
+    { steps: 24 },
+    { steps: 8 },
+    { steps: 4 }
+]);
+const maxSteps = computed(
+    () => Math.max(
+        ...tracks.value.map(({ steps }) => steps)
+    )
+);
+// maxSteps = 24 👍
+</script>
+```
+
+<!-- ::drum-machine-3
+:: -->
+
+I just made some small tweaks to bind the track step length to a number input. So far so good.
+
+This has felt like a bit of a warmup for the day. I might come back to it later on, but I should probably take a peek at my client work.

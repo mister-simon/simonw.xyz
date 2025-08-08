@@ -1,0 +1,219 @@
+---
+title: "Fixing Overflow"
+description: "I noticed that code blocks were overflowing at narrower screen sizes. Let's debug that."
+date: '2024-02-02'
+navigation:
+  title: 'Fixing Code Overflow'
+  icon: '🪚'
+---
+
+Checking out a previous post containing code blocks on my phone I realised there was a lot of overflow happening. Let's fix that.
+
+<!--more-->
+
+Let's get stuck into debugging <!-- :content-link{to="doing-more-stuff"} -->[this previous post]'s layout issues.
+
+---
+
+## Immediate tangent... In writing up the intro above, I learnt several things:
+
+1. Nuxt Content's [Vue Components](https://content.nuxt.com/usage/markdown#vue-components) have to be placed in the `components/content` directory if they're not global components. I assumed that `<NuxtLink />` would be a global component... But apparently not. I suppose this comes down to the whole auto-import stuff that happens behind the scenes not happening for this sort of parsed / generated markup.
+2. Once again I've run into something completely undocumented... If you use the [inline component]{https://content.nuxt.com/usage/markdown#vue-components} markup and you want to pass something into the component slot, there is no documentation on how to do that.
+   - I discovered through gut feel that the markup is actually this:
+     ```md
+     Nice :content-link{to="/"}[example link] mate.
+     ```
+   - We have `:content-link` which begins inlining `components/content/ContentLink.vue`. Which is a component I've made to wrap `<NuxtLink />`.
+   - Next we have `{to="/"}` which passes the props / attributes to the component.
+   - Then, crucially we have `[example link]` which encloses the inline text to be passed to the slot. It took quite a few experiments to find that out.
+   - Anything after those brackets is considered regular markup again.
+
+---
+
+## Back to debugging
+
+Ok... Back on topic. What is happening with the code / text overflow.
+
+I ran a quick test by adding a white border to all of the article contents and removing everything relating to prose styling. I've also added `max-width: fit-content` to the `pre.shiki` tags. We get something that looks like this:
+
+![A visualisation of the space taken up by the longest code block](/assets/content/fixing-overflow-visualisation.png)<!-- {.bordered} --> -->
+
+The screenshot shows a point at which the width of the prose content section is approaching the natural width of the longest code block in the article.
+
+As soon as we pass that point, I would expect the prose to continue shrinking, while the code block stays at it's full width... At a certain point, which appears to be the width of that code block it just sticks.
+
+**Hold on while I turn off Nuxt Devtools, which has been interfering with the min page width...**
+
+*... foreshadowing ...*
+
+I continued my investigation by nuking as many of the `display` utilities I'd applied along the way. I'm using a lot of grid, and as you would expect there are some things going on with how widths are handled + cascade up the dom from wider elements within.
+
+This all [sparked a memory of something I saw recently](https://youtu.be/cH8VbLM1958) about adding `min-width: 0` globally to everything as part of your CSS reset. And sure enough, simply throwing that on my prose wrapper solves the issue!
+
+![The wide code block maxing out at the page's width and showing a scrollbar for the longer lines of code within](/assets/content/fixing-overflow-sorted.png)<!-- {.bordered} -->
+
+Success.
+
+---
+
+## Alright, more progress on styling code blocks!
+
+I cannibalised the `ProseCode` file from [nuxt-themes/typography](https://github.com/nuxt-themes/typography/blob/fc3a1e0367def8e4d0a0d3de581a32d992f315e0/components/global/ProseCode.vue). I didn't want to deal with using the CSS in JS looking syntax they have for their styles, so I tried getting CoPilot to rewrite it into plain CSS with CSS variables and nesting. The outcome was predictably not that great, but gave me a decent starting point to work from, so I guess it still saved me time.
+
+Next I added some custom styles to move the filename field out of the way a little, added line numbers, and an improved highlighting system:
+
+```json [hello/beep.json]{5-7}
+{
+  "hello": "beep",
+  "hello": "beep",
+  "hello": "beep",
+  "hello": "beep",
+  "hello": "beep",
+  "hello": "beep",
+  "hello": "beep",
+  "hello": "beep",
+  "hello": "beep",
+  "hello": "beep",
+  "hello": "beep",
+}
+```
+
+Specifically, I added code to conditionally add more space at the start of each line to account for longer line numbers:
+
+```css
+.prose-code {
+  --prose-code-line-numbers: 1em;
+  
+  :deep(.line) {
+    position: relative;
+    margin-inline-start: calc(.5em + var(--prose-code-line-numbers));
+
+    &::before {
+      content: attr(line);
+      position: absolute;
+      left: calc(-1 * var(--prose-code-line-numbers) - 0.5em);
+      opacity: 0.5;
+    }
+
+    &:nth-last-child(n+10),
+    &:nth-last-child(n+10)~.line {
+      --prose-code-line-numbers: 2em;
+    }
+
+    &:nth-last-child(n+100),
+    &:nth-last-child(n+100)~.line {
+      --prose-code-line-numbers: 3em;
+    }
+
+    &:nth-last-child(n+1000),
+    &:nth-last-child(n+1000)~.line {
+      --prose-code-line-numbers: 4em;
+    }
+
+    &.highlight {
+      background-color: var(--prose-code-block-border-color);
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+}
+```
+
+There's some interesting things going on here:
+
+1. `:deep` in the context of scoped component styles [allows those styles to affect child components](https://vuejs.org/api/sfc-css-features.html#deep-selectors).
+2. `content: attr(line)` grabs the line's `line="4"` attribute to use as the `::before` content.
+3. Line numbers are absolutely positioned to take them out of the content flow / to avoid messing with whitespace. We need to know how much whitespace to add, based on the length of the largest line number.
+   - To dynamically update the line number width / offser based on the number of lines we use quantity selection.
+
+## Trying to understand quantity selection
+
+Ok... So how does `nth-child` work?
+
+[MDN helps a bit](https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child) to get started understanding things. It explains that the selector takes groups of sibling elements and matches them based on their position in those matched lists.
+
+That sounds reasonable... But what does the `n` actually do?
+
+I got to grips with this by actually evaluating what `n` would be if you replaced it with integers starting at 0. So for the example `:nth-child(n+10)`:
+
+- `n = 0` = `(10)` -> Styles 10th element
+- `n = 1` = `(11)` -> Styles 11th element
+- `n = ...` = `n + 10` -> Styles ... elements
+- `n = 15` = `(25)` -> Styles 21st element
+
+This is cool. If you wanted to you could style every element after a specific point in a list of elements. However, we want to be able to style the whole list based on how many elements there are. Enter `:nth-last-child`...
+
+This works in the exact same way but the evaluated index is checked from the end of the list towards the start. So given `:nth-last-child(n+5)` will match `0+5=5, 1+5=6, ... etc` starting from the end of the list:
+
+::nth-last-child-example
+::
+
+That example, predictably, selects all the items with a reversed index of 5 and above. Conversely if the list had *only* 4 elements, then *no* elements would be matched, there would be no highlights in the list.
+
+This is good, but how do you select the whole list once any of the items are selected? You need only use the `~` [subsequent sibling combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Subsequent-sibling_combinator), which will select every following matched element.
+
+If we took the last example and change it to `li:nth-last-child(n+5) ~ li`, first imagine taking every highlighted item, then pick just their following siblings and highlight those instead:
+
+::nth-last-child-example-2
+::
+
+You'll notice we've highlighted the whole list except for the very top one. That's because we're only matching siblings following our matched `nth-last-child`. To make the highlight inclusive you just add the first example to this second example:
+
+```css
+:nth-last-child(n+5),
+:nth-last-child(n+5) ~ li {
+  @apply border;
+}
+```
+
+Here's the result:
+
+::nth-last-child-example-3
+::
+
+You'll see if you remove one item from the list above so there's only 5 items, *every* element gets the border removed.
+
+**That's a quantity selection baybee!**
+
+So... Now that I've explained that at great length we can understand it's application in giving more or less space to the line numbers in our markdown code renderer styles!
+
+```css
+.prose-code {
+  /* When you have 1-9 lines, line numbers will only be 1 character wide. */
+  --prose-code-line-numbers: 1em;
+  
+  :deep(.line) {
+    /* Adds a margin slightly wider than we allocate to line numbers */
+    margin-inline-start: calc(.5em + var(--prose-code-line-numbers));
+
+    &::before {
+      /* Shift the line number into the margin set up above */
+      left: calc(-1 * var(--prose-code-line-numbers) - 0.5em);
+    }
+
+    /* When you have 10 lines, that's going to be 2 characters wide */
+    &:nth-last-child(n+10),
+    &:nth-last-child(n+10)~.line {
+      --prose-code-line-numbers: 2em;
+    }
+
+    /* When you have 100 lines, that's going to be 2 characters wide */
+    &:nth-last-child(n+100),
+    &:nth-last-child(n+100)~.line {
+      --prose-code-line-numbers: 3em;
+    }
+
+    /* When you have 1000 lines, that's going to be 3 characters wide */
+    &:nth-last-child(n+1000),
+    &:nth-last-child(n+1000)~.line {
+      --prose-code-line-numbers: 4em;
+    }
+
+    /* If I'm posting > 9999 lines of code then something has gone extremely wrong... */
+  }
+}
+```
+
+Looking at the code above, I'm suddenly wondering if I should actually be using `ch` units... Since I'm working with literal character widths... Well, that's something to look into on Monday if I get the chance.

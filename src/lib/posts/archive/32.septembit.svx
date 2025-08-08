@@ -1,0 +1,28 @@
+---
+title: "Septembit"
+description: "As October comes to a close, let's take a look at the pixel animations I made for Septembit"
+date: '2024-10-31'
+navigation:
+  title: "Septembit"
+  icon: '🎨'
+---
+
+I animated every day for a month.
+
+<!--more-->
+
+I also made a website to showcase everything about this project in full. So check the finished template out, below or click it to go to my septembit site.
+
+[![mister_simon Septembit 2024](/assets/content/Septembit2024.gif)](https://septembit24.simonw.xyz/)
+
+A little bit about the site:
+
+- [mister-simon/septembit-2024](https://github.com/mister-simon/septembit-2024) is free to browse on github
+- Made with svelte 5 and sveltekit with SSR
+- All the gifs are at their 1x size (very small) and scaled up with the css rule `image-rendering: pixelated`.
+
+This whole thing was a lot of fun!
+
+I've not really done much pixel art since. I honestly needed a break by the end and life has been pretty busy, but I would most definitely do it again.
+
+I really hope Saul does a stream going over everyone's work, because everyone was so great in the discord, sharing their work, ideas and support.

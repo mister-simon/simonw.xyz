@@ -150,13 +150,13 @@ export function sortMenu(menu: TreeNode[]) {
  * Create a list of page urls
  */
 export function getTree(): TreeNode {
-	const postPaths = Object.keys(import.meta.glob('$lib/posts/*.svx')).map((path) =>
+	const postPaths = Object.keys(import.meta.glob('$lib/posts/**/*.svx')).map((path) =>
 		path.replace(/^\/src\/lib\/posts\//, 'thoughts/')
 	);
 
-	const sveltePaths = Object.keys(
-		import.meta.glob(['/src/routes/*/**/+page.svelte', '!**/[post]/**'])
-	).map((path) => path.replace(/^\/src\/routes\//, ''));
+	const sveltePaths = Object.keys(import.meta.glob(['/src/routes/*/**/+page.svelte']))
+		.filter((path) => !path.includes('[...post]'))
+		.map((path) => path.replace(/^\/src\/routes\//, ''));
 
 	return [...sveltePaths, ...postPaths].reduce((tree, path) => {
 		let item = tree;

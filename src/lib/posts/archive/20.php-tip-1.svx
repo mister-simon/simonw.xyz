@@ -1,0 +1,120 @@
+---
+title: "PHP Tip 1 - Destructuring"
+description: "Sometimes I learn things about PHP as well."
+date: '2024-04-24'
+navigation:
+  title: "PHP Tip 1"
+  icon: '🐘'
+---
+
+You can destructure arrays into variables within a foreach loop. `[$huh] = ['oh', 'really?'];`
+
+<!--more-->
+
+This tip comes down the grapevine from the [Laravel News](https://laravel-news.com/) mailing list, highlighting [a tweet by CodeWithCaen](https://twitter.com/CodeWithCaen/status/1781044384537928021).
+
+```php
+$users = [
+    ['id' => 1, 'name' => 'John'],
+    ['id' => 2, 'name' => 'Alice'],
+    ['id' => 3, 'name' => 'Bob'],
+];
+
+foreach ($users as ['id' => $id, 'name' => $name]) {
+    echo "User ID: {$id}, Name: {$name}. ";
+}
+
+/* Prints:
+> User ID: 1, Name: John. User ID: 2, Name: Alice. User ID: 3, Name: Bob.
+*/
+```
+
+Nice. Here we use [array destructuring](https://www.php.net/manual/en/language.types.array.php#language.types.array.syntax.destructuring) to pull out the `id` and `name` from an array of associative arrays.
+
+If you don't have an associative array then you can pull values sequentially too:
+
+
+```php
+$users = [
+    [1, 'John'],
+    [2, 'Alice'],
+    [3, 'Bob'],
+];
+
+foreach ($users as [$id, $name]) {
+    echo "User ID: {$id}, Name: {$name}. ";
+}
+
+/* Prints:
+> User ID: 1, Name: John. User ID: 2, Name: Alice. User ID: 3, Name: Bob.
+*/
+```
+
+And this had me wondering if you could destructure the whole users array via both array types:
+
+```php
+$users = [
+    ['id' => 1, 'name' => 'John'],
+    ['id' => 2, 'name' => 'Alice'],
+    ['id' => 3, 'name' => 'Bob'],
+];
+
+// Take values from the first and third user record
+[
+    0 => ['id' => $u1id, 'name' => $u1name],
+    2 => ['id' => $u2id, 'name' => $u2name],
+] = $users;
+
+dd(
+    $u1id,
+    $u1name,
+    $u2id,
+    $u2name,
+);
+
+/* Outputs:
+> 1
+> "John"
+> 3
+> "Bob"
+*/
+```
+
+So I chose to try and pull non sequential items from the non-assoc array but I was blocked by an error: "Cannot mix keyed and unkeyed array entries in assignments". So if you want to selectively destructure out of that sort of multidimentional array, you'll generally be passing through a lot of keys.
+
+In any case, example above is pretty wild. I've been working with PHP since php 5.2 or so... So I've seen the language change and modernise over the years. This is a particular feature that you don't see used too often, despite being available since 7.1. A lot of the time PHP devs rely heavily on class wrapping, getters and setters, etc. But I'm sure there are many cases where more destructuring would be valuable.
+
+That's probably it for now.
+
+---
+
+Bonus:
+
+It's one of the examples given in the destructucturing docs, but it's still pretty cool; if you want to swap two variables you can do that by destructuring them out of a temporary array in reverse order:
+
+```php
+$a = 1;
+$b = 2;
+
+[$b, $a] = [$a, $b];
+
+dd($a, $b);
+
+// Outputs > 2 1
+```
+
+I suppose you could also make use of compact for this. Though I try to steer clear of it usually... Interestingly, compact returns you an assoc array, so you need to destructure values out using their keys. That does mean that you can wrangle the swap any way you want without having to worry about array order.
+
+
+```php
+$a = 1;
+$b = 2;
+
+['b' => $a, 'a' => $b] = compact('a', 'b');
+
+dd($a, $b);
+
+// Outputs > 2 1
+```
+
+Final parting thought: `[$a, $b, ...$c] = [$a, $b, $a, $b];` ~ when are we going to get a spread operator to pull subsets of arrays out.

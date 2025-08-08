@@ -1,0 +1,37 @@
+---
+title: "Rebuilding"
+description: "Next year I will rebuild this whole site again."
+date: '2024-12-10'
+navigation:
+  title: "Rebuilding"
+  icon: '🧱'
+---
+
+My output here has been patchy for many reasons. One of which is simply that I would rather be working on other things. Maybe when I have time this should be one of those things.
+
+<!--more-->
+
+Vue was the first proper front-end framework that really clicked with me, and there's a reason why I came back to it to throw some experiments out into the world on this domain. However, lately I'm mostly just writing markdown and ignoring bugs on this site.
+
+If I were to rebuild this site I may want to do some things differently:
+
+- Investigate [Astro](https://astro.build/)
+  - The ability to work with different frameworks is interesting from a porting / experimenting perspective
+  - More Svelte - less Vue 👀
+- Generally improve the landing page
+- Put blog content first
+  - Tag, search, filter, paginate posts, etc
+  - RSS?
+  - Improve code examples
+- Some amount of design cohesion
+- Simplicity?
+- Move away from vercel?
+- Pull latest content from Bluesky, as I've become more active there than here in the day-to-day.
+
+That's a bunch of stuff. A bunch of work. It'll be a fun project I'm sure.
+
+However! The project I'm currently working on is a website for my wedding. Password protected details, RSVPs, etc. I chose to swap back to Laravel to get the job done quicker.
+
+Honestly, if I were to rebuild this website in Laravel I could probably whip something really competent up in no time... But I'm trying to have fun and learn some new things along the way.
+
+Anyway... All this is to say, it's in writing now. I want to rebuild.

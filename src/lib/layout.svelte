@@ -20,11 +20,11 @@
 
 <div class="layout font-mono">
 	<header>
-		<h1 class="flex text-xl">
+		<p class="flex text-xl">
 			<span>~/</span><span class="overflow-x-hidden text-ellipsis whitespace-nowrap" dir="rtl"
 				>{current.listing}</span
 			>
-		</h1>
+		</p>
 	</header>
 	<main class={[fullscreen && 'fullscreen']}>
 		<nav class="primary" inert={fullscreen}>

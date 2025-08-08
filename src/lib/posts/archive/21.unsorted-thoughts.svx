@@ -1,0 +1,37 @@
+---
+title: "Unsorted Thoughts"
+description: "Just musings today."
+date: '2024-04-25'
+navigation:
+  title: "Unsorted Thoughts"
+  icon: '💭'
+---
+
+Some things that cross my mind while I try to keep focussed on work...
+
+<!--more-->
+
+Laravel provides a number of ways to [interface with storage](https://laravel.com/docs/master/filesystem) - generally via the [phpleague's flysystem](https://flysystem.thephpleague.com/docs/) package.
+
+However, interestingly I spotted that flysystem has a [ZipArchive adapter](https://flysystem.thephpleague.com/docs/adapter/zip-archive/). I was surprised to find that while laravel supports many other adapters from flysystem, this one isn't covered. It seems to me like it would be a really useful one to have, since we do occasionally need to programmatically work with zip files. It also had me wondering if it would be a viable way to store large text data in the filesystem with the benefits of compression, and maybe only some of the downsides of the additional processing required for a zipped file to be accessed again later. Heck, you could even add some kind of caching layer that would keep "hot" files in a local uncompressed location and clean them up if they're left unused for some time.
+
+Anyway... Just a thought. Maybe I'll investigate - maybe I won't. I need to get back to work.
+
+I had a quick scan of laravel/laravel + laravel/framework for issues + pull requests implementing and requesting ZipArchive support, but it doesn't appear to be a thing. Weird. Am I the only one thinking this? 
+
+---
+
+New tangent: "What values can be used as a key in PHP?" I wondered to myself. I assume it can only be string and integer.
+
+So [I looked it up and that's right](https://www.php.net/manual/en/language.types.array.php#:~:text=The%20key%20can%20either%20be%20an%20int%20or%20a%20string.%20The%20value%20can%20be%20of%20any%20type.)... But... Wait what?
+
+> Additionally the following key casts will occur:
+> 
+> - **Strings** containing valid decimal ints, unless the number is preceded by a + sign, will be cast to the int type. E.g. the key "8" will actually be stored under 8. On the other hand "08" will not be cast, as it isn't a valid decimal integer.
+> - **Floats** are also cast to ints, which means that the fractional part will be truncated. E.g. the key 8.7 will actually be stored under 8.
+> - **Bools** are cast to ints, too, i.e. the key true will actually be stored under 1 and the key false under 0.
+> - **Null** will be cast to the empty string, i.e. the key null will actually be stored under "".
+
+Are you joking? So those are valid key inputs, but they're just going to be cast into working? Wow. I wonder how many people that's burned in the past.
+
+Anyway, now I know that I can't simply typehint "int|string" for a function I'm working on, because that's not technically true... But it should be.

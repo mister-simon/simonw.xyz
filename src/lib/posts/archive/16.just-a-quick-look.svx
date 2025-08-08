@@ -1,0 +1,132 @@
+---
+title: "CSS Mistakes"
+description: "CSS was made... Mistakes were made."
+date: '2024-04-08'
+navigation:
+  title: "CSS Mistakes"
+  icon: '⧮'
+---
+
+I just wanted to take a moment to look at the incomplete list of known mistakes in the design of CSS.
+
+<!--more-->
+
+So, here's the [css working group's own list of css mistakes](https://wiki.csswg.org/ideas/mistakes).
+
+Aside from being really funny that this is a thing that has to exist, given the "never breaking" approach to change the web has evolved with, it might prove to be really enlightening to just look for some of the known quirks that CSS has to support.
+
+There's a lot to chew on in, but here are just some thoughts as I read through:
+
+> white-space: nowrap should be white-space: no-wrap
+
+> The currentColor keyword should have retained the dash, current-color, as originally specified. Likewise all other color multi-word keyword names.
+
+The handful of non kebab cased parts of css would be a frequent pain point if it weren't for autocompletion. But they still hurt to read in day to day work.
+
+
+> Box-sizing should be border-box by default.
+
+In trying to find out when border box was added (first inception [26 July 2001](https://www.w3.org/TR/2001/WD-css3-box-20010726/#the-box-width) - but only officially a recomendation [6 April 2023](https://www.w3.org/TR/2023/REC-css-box-3-20230406/)) I just started skimming [this article on the subject by Jeff Kaufman](https://www.jefftk.com/p/the-revenge-of-the-ie-box-model). We can all wish border box had been the standard, but it was a different time.
+
+
+> background-size with one value should duplicate its value, not default the second one to auto. Ditto translate().
+
+Hold on, when translate takes a single value it dumps the second value as auto? So `translate(50%)` is functionally the same as `translateX(50%)`?
+
+```html
+<div style="transform: translate(50%); width: 50%; height: 5rem">
+</div>
+```
+
+<div
+    class="bg-slate-500 grid place-content-center"
+    style="transform: translate(50%); width: 50%; height: 5rem">
+    Huh... so it is.
+</div>
+
+I guess that's fine but it's a little wierd. It also turns out that it's always x: 50%, y: auto. There's no consideration for writing mode. Maybe that would be more confusing as a standard. But I do like how we're hearing a lot more about [logical properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values) recently.
+
+> Not quite a mistake, because it was a reasonable default for the 90s, but it would be more helpful since then if `background-repeat` defaulted to `no-repeat`.
+
+Lol. Always struck me as odd that backgrounds repeat by default. But it sort of makes sense that we often want a background to actually cover the element we're styling... But... Often not that too.
+
+> z-index should be called z-order or depth and should Just Work on all elements (like it does on flex items).
+
+I don't like the idea of "depth". Given the use of transforms across the web, I think the X,Y,Z-ness of things is an important mental model to preserve.
+
+> The top and bottom margins of a single box should never have been allowed to collapse together automatically as this is the root of all margin-collapsing evil.
+
+I'm not sure I understand what this means... It would be pretty useful if some of these mistakes had examples / screenshots with them to show the mistake in action. A single box's top and bottom margins collapse together... How? Does that happen if there's no separation between the top and bottom borders, elements with 0 intrinsic height?
+
+[Oh god I think I might be right...](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing#empty_blocks) That's hilarious. An empty element with `margin-top: 5rem` and `margin-bottom: 1rem` will take up only `5rem`, and be subject to collapsing into the margins of it's siblings. Wild.
+
+> There should have been a predictable color naming system (like CNS) instead of the arbitrary X11 names which were eventually adopted.
+
+Who doesn't chuckle at `goldenrod` as a colour value... Can't say I disagree though. I had no idea that X11 was the basis for all the prechosen colours available on the web.
+
+I tried to find out more about CNS and it honestly [looks more complicated](https://upload.wikimedia.org/wikipedia/commons/8/86/CNS_syntax_diagram.svg) than most people would be willing to use. Resulting in descriptive but potentially long colour names "very_light_moderate_purplish_blue".
+
+Also, shoutouts to the Munsell colour system and Shades of Grey and Red Side Story by [Jasper Fforde](https://www.jasperfforde.com/).
+
+> border-radius should have been corner-radius.
+
+It could be argued that border-radius is more accurate given the box-model we're all familiar with. You're applying a radius to the border part of your box. The concept breaks down a little when you start to ask "well what part of my border... The sides perhaps?" Well no, the corners. And now that you have your answer you can move on, enlightened. Like "does font-size make my letters wider then?", nope - now that you know you know.
+
+> rgba() and hsla() should not exist, rgb() and hsl() should have gotten an optional fourth parameter instead (and the alpha value should have used the same format as R, G, and B or S and L).
+
+Fully agree. Even now the fact that we can now do `rgb(1 2 3 / 0.4)` is wild. Although, there's a few modern css features coming through using `/` in their syntax and I'm not sure yet if I'm a fan.
+
+> Descendant combinator should have been » and indirect sibling combinator should have been ++, so there's some logical relationships among the selectors' ascii art
+
+Don't think I agree with this one. The descendant combinator is the default whitespace combinator ` `. The indirect subling combinator is `~` which is also a reasonable enough character imo. Either they were joking here or perhaps there's a point I'm missing to this one. Puzzling.
+
+> font-family should have required the font name to be quoted (like all other values that come from “outside” CSS). The rules for handling unquoted font names make parsing font stupid, as it requires a font-size value for disambiguation.
+
+Yes. The technical issues with this seem annoying, and it's also annoying to deal with deciding how or whether to quote font family names in userland.
+
+> Selectors have terrible future-proofing. We should have split on top-level commas, and only ignored unknown/invalid segments, not the entire thing.
+
+This has caught me out in the past enough times to agree. But I can also see situations where aggressive progressive enhancement could lead to incomplete and unusable styles due to patchy selector management - but it's hard to say that that could be worse then just throwing the whole rule out.
+
+> :link should have had the :any-link semantics all along.
+
+Ew. Ok, I had no idea about `:link` or `:any-link`, but the fact that `:link` just randomly ignores visited links is terrible.
+
+> The flex shorthand (and flex-shrink and flex-grow longhands) should accept fr units instead of bare numbers to represent flex fractions.
+
+That would make sense and set people up for dipping their toes into grid layouts. The vast majority of the time people are going to assume that flex is a binary 0-1 attribute.
+
+> The display property should be called display-type.
+
+Interesting, `display` certainly does the job... I wonder what the reasoning to giving it `-type` as a suffix would be. Would that be an effort to differentiate it from `visibility` perhaps?
+
+> The list-style properties should be called marker-style, and list-item renamed to marked-block or something.
+
+Do you want to change `<li>` to `<mb>` too? That wouldn't be for the CSS group to decide, I suppose it could be more internally consistent to call list related things "markers" but it feels a little abstract in a weird way.
+
+> overflow: scroll should introduce a stacking context
+
+Anything to do with overflow is usually a bad time. Even trying to make `overflow: clip` behave often ends with disappointment. Perhaps a stacking context would've fixed everything, but I remain sceptical.
+
+> size should have been a shorthand for width and height instead of an @page property with a different definition
+
+
+Well [now I know about the @page at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/@page). It is pretty sad that this is the case. Is there no world where both can exist, given that `size` is seemingly print specific?
+
+> We probably should have avoided mixing keywords (span) with idents in the grid properties, possibly by using functional notation (like span(2)).
+
+This was a fairly interesting rabbit hole to fall down. Given that grid is such a massively important and feature rich addition to the css spec, and one of the more modern additions to the language, it's surprising that a blunder like this got through. We're starting to see the use of more css functions as time goes on, and perhaps this is one of the reasons. Functions provide a more obvious point of a variable output in contrast to the usual space delimited list style css attributes generally rely on.
+
+> Comments shouldn't have been allowed basically everywhere in CSS (compare to HTML, which basically only allows them where content goes), because it makes them basically unrepresentable in the object model, which in turn makes building editing directly on top of the object model impossible
+
+Anyone understand what this means? I don't. It's hard to draw parallels between css and html when they are so very different in their funtionality. The output of CSS is modification, where the output of html is render, right?
+
+> It shouldn't be !important — that reads to engineers as “not important”. We should have picked another way to write this.
+
+Lol.
+
+---
+
+Okay. Well that wraps up my thoughts on this list of mistakes. I had some others but they weren't really poignant enough to bother writing out.
+
+BYUE!

@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Some of Simon's Thoughts - Simonw.xyz</title>
+</svelte:head>
+
 <div class="relative w-full overflow-clip">
 	<div class="mx-8 prose py-8">
 		<h2>Thoughts</h2>

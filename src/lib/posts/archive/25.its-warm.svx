@@ -1,0 +1,81 @@
+---
+title: "It's warm"
+description: "It's warm, also I've been busy."
+date: '2024-06-27'
+navigation:
+  title: "It's warm"
+  icon: '☀️'
+---
+
+It's been very hot in the past couple of weeks. I was thinking earlier about the Trolls in the discworld series of books, where their cognitive abilities are proportional to how cold their brains get... That's how I've felt this week - and it's been warm.
+
+<!--more-->
+
+As such I made the great decision to start a couple of new projects, and to make full usage of the time I've spent learning how to use Nuxt. I very smartly began implementing them with Next.js.
+
+> I am so smart. S M R T.
+
+The first project is going to be able to take full advantage of all the nicities of the next.js framework, with images being optimised, everything being served dynamically etc, etc. I can really go ham on it.
+
+However the other project I'm working on is going to live on a standard html / php serving web server. As such, I'm going to be building the site as a fully static project - with the exception of any client side js that might get run. No on the fly image optimisation. No fancy routing handled automatically. Etc etc. Luckily it's a SPA build, so the scope of things is still fairly under control.
+
+---
+
+In other news I'm trying home row mods on my keyboard. I currently have <kbd>a</kbd> and <kbd>'</kbd> as <kbd>ctrl</kbd> when held (actually because of colemak these are <kbd>a</kbd> and <kbd>o</kbd>), and <kbd>f</kbd> and <kbd>j</kbd> (<kbd>t</kbd> and <kbd>n</kbd>) as <kbd>shift</kbd> when held.
+
+This is proving surprisingly comfy to use. I'm still at the stage where I have to think about them a lot. Also I still forget to use them sometimes when I'm in a flow of writing. I think it'll be a pretty powerful addition to my tiny keyboard toolbox.
+
+On the flipside though... I frequently type "on", which if I hold the "o" key for too long gives me a ctrl press. Resulting in opening new windows / files all over the place. So yeah, some fine tuning and practice is needed to make this a comfortable part of my workflow.
+
+---
+
+Another bit of news is that I wanted to make use of a catch all email domain, pointed at protonmail, with the ability to filter any email address I throw at it into logical folders / subfolders.
+
+With that I took a quick dive into the world of Sieve programming and came up with this:
+
+```
+require ["include", "environment", "variables", "relational", "comparator-i;ascii-numeric", "spamtest"];
+require ["fileinto", "imap4flags"];
+
+# Generated: Do not run this script on spam messages
+if allof (environment :matches "vnd.proton.spam-threshold" "*", spamtest :value "ge" :comparator "i;ascii-numeric" "${1}") {
+    return;
+}
+
+# Bail if email is a "direct to me" message
+if allof (address :localpart :all :comparator "i;unicode-casemap" :contains ["To", "Cc", "Bcc"] ["simon"]) {
+	return;
+}
+
+# Bail if this isn't example.com
+if allof (not address :domain :all :comparator "i;unicode-casemap" :matches ["To", "Cc", "Bcc"] "example.com") {
+	return;
+}
+
+# File into tagged folder if possible
+if anyof (address :all :comparator "i;unicode-casemap" :matches ["To", "Cc", "Bcc"] "*.*@example.com") {
+  set :lower :upperfirst "foldername" "${2}";
+  fileinto "${foldername}";
+  
+} elsif anyof (address :all :comparator "i;unicode-casemap" :matches ["To", "Cc", "Bcc"] "*@example.com") {
+  set :lower :upperfirst "foldername" "${1}";
+  fileinto "${foldername}";
+
+}
+```
+
+With this being the case I can tell someone to email me directly at `simon@example.com` and it'll run straight through the seive to my inbox without stopping.
+
+If I do some online shopping, I could use `amazon.shops@example.com` and it'll run through to the "Shops" folder, and if I ever want to stop getting those specific emails I can just start auto-deleting them.
+
+Finally, if I have to give an address to someone irl but I still want the incoming mail to get filed away, I can simply hand over something like `stuff@example.com`.
+
+I've intentionally ordered the sieve to bail early, then go from most to least specific ruleset. I may end up adding more functionality to this in time, but I think this is a pretty decent start.
+
+The one major gripe I have with this is that there's no way to make folders automatically when you finally `fileinto`. Proton just isn't supporting that - and I've seen no indication that they're likely to... So that's that. The upshot of this is that I've had to think about my categorisation a bit more up-front and create folders that I anticipate using frequently.
+
+---
+
+I also had my BSL 102 exam - which went pretty ok I think. I don't know if I've passed or not yet... So fingers crossed.
+
+Aaaaaaaaaaaaaaand that's my long overdue update. Yep.

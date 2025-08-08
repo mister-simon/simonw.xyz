@@ -1,0 +1,116 @@
+---
+title: "I'm Back. I'm Sick."
+description: "Let's do some very slow and chill work."
+date: '2024-02-22'
+navigation:
+  title: "I'm Back. I'm Sick."
+  icon: '🤒'
+---
+
+I've had a horrible hacking cough for the past week. But that didn't stop me going skiing and hiking in Switzerland, so why should it stop me from doing some nonsense here?
+
+<!--more-->
+
+## Recap
+
+I've been juggling a few things on this site:
+
+1. At some point I want to make an earnest attempt at listing out / presenting all the things that I am actually good at.
+   - Spoof a portfolio site style?
+   - Try to make something actually serious?
+   - Point out the things that I'm interested in learning too and maintain that list over time
+2. The homepage could do with something to jazz it up maybe?
+3. Fixing issues with the blog
+   1. Display blog posts by newest -> oldest
+   2. Add pagination to blog index page
+   3. (Maybe randomly select older posts from outside paginated range?)
+   4. Improve article layout for wide / breakout content
+   5. Add auto-generated TOC sub-nav for longer posts
+   6. Continue working on the drum machine (we've been stuck on layout / mockup for too long - make some noise!)
+   7. Tagging posts / series - allowing for continuity / linking to similar content?
+   8. Next / Prev post buttons?
+   9. Other style improvements, header hero imgs / components / something interesting?
+   10. Add "lightbox" component for images to allow them to blow up to fullscreen
+      - Or maybe use a hovering spyglass approach?
+
+## Plan Of Action
+
+I'm going to actually fix the ordering of the thoughts and things blog. At this point I'm pretty done trying to battle the built in Nuxt components that query and display the posts. I think it's time to query, sort, and display posts ourselves.
+
+## Hitting a roadblock already...
+
+The fact that I need to rely on `queryContent` is frustrating... I've already run into a roadblock. This all begins with the **"Important ⚠️"** fact that [according to the Nuxt docs](https://content.nuxt.com/composables/query-content#important-%EF%B8%8F) I need to wrap the `queryContent` call in a `useAsyncData` call, to prevent avoid the same query being fired more times than necessary during the SSR / Client setup stages. 
+
+Check out this magical nonsense... The following code will cause Nuxt to throw an error 500: "Cannot stringify a function".
+
+```vue [layouts/blog.vue]
+<script setup>
+const blogQuery = await useAsyncData(
+    'blog',
+    () => queryContent({
+        where: {
+            _path: { $contains: '/thoughts-and-things' }
+        },
+        limit: 10,
+        sort: [{ date: -1 }]
+    })
+);
+</script>
+```
+
+However, *this* code will run perfectly fine:
+
+```vue [layouts/blog.vue]{10}
+<script setup>
+const blogQuery = await useAsyncData(
+    'blog',
+    () => queryContent({
+        where: {
+            _path: { $contains: '/thoughts-and-things' }
+        },
+        limit: 10,
+        sort: [{ date: -1 }],
+        beep
+    })
+);
+</script>
+```
+
+I'm actually losing my mind over this. This is not how I wanted things to go.
+
+So what function are we stringifying here? Why does it suddenly not have any issues with strigifying when we simply add an unused entry to the object we're passing through.
+
+Okay... After some complaining I refactored things and realised that things must've been silently failing somewhere within the `queryContent` call due to the undefined variable. Thereby allowing the serialisation of the output to go ahead successfully... Sure.
+
+Here's the new code:
+
+```vue [layouts/blog.vue]
+<script setup>
+const { data: navigation } = await useAsyncData(
+    'blog',
+    () => {
+        return useBlogQuery(10)
+            .only(['title', '_path'])
+            .find();
+    }
+);
+</script>
+```
+
+You'll see we're back to using our composable. I'm passing a param to limit to 10 posts. And we're only selecting the data that we need to output a list of `NuxtLink`s.
+
+So far so good. I'll go and replicate that on the index page... Then I can move on with my life!
+
+## Progress!
+
+That went well! Who knew that just doing things yourself would make things easier. Along the way I came across the fact that the `fetchContentNavigation` function can actually be found in `.../legacy/composables/navigation.d.ts`. Which has me wondering if they've intended to do away with it. Though, I'm not willing to expend any more energy thinking about it. I'm ill! Can't be wasting my energy on such things.
+
+Moving on, I applied the new code to the blog index page, rejigged some stuff, and now that I'm taking control of how I'm rendering things a little more directly I decided to add some small badges and dividers to add a bit of flare to the articles:
+
+![The sidebar looks much the same, but there are now dividers between articles, and badge styled headings for newest and older articles](/assets/content/back-and-sick-progress.png)<!-- {.rounded-lg .bg-neutral-300 .p-4} --> -->
+
+## Checking things off
+
+Job done:
+
+- ~~Display blog posts by newest -> oldest~~

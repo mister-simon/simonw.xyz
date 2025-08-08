@@ -1,0 +1,50 @@
+---
+title: "Svelting"
+description: "I've been using Svelte 5 and SvelteKit"
+date: '2024-07-29'
+navigation:
+  title: "Svelting"
+  icon: '§'
+---
+
+It's good! Let's try and break down why.
+
+<!--more-->
+
+## How did I get here?
+
+I come from a background of primarily Laravel and for a long time Vue was the chosen framework to run your front end's dynamic content. Vue was very easy to get used to using. The lifecycle hooks were really clear. The DOM manipulation was simple. The interplay of data and render seemed really elegant and mostly just worked. It was nice. At the smaller scale it really just felt like writing some extra html to do some stuff.
+
+At the larger scale things get way more messy, and so the composition API came along to improve that. It took me quite a while to grasp really how the whole landscape of data reactivity was moving and the benefits that would bring.
+
+## What was I missing?
+
+So while I was getting used to all that, other frameworks were doing their own thing, growing in popularity. I had my eye on react, but every time I looked at JSX it all looked... Messy. Knowing it's "just javascript" never really helped me get past that. I saw the landscape of hooks shifting. The move towards `effect` and `use`.
+
+Svelte was doing their own thing, compiling components to plain JS from their svelte syntax. Each file feels similar to a vue single-file-component in that everything is colocated but also `script`, `style`, and `template` are easily delineated within. They have their own templating additions for logic and control, as well as a unique approach to reactivity which always seemed interesting. Given that they could compile whatever cooky syntax they want, they could streamline the DX in a lot of ways - circumventing unintuitive proxy object interactions, doing away with wrapper elements just to show and hide chunks of content or get around the single root element requirements for components.
+
+## So svelte sounds good?
+
+But svelte 5 sounded better... I hadn't comitted to learning svelte by any means, but I had kept my eye on it for a long time. When Runes and Svelte 5 were announced everything just seemed to fall into place and all the arguments in it's favour seemed to add up. The predictability of explicit reactivity, a more familiar JS-like syntax, potential for better performance around reactivity, etc. Generally, it just seems like they're pushing in a direction that is good for devs and users alike.
+
+## SvelteKit
+
+I've now dabbled in nuxt and next.js. I've completed a fully SSG next.js project. I'm actively maintaining this site in nuxt. It was clearly time to start a new project using SvelteKit. Because I just don't have enough on my plate...
+
+Getting started was nice and easy with the project scaffolding CLI. Even using Svelte 5 in this "unstable" state it's been pretty solid. SvelteKit has been far more comfortable to work with than Next or Nuxt so far, and the documentation is excellent. One of the major deficiencies of Next for me was that moving to SSG meant no longer getting image optimisation out of the box - and there's currently no recommended way around that. Whereas SvelteKit has a whole section on image optimisation that works in whatever context you find yourself. The routing is opinionated, but clear. I don't love `+page.svelte` being the name of every file I have open... But using the file-system as a router does provide a very obvious mental model of your app.
+
+I'm still getting used to the way code is shared across server and client and the ways you can pass data around, but that's a tricky concept in all of these environments. So far, I genuinely believe I've run into fewer roadblock moments with svelte than I did with any of the other options I've tried recently.
+
+## So what?
+
+Well... All this is to say that I'm really looking forward to the full Svelte 5 release. I'm somewhat glad that I didn't start learning Svelte 4 - because things are changing and there seems to be a certain amount of friction from established Svelte 4 devs. I don't doubt that my time spent with Next and Nuxt have helped me get up and running with SvelteKit much more quickly and I'm impressed with how smooth the process has felt.
+
+Who knows, perhaps one day this whole site will come back again as a Svelte 5 app.
+
+Or maybe it's time to throw all this stuff away and just write plain html again.
+
+... Probabaly not.
+
+## That was rambly
+
+Yes. Yes it was. But this is just not always a place for finely crafted posts. It's a place for thoughts and things and these were some thoughts. Thank you.

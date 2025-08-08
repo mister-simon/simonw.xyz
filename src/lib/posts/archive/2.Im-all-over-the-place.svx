@@ -1,0 +1,84 @@
+---
+title: "Bouncing around different research"
+description: "I've spent this morning reading up on a bunch of different things. Here's some of the things I've seen."
+date: '2024-01-29'
+navigation:
+  title: 'Bouncing Around'
+  icon: '🏀'
+---
+
+Today I kept a sort of stream of consciousness flow to writing about the things I was reading about. It's pretty chaotic, but I learnt quite a lot and covered a lot of ground.
+
+<!--more-->
+
+I started my research this morning by trying to look up other examples of blogs built with Nuxt. Immediately ran into [This Nuxt Starter Blog](https://github.dev/narasimhajupally/tailwind-nuxtjs-starter-blog), which appears to be someone's WIP. It was last updated 7 months ago (as of the day this post was written). That's always a good sign.
+
+There's some interesting stuff in there. Making full use of different layout files, adding a page route for pagination, making good use of the `queryContent` api (which I am yet to really get familiar with).
+
+Has to be said that studying someone elses code is always going to be more enlightening than reading mediocre documentation and stumbling in the dark.
+
+---
+
+In poking around their code I also spotted a service I hadn't heard of before "buttondown". Poked even further to find out what it is, and discovered a pretty nice sounding emailing / mailing list handler made with markdown in mind and boasting some nice privacy features.
+
+I continued checking out their site and found they contribute to open source, and also have [a really interesting rundown of their tech stack](https://buttondown.email/stack). Complete with explanations for many of the listed items. They even list software they use locally to just improve their process, which is a part of the tech stack a lot of people would overlook. Though, unfortunately for me their workflows centre around apple software and lately I've been running linux. Their thoughts are more valuable when explaining why they switched off certain services and what they've moved to. For example, swapping to RDS instead of using the much more expensive Heroku Postgres.
+
+Honestly, that's great. It's clear from skimming the site that it's a project effectively built and run by one person, and they seem to both know their stuff and care about the quality of their work.
+
+I've skimmed the homepage of most of the items on their list. So it's really been a whirlwind of finding interesting things in this first couple of hours of my morning.
+
+---
+
+For the next part of my day, I'm going to be reading over the free parts of [Every Layout](https://every-layout.dev/)! It's effectively the Design Patterns book for CSS. I've already taken a look through some of it, but it's time to take a deeper dive:
+
+## [The Stack](https://every-layout.dev/layouts/stack/)
+
+- Nothing too shocking here. It's a smart pattern that most people should know, and is likely to be used by many via the [tailwind space utility classes](https://tailwindcss.com/docs/space).
+- Worth noting the use of logical properties (`margin-block-start`) as the modern standard for handling layout in a direction agnostic manner.
+- They explore recursive stacks - allowing spacing to be applied to child components without having to repeatedly add the same stack classes.
+- They link out to [24 Ways - Article on Flow](https://24ways.org/2018/managing-flow-and-rhythm-with-css-custom-properties/) which highlights using variables to control the spacing around child elements more dynamically.
+- It's not overly highlighted in either article, but the use of `em` allows spacing to also be dynamically applied based on child components' font sizes. I.e. Simply by using `em` your header and paragraph flow / typography balance will be better as the spacing applied will be relative to their font sizes without having to do any additional work.
+
+## [The Sidebar](https://every-layout.dev/layouts/sidebar/)
+
+- A solid point is raised about the overreliance on media queries to handle content layout. That is, the content is no longer defining it's own layout.
+
+---
+
+### Tangent
+
+I don't know how I ended up here... But somehow I'm now reading [a more modern css reset](https://piccalil.li/blog/a-more-modern-css-reset/)... We'll get back to the every layout thing shortly.
+
+Ok, so let's get into that:
+
+- Border box sizing on everything. Yep, makes sense. We know and love it. There are rare occasions where you need padding-box sizing, but like I said. Rare.
+- Text-size-adjust. I remember seeing this come up occasionally when I was like 14 years old playing with Dreamweaver. Certainly can't blame people for dumping it for more declarative approaches.
+- Zeroing of `margin-block-end` from body, headings, paragraphs, figures, blockquotes, and description lists. Those are some pretty specific tags to target, which is intriguing. `body` makes sense. Headings, paragraphs, and blockquotes make sense, to allow more predictable content rhythm. I wasn't aware that figure had any default block end margins, but I can imagine being tripped up by it. Not a lot of people are using `dl` and `dd`, but if you do you would want it to be consistent between browsers.
+- Removing list styles on any `ul` or `ol` that also has `role=list` feels opinionated. I'll need to re-read the specifics of the issue but I think this is a response to [this Safari inconsistency](https://www.scottohara.me/blog/2019/01/12/lists-and-safari.html). Maybe the rest of the css reset blog explains it more fully later on.
+- Body defaults:
+  - I don't think I really agree with setting the body min-height to 100vh, because on mobile that's sometimes going to cause an unnecessary scrollbar. Maybe it would be better to set the body min-height to 100svh with 100vh as a fallback?
+  - I haven't got much of an opinion on line-height 1.5... I guess it sets a consistent point for the document to cascade from, but the choice seems arbitrary in some way. 16px * 1.5 = 24px... Is that anything?
+- Shorter line heights on headings and interactive elements seems reasonable. But again, on first glance the choices of elements seems a little arbitrary. Is there no need for those changes on `select` or `textarea`? Maybe not.
+- Balance text wrapping seems like a pretty solid modern standard for headings. So long as you expect it to be the case it'll save you some headaches with getting nicer layouts.
+- Default anchor styles
+  - I had never heard of [text-decoration-skip-ink](https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-skip-ink) but now I have. It's another opinionated reset, but one that should improve readability, so I'm on board.
+  - Using `currentColor` is a nice way around having out of place link colours, but it's also possible that links will no longer be as visible as they could be. Particularly if anyone is careless with their other `text-decoration` styling.
+- Img reset - classic at this point.
+- Inherit font for inputs and buttons - also makes sense. What browsers apply their own fonts? Madness.
+- Textareas without a `row` count receive a `10em` min-height. That sounds like a lot... But with the rest of the box model at play it's likely you're only really getting 7-8 rows. Seems reasonable. Funnily enough, this style isn't actually in play on their own website at the time of writing this.
+- [scroll-margin-block](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-block) is set to `5ex`, as in the width of 5 `x` characters. It's a bit like an `em`, for anyone who hasn't come across this measure. My assumption here is that page anchors (hash anchors) will be affected by this, and will scroll you to the anchored element with a bit of padding. Rather than butting your viewport right up against the element. But I might be wrong.
+
+Ok, next part of the article breaks down each part of it. So let's see if I was way off the mark for anything:
+
+- Font size inflation is related to an older safari quirk on mobile. But it's still considered a relevant reset to avoid unexpected situations.
+- For list-styling - They link to the same safari bug report (not considered a bug by developers) that is the topic of the blog post I linked above. Therefore, this reset requires you to either add the role back to get your list style for free, or add the list style back manually. Bizarre, but I see the reasoning.
+- For default body height, they mention being recommended svh, but don't pick it for their reset without being certain of it's benefits. However, I think it would be more cautious to just avoid the overflow issues and maybe expect a little bit of underflow in some rare cases.
+- Balanced heading wrap is noted as being opinionated. Not for everyone.
+
+I've just learnt from a bit more poking around that this guy is responsible for making the website for Scott's Bass Lessons. What a claim to fame.
+
+---
+
+### Where was I?
+
+Ok... Well it's the end of my work day, so I'm going to return tomorrow and finish examining The Sidebar...

@@ -1,0 +1,54 @@
+---
+title: "30 Minutes a Day"
+description: "If I just do something for 30 minutes, that'll add up."
+date: '2024-04-05'
+navigation:
+  title: "30 Minutes a Day"
+  icon: '⏱'
+---
+
+Yesterday I mentioned wanting to spend a little time more regularly to get some stuff done on my personal projects. So, let's start that today. I'll stop what I'm doing here at about 11.30. Let's go.
+
+<!--more-->
+
+## Making a plan
+
+Ok, so the plan of action here is to create a breakout layout for blog articles.
+
+I've done a little bit of research and testing on this sort of thing recently, using named grid columns to create a layout that can handle that.
+
+I'll want to set something up like this:
+
+![A diagram of a 5 column grid layout. Labelled A,B,C,B,A. The middle column contains text flow content. An image and accompanying text breaks out into the B region. And A acts as a flexible buffer around the breakout area.](/assets/content/grid-breakout.png)<!-- {.bordered.bg-neutral-300} -->
+
+## Aaaaand action
+
+We have a plan. Let's make it happen. I've already used 20 minutes with writing and diagramming so I need to move quick now.
+
+This following image is going to be in the breakout section. I'm going to apply a breakout tag using markdown extended syntax `{.breakout}`. Except that nothing will happen until I've updated the grid layout for my prose content section.
+
+![Drum machine eq example image](/assets/content/drum-machine-bass-eq.png)<!-- {.breakout.mx-auto} -->
+
+## We did it
+
+Okay, so there's some pretty major issues with this. The first being that setting the container of all of our flow text content to grid forces all text element margins not to collapse. This in turn ruins all the nice things set up for us by tailwind's typography module.
+
+
+The next issue is that we're actually fitting the breakout to the content that is doing the breaking. Meaning - the default breakout width isn't actually 100% of the available area. It's just whatever area the breaking content wants - think "fit-content". I'll have to experiment with this some more. The obvious downside of this is that any breakout text content will cause the breakout section to inflate to fill the available width entirely. Maybe I want a separate rule for text breakout? Not sure.[]{.breakout}
+
+I also don't have complete control over where the breakout happens yet. I'm not sure if there's some hidden extra markdown syntax to add classes to paragraphs, but I'll have to work that out another day.
+
+## Overtime
+
+Well, I'm at 45 minutes. So I've gone overtime a little here. It's pretty clear that using grid immediately means no margin-collapse, which is a bit of a bummer. My choices are either to stick with this new "roomy" version of the typeography system (not ideal), overhaul the typography system entirely (sounds like work tbh), find some way to opt-into the breakout layout and have to box all my content into chunks that are either content or breakout (sounds like extra markup), or dump the whole system and work something else out... I'm not sure.
+
+Will come back to this tomorrow maybe.
+
+## Quick bonus test
+
+Here's what the drum machine project looks like a full-breakout width.
+
+<!-- ::drum-machine-3{.breakout}
+:: -->
+
+Pretty cool.

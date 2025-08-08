@@ -1,0 +1,41 @@
+---
+title: "Tic Tac Toe"
+description: "I just want to make something new"
+date: '2024-05-01'
+navigation:
+  title: "Tic Tac Toe"
+  icon: '⭕'
+---
+
+Maybe I should try to make a game real quick.
+
+<!--more-->
+
+So... I'm trying to remake tic-tac-toe (noughts and crosses) without leaving nvim... This is quite the experiment for me, since I'm not fluent with vim. I also don't necessarily have all the intellisense that I would usually rely on. But I'm going to give it my best shot here.
+
+Here we go.
+
+<!-- ::tic-tac-toe
+:: -->
+
+Ok, I must admit that I got frustrated with the nvim experience eventually and opened the project up in vscode. I still learnt some stuff before I bailed, but I think the main issue was that my config wasn't there for what I wanted it to do and I wasn't willing to pivot my focus wholely away from the project at hand to just... Tinker with vim.
+
+Anyway, as I work on this I'm making lots of questionable code decisions and realising that maybe I need to do some more work learning about how to manage reactive arrays in vue 3 and array matrix manipulation. I could've just looked everything up, but I wanted to solve the problems my own way first.
+
+I gave myself additional problems by trying to generalise my win condition checker to any size of grid. Heh.
+
+---
+
+Well, I got a bit in the weeds trying to work out fun ways to validate diagonals. The thing doesn't work as a result... So that's nice. Bit of a letdown for the day, but perhaps I'll come back to it tomorrow.
+
+---
+
+I'm back... I want to get this done.
+
+Classic. I came back today with a fresher outlook. Decently well rested. Less stressed. Immediately got things working and in fact I improved greatly the systems I had in place yesterday.
+
+We now have fully functional win detection as well as an editable grid size. Nice.
+
+That's really all I wanted to get out of this. I can move on with my life now, knowing that I successfully made a thing. Because sometimes you just have to complete a project to know that you still can.
+
+I may come back to this at some point and do some code explanations / highlights, because I think I came up with some interesting ways to validate the board. It could also be nice to talk about what I might've done differently another time.

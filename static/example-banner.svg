@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1500"
+   height="500"
+   viewBox="0 0 1500 500"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   sodipodi:docname="example-banner.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#005f9e"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="0.34533333"
+     inkscape:cx="750"
+     inkscape:cy="249.03475"
+     inkscape:window-width="1133"
+     inkscape:window-height="1039"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <rect
+       style="fill:#800080"
+       id="rect1"
+       width="1505.7915"
+       height="500.96524"
+       x="-5.7915058"
+       y="-2.8957529" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#000000"
+       d="M 179.53668,364.86486 C 330.11583,107.14286 2.8957529,136.10039 353.28185,170.84942 c 350.3861,34.74904 350.3861,34.74904 350.3861,34.74904 l -60.81081,95.55984 c 0,0 89.76834,199.80695 191.11969,95.55985 101.35136,-104.24711 107.14286,-57.91506 107.14286,-136.10039 0,-78.18533 -14.47876,-72.39382 -92.66409,-98.4556 -78.18533,-26.06177 -115.83012,-78.185326 -199.80695,-52.12355 -83.97684,26.06178 -231.66023,95.55985 -185.32819,179.53668 46.33205,83.97683 -37.64478,107.14286 101.35135,92.66409 138.99614,-14.47876 110.03861,14.47877 225.86873,-40.54054 115.83012,-55.0193 115.83012,-69.49807 191.11969,-115.83011 75.28957,-46.33205 46.33207,-72.39383 144.78767,-81.08109 98.4556,-8.68725 159.2664,0 199.8069,92.6641 40.5406,92.66409 92.6641,72.39382 17.3745,130.30888 -75.2895,57.91506 -86.8725,57.91506 -133.2046,60.81081 -46.332,2.89575 5.7915,11.58301 -92.6641,2.89575 -98.4556,-8.68726 -78.1853,-26.06177 -408.30114,-43.43629 -330.11583,-17.37452 -385.13514,-26.06178 -419.88417,-23.16603 -34.74904,2.89576 -89.76834,17.37452 -89.76834,17.37452"
+       id="path1" />
+  </g>
+</svg>

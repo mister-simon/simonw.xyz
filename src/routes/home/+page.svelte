@@ -2,9 +2,13 @@
 	let { data } = $props();
 </script>
 
+<svelte:head>
+	<title>Home - Simonw.xyz</title>
+</svelte:head>
+
 <div class="relative w-full overflow-clip">
 	<div class="mx-8 prose py-8">
-		<h2>Some inner content</h2>
+		<h1>Some inner content</h1>
 		<p class="lead">
 			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit assumenda dignissimos, ratione
 			non voluptas et deleniti quisquam suscipit porro dolorum, sed, consequatur quam neque deserunt

@@ -1,0 +1,56 @@
+---
+title: "Who Supports Supports?"
+description: "I was wondering who supports the css feature support query. Let's find out."
+date: '2024-04-10'
+navigation:
+  title: "Who Supports Supports?"
+  icon: '🤝'
+---
+
+It has often been said that if you want to use a particular bit of modern CSS, you might want to use the `@supports` feature query. But... Which browsers support that?
+
+<!--more-->
+
+We can start with the [caniuse page](https://caniuse.com/css-featurequeries).
+
+Based on their data, we are currently at Global	97.77% support for supports. So we are most definitely good to use it right now.
+
+The same data indicates that the big 5 browsers all supported support in mid-2015. Therefore, even 9 year old tech has a pretty strong chance of being fine.
+
+It also seems that a swathe of mobile specific browsers also adopted support for `@supports` this year. Those browsers seemed to total a fairly small percentage of users, but we know that might still mean thousands of real people depending on your sites traffic.
+
+The reason this all tickled my interest is the concept that you might be testing if you can use a specific css feature with `@supports`, when the feature itself gained full browser support before `@supports` did.
+
+Interestingly [the mdn article on @supports](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) has an example checking for `display: flex`. However, [the canisuse page on flex](https://caniuse.com/mdn-css_properties_display_flex) seems to suggest browsers had mostly implemented flex by 2014. Wild!
+
+So... Perhaps when you use `@supports` you might want to consider that supports might have less support than the feature you're checking for.
+
+---
+
+Thinking about "who supports the supports rule" reminds me of a phrase from the Discworld - City Watch / Sam Vimes series:
+
+> Lord Vetinari plunked the axe again. “Tell me, Sir Samuel, do you know the phrase ‘Quis custodiet ipsos custodes?’?”
+> 
+> It was an expression Carrot had occasionally used, but Vimes was not in the mood to admit anything. “Can’t say that I do, sir,” he said. “Something about trifle, is it?”
+> 
+> “It means ‘Who guards the guards themselves?’ Sir Samuel.”
+> 
+> “Ah.”
+> 
+> “Well?”
+> 
+> “Sir?”
+> 
+> “Who watches the Watch? I wonder?”
+> 
+> “Oh, that’s easy, sir. We watch one another.”
+
+— <cite>Feet Of Clay (Discworld 19) - Terry Pratchett</cite>
+
+> Quis custodiet ipsos custodes, er, qui custodes custodient? Was that right for “Who watches the watcher that watches the watchmen”? Probably not.
+
+And...
+
+> Who watches the watchmen? he asked himself. Me!
+
+— <cite>Thud (Discworld 34) - Terry Pratchett</cite>

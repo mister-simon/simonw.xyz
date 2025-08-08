@@ -1,0 +1,110 @@
+---
+title: "Nixing things up"
+description: "Steady "
+date: '2024-10-30'
+navigation:
+  title: "Nixing things up"
+  icon: '⎔'
+---
+
+Thoughts from my initial foray into using nixos...
+
+<!--more-->
+
+## Something Broke
+
+As so often happens, this story begins with something breaking. I've been really happy using Pop_OS for a couple of years now... Until it broke.
+
+My whole work system is largely disposable from machine to machine. I use git, so project files are disposable. I use Homestead virtual machines for php projects - and I can easily get a hold of Virtualbox and Vagrant. I use VSCode to sync pretty much everything about my code editor experience. I still begrudgingly use Chrome for most of my browsing.
+
+So... Why was it so annoying when my system started crashing at the login screen?
+
+Well, aside from the obvious reason that it's annoying when stuff doesn't work. I had spent quite a lot of time by this point consuming NixOS media on youtube and reading around the idea that I could tailor a system to be rock-solid. Everything versioned, with rollbacks, and a chain of accountability. The idea that should something go irrevocably wrong, I could be back up and running within an hour.
+
+## Where to start
+
+I reinstalled Pop_OS on my main drive... Booted up a browser, installed balena etcher, and installed NixOS Gnome onto my secondary SSD from a flash drive.
+
+Those first few hours of tinkering were painful. Going from consuming media on a subject to implementing it was so difficult. When you first boot up you're met with a blank canvas. Only the very basics are installed.
+
+My initial todo list should've looked like this:
+
+- Flakes (enabling experimental flakes feature)
+  - Understand their structure better
+  - Switch to the flake based system asap, this is the earliest build generation to work from.
+- NixOS files should be in `~/nixos` and symlinked to `/etc/nixos`
+- Add the basics
+  - Git
+  - VSCode
+  - Chrome
+
+What actually happened was more like this:
+
+- Spend a long time trying to remember which videos were worth watching
+  - Get really lost in the weeds with the nixos wiki and the other wiki and all the other resources
+- Get really distracted working through a nix language interactive tutorial
+  - Forget most of it
+- Misunderstand how flakes work
+- Spend a really long time searching for other people's NixOS configs / dotfiles
+  - Get really overwhelmed by everyone using `mkOption` and `let in` everywhere in their hyper-modular setups
+- NixOS files should be in `~/nixos` and symlinked to `/etc/nixos` (this one was fine lol)
+- Eventually grind through enough iterations of trial-and-error to get flakes working
+- Spend a bunch of time working out how to use bash aliases
+  - Set up a bash alias `nrs` to `sudo nix-rebuild switch ~/nixos#leafsprite` - probably the best thing I did early on
+- Spend a bunch of time configuring `nix fmt`
+- Spend ages setting up home-manager
+  - Get really confused about what should be a system package, a user package, or a home-manager package.
+- Get sick of using a basic text editor
+- Install VSCode
+  - Spend ages working out how to get the LSP / Formatting working
+- Finally get my ssh keys set up and push all this config to a github repo
+- Begin configuring gnome
+  - DConf Changes (unbinding conflicting keybinds)
+  - Extensions (pop-shell)
+  - Setting the background
+
+I could go on...
+
+It took me a really really long time before I was doing any of the things that I would've been doing in the first few minutes of a new Pop_OS install. It was extremely frustrating and I thought I was wasting my time. I wasn't even sure I was having a nice time for the first few hours.
+
+## To continue
+
+Eventually I reached the point where my new system was functionally comparable to the old and I knew that I would be able to take that configuration with me just about anywhere I want.
+
+- Bash - with CLI tools, aliases
+- FNM - for node js management
+- PHP and Composer - for setting up PHP projects
+- Virtualbox and Vagrant - for virtualisation of PHP projects
+- Fonts - Nerd fonts to be specific
+- VSCode with nix LSP and Formatting - For editing
+- Inkscape - For graphics
+- Dbeaver - For databasing
+- Gnome, Pop Shell, and several other extensions, lots of keybinds - set up just how I like
+- Protonmail and Betterbird - For handling various inboxes
+- Automatic cleanup of old nixos generations
+- Vial - For keyboarding
+- Discord - For a lot of things
+
+I even did some extra configuring recently to create a combined audio sink with pipewire ahead of having a video call with my wedding venue - so that we can both have our own audio channels, my wired headphones and her bluetooth hearing aids.
+
+## I'm doing it
+
+[https://github.com/mister-simon/nixos](https://github.com/mister-simon/nixos)
+
+There it is - that's what I'm working with now. There's a few things I want to do in the future:
+
+- Secrets management? Maybe?
+- Modularisation. Things are pretty simple still, but it might be nicer to maintain over time.
+- Alternate WMs. It'd be nice to try some new things out. There's a lot of hype around hyprland - and that seems like another massive rabbithole of configuration. I'll keep an eye on Cosmic OS as that develops.
+- Moving away from Chrome. Can nixos help me to break this habit and move to something less googley?
+- ISO builds for?
+
+## Closing thoughts
+
+I think this is a really interesting way to manage your operating system. It's something I'd like to stick with for a while. There are still issues... The confusing or incomplete feeling documentation. The sprawling-ness of possibilities. The parallel handling of inputs and distribution of packages.
+
+Overall though, it feels really good to make a configuration change and see it immediately spring into reality, knowing that you can dismiss that same change with a wave of a hand.
+
+I'm now "daily driving" this, and will continue to do so for the time being. We'll see how things feel in a few more months.
+
+Maybe I'll just decided I could've done all this with a better dotfiles repo and standalone home-manager.

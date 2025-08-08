@@ -1,0 +1,151 @@
+---
+title: "Choices I Made In Tic Tac Toe"
+description: "I made that small project and made some choices along the way."
+date: '2024-05-03'
+navigation:
+  title: "Choices I Made In Tic Tac Toe"
+  icon: '❌'
+---
+
+So, I mentioned in the previous post where I made a tic-tac-toe game, that I made some choices that I thought were interesting and that I might write some things about those choices. So here we go!
+
+<!--more-->
+
+Looking back at <!-- :content-link{to="/thoughts-and-things/tic-tac-toe"} -->[the previous post], one of the most interesting things about this project turned out to be the board evaluation system.
+
+## The 3x3 Alg
+
+You may know that in a regular 3x3 game these are the following win conditions:
+
+1. The same symbol down any column
+   1. Col 1
+   2. Col 2
+   3. Col 3
+2. The same symbol across any row
+   1. Row 1
+   2. Row 2
+   3. Row 3
+3. The same symbol diagonally
+   1. Top left -> middle -> bottom right
+   2. Rop right -> middle -> bottom left
+
+## The NxN Alg
+
+At some point in development, however, I decided to not limit the grid to just 3x3. Allowing for any rectangular shape. Therefore, you need to redefine your win conditions:
+
+1. The same symbol down any column
+   1. Col 1
+   2. ...
+   3. Col x
+2. The same symbol across any row
+   1. Row 1
+   2. ...
+   3. Row y
+
+## Oh No, The Diagonals
+
+... But how do you do the diagonals. In a 5x3 grid, you must check for a set of 3 diagonal matches starting at your 0,0 cell. Then you must check for a set of 3 diagonal matches starting at your 1,0 cell. You could continue the process, but if you start at 2,0 the third matched cell will be 5,3 - that's in the 6th column... Which doesn't exist. So we must stop evaluating diagonals once we run out of space.
+
+We know that the length of the diagonal set will be the minimum value of our grid size. E.g. if your grid is 5x3, the longest diagonal you could make in any direction will be 3 cells.
+
+For a 5x3 grid, the min side length is 3. When evaluating diagonals of length 3, the last column you need to evaluate from is column 3. So that's `5-3=2`. Therefore, the last column we evaluate is `x=2`.
+
+## The Diagonal Alg
+
+Given that knowledge, to evaluate diagonals:
+
+1. Iterate through columns starting at x = 0
+   1. While `x <= width - min side length` continue, else break out
+   2. Iterate with `i` from 0 -> min side length - 1 (0 -> 2) because of 0 indexing
+      1. Grab cell at `x: x + i, y: i`
+   3. Check if the collected cells are a match
+
+Nice. We have an algorithm to match all the downwards diagonals from left to right. But... We also have to match from right to left. And also from top to bottom. And also bottom to top.
+
+## About The Implementation...
+
+... So... Rinse and repeat that algorithm, changing the direction and orientation of things around and eventually:
+
+```js
+// ... Some simpler code above for column and row matching
+
+// Traverse across
+const diagArr = Array.from(Array(gridMin.value));
+
+for (let x = 0; x <= gridW.value - gridMin.value; x++) {
+    // Left to right
+    yield diagArr.map(
+        (_, i) => (cells[i][x + i])
+    );
+
+    // Right to left
+    yield diagArr.map(
+        (_, i) => (cells[i][(gridW.value - x) - 1 - i])
+    );
+}
+
+// Traverse down
+for (let y = 0; y <= gridH.value - gridMin.value; y++) {
+    // Top to bottom
+    yield diagArr.map(
+        (_, i) => (cells[y + i][i])
+    );
+
+    // Bottom to top
+    yield diagArr.map(
+        (_, i) => (cells[(gridH.value - y) - 1 - i][i])
+    );
+}
+```
+
+I should mention that I organised my cells in a 2 dimensional array, with rows (the y-axis) holding arrays of cells (the x-axis) - `cells[y][x]`.
+
+The `diagArr` was used as a seed array with the correct length and filled with undefined values, ready to be mapped. `Array.from(Array(x))` feels like such a javascript-ism. We couldn't possibly just have an array of given length to manipulate up front.
+
+In the code above, I evaluate diagonals running in the opposite direction by imagining a new `i` value running from our max index (`gridW.value - 1`) in the opposite direction `- i` from the current column / rows position `- x`.
+
+You'll also notice the use of `yield` throughout, which is actually returning sets of cells from a generator function `function* evaluableCells()`. This allowed me to decouple the logic that evaluates sets of cells for win conditions, and lets me bail out of the checker as soon as any condition is satisfied:
+
+```js
+const cellSets = evaluableCells();
+
+for (const cellSet of cellSets) {
+    if (evaluateCells(cellSet)) {
+        cellSet.forEach((cell) => cell.highlight = true);
+
+        return true;
+    }
+}
+```
+
+This is probably the first time that I've felt justified in using a generator function while programming. Earlier in development for-loops each had a call to `evaluateCells()`, and it seemed really messy. I could've refactored them each out to their own functions to improve things a little bit `evaluateDiagLtr()`, `evaluateDiagRtl()`, etc. But that would've still meant a lot of duplication and wrangling of scope / returns to exit out as soon as a win condition was found. Swapping to a generator was a perfect solution for this.
+
+We also have the benefit of having instant access to the winning cells. So I chose to apply a highlight to them before the win state is set.
+
+So! That all came together pretty well in the end.
+
+## Evaluating myself
+
+So, things I could've done differently:
+
+- Stick to 3x3... Get it done. Move on with your life. Scope creep is a real thing and you wasted a day in frustration.
+- Implement the grid as a 1-dimensional array. Why?
+  - Because with a bit of extra thought you can calculate positions along the array because you know the bounds of your grid.
+  - Having `[y][x]` may have been a handy tool to debug with, but it made a lot of the simpler parts of the project more complex: `rows.map(row => row[0])` to get the first column, etc.
+  - Reactivity in deeply nested systems is always going to be a little bit more confusing.
+  - I got confused a lot about what was a row, column, x, y, index... Sticking to a simpler format may have made things clearer when they work, and far clearer when they didn't.
+- I struggled with array reactivity, so opted to just use objects like arrays. Not my finest moment, but I needed to move on with my life. However, not having immediate access to the array functions without going through `Object.values` sucked.
+- The diagonals alg is decent... But there's room for improvement. Something tells me you could generalise this further if you understand matrix math, etc.
+- While we grab sets of cells to evaluate, they could be checked for null states (not O or X) along the way and immediately be dropped. The current implementation will collect the whole array before evaluating even if it's entirely nulls.
+- Dear lord, sort out the styling on the X and O. That red emoji is terrible against the grey tiles.
+- Does it really make sense that you only win in non 3x3 grids by filling a full row / column with your mark. Should it work more like connect 4? If so... What would the implications be for all of our directional algorithms.
+  - Column / row checks would need to iterate similarly to the current diagonals implementation
+  - Diagonal checks would need to iterate in an additional dimension to cover all the newly available "inner" win conditions.
+  - Maybe something to come back to one day if I can be bothered.
+- Could I have used something like a bit-masking system instead of linear array manipulation and checking.
+- Can you use array functions on generators? Could I have done `evaluableCells().some((cells) => evaluateCells(cells))` instead of using a `for-of` on it? Not sure about that one. My suspicion is that you can't do that without dumping all your generator outputs up front into the array, thereby losing the benefits of the lazy-evaluation within.
+- Part of the reason why I wanted to do this project was as a quick win and a way to learn how to use vim a bit better.
+  - I achieved the first goal... Though it took way too long to get there.
+  - I partially achieved the second goal. But I realised that my vim setup just wasn't providing the same wins that my ide already had. I liked playing with motions and being able to very easily select and change parts of the code. But... The slowdown I was feeling from not having all the other tooling was a problem. That's a matter of time and effort. And probably something you don't really need to change that often. But it was still time I didn't feel like I had and that bit me.
+
+So, there we have it. I made a thing and I wrote a bit about it. I know there's a lot of other finessing and refactoring that I could do. But we're done with this now. Maybe we'll return one day. Probably not though.

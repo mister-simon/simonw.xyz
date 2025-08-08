@@ -1,14 +1,14 @@
 ---
-title: "Automatic heading links in mdsvex"
-date: "2023-10-26"
-updated: "2023-10-26"
-categories:
+title: "An example post... Nice"
+date: "08-08-2025"
+updated: null
+tags:
   - "sveltekit"
-  - "markdown"
-coverImage: null
-coverWidth: 16
-coverHeight: 9
-excerpt: Check out how heading links work with this starter in this post.
+coverImage: /example-banner.svg
+coverWidth: 1500
+coverHeight: 500
+excerpt: "This is the first post. That's pretty good."
 ---
 
 # Hello there
+
