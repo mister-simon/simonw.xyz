@@ -1,3 +1,5 @@
+import { page } from '$app/state';
+
 export class TreeNode {
 	#listing: string | null = null;
 	#name: string | null = null;
@@ -54,6 +56,31 @@ export class TreeNode {
 		return this.#parent?.children;
 	}
 
+	get icon() {
+		const specialIcons = {
+			home: 'pixel--home-solid',
+			'my-work': 'pixel--sparkles-solid',
+			thoughts: 'pixel--book-heart-solid',
+			contact: 'pixel--user-solid',
+			'+page.svelte': 'pixel--code-block',
+			'+error.svelte': 'pixel--exclamation-triangle-solid'
+		};
+
+		if (this.name && Object.hasOwn(specialIcons, this.name)) {
+			return specialIcons[this.name as keyof typeof specialIcons];
+		}
+
+		if (this.name?.endsWith('.svx')) {
+			return 'pixel--writing';
+		}
+
+		if (Object.values(this.children).length !== 0) {
+			return this.active ? 'pixel--folder-open-solid' : 'pixel--folder-solid';
+		}
+
+		return '';
+	}
+
 	get url() {
 		if (!this.listing) {
 			return null;
@@ -96,25 +123,19 @@ export class TreeNode {
  */
 export function getTree(): TreeNode {
 	const postPaths = Object.keys(import.meta.glob('$lib/posts/*.svx')).map((path) =>
-		path.replace(/^\/src\/lib\/posts\//, 'thoughts/').replace(/\.svx$/, '')
+		path.replace(/^\/src\/lib\/posts\//, 'thoughts/')
 	);
 
 	const sveltePaths = Object.keys(
 		import.meta.glob(['/src/routes/*/**/+page.svelte', '!**/[post]/**'])
 	).map((path) => path.replace(/^\/src\/routes\//, ''));
 
-	// Get pages from svelte files
 	return [...sveltePaths, ...postPaths].reduce((tree, path) => {
 		let item = tree;
 
 		const parts = path.split('/');
 
 		parts.forEach((part, i) => {
-			let param = part.match(/^\[(.+)\]$/);
-			// if (param?.length) {
-			// 	console.log('AH', param);
-			// 	return;
-			// }
 			item = item.getChild(part) ?? item.addChild(part, new TreeNode(item));
 			item.setListing(parts.slice(0, i + 1).join('/'));
 			item.setName(part);
@@ -127,6 +148,8 @@ export function getTree(): TreeNode {
 export function getNavData(pathname: string) {
 	const root = getTree();
 
+	// Move through path segments along the nav tree, highlighting active nodes.
+	// When complete, the node will be the furthest node along the tree.
 	const currentPath = pathname.replace(/^\/+/, '').split('/');
 
 	let node = root;
@@ -135,6 +158,7 @@ export function getNavData(pathname: string) {
 		node.setActive(true);
 	}
 
+	// Svelte pages act like index pages. So highlight one if the current node has one.
 	const svelteNode = node.getChild('+page.svelte') ?? null;
 
 	if (svelteNode) {
@@ -142,18 +166,37 @@ export function getNavData(pathname: string) {
 		node.setActive(true);
 	}
 
+	// Primary menu shows siblings of parent
 	let primary = { ...node?.parent?.siblings };
 
+	// Add a "../" entry unless primary is a root
 	if (node?.parent?.parent && node.parent.parent.listing) {
 		primary.parent = new TreeNode();
 		primary.parent.setName('../');
 		primary.parent.setListing(node.parent.parent.listing);
 	}
 
-	let secondary = node?.siblings;
+	// Secondary menu shows siblings of current node
+	let secondary = { ...(node?.siblings ?? {}) };
 
+	// Something's gone wrong and we're at the root.
+	// This makes sure something gets shown
 	if (node === root) {
-		secondary = root.children;
+		secondary = { ...root.children };
+	}
+
+	// Add an error listing to secondary menu
+	if (page.error && secondary) {
+		for (const node in secondary) {
+			secondary[node].setActive(false);
+		}
+
+		const errorNode = new TreeNode();
+		errorNode.setName('+error.svelte');
+		errorNode.setListing('+error.svelte');
+		errorNode.setActive(true);
+
+		secondary['+error.svelte'] = errorNode;
 	}
 
 	return {
