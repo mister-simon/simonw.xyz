@@ -16,17 +16,6 @@
 	} = $props();
 
 	let fullscreen = $state(false);
-
-	// let primary = [
-	// 	{ icon: 'pixel--home-solid', name: 'Home', url: '/home', active: true },
-	// 	{ icon: 'pixel--sparkles-solid', name: 'My Work', url: '/my-work', active: false },
-	// 	{ icon: 'pixel--book-heart-solid', name: 'Thoughts', url: '/thoughts', active: false },
-	// 	{ icon: 'pixel--user-solid', name: 'Contact', url: '/contact', active: false }
-	// ];
-	// let secondary = [
-	// 	{ icon: 'pixel--folder', name: 'Index', url: '/home/list', active: false },
-	// 	{ icon: 'pixel--writing', name: 'Index', url: '/home', active: true }
-	// ];
 </script>
 
 <div class="layout font-mono">
@@ -37,19 +26,18 @@
 			>
 		</h1>
 	</header>
-	<main>
-		<nav class="primary">
+	<main class={[fullscreen && 'fullscreen']}>
+		<nav class="primary" inert={fullscreen}>
 			<ListIndex items={primary} />
 		</nav>
-		<nav class="secondary">
-			<ListIndex items={secondary} />
+		<nav class="secondary" inert={fullscreen}>
+			<ListIndex items={secondary} useAriaCurrent={true} />
 		</nav>
 		<article>
-			<label for="fullscreen" class="fullscreen">
-				<input type="checkbox" id="fullscreen" bind:checked={fullscreen} class="hidden" />
+			<button type="button" onclick={() => (fullscreen = !fullscreen)} class="fullscreen-toggle">
 				<span class="icon iconify pixel--angle-left"></span>
 				<div class="sr-only">{fullscreen ? 'Show' : 'Hide'} Menu</div>
-			</label>
+			</button>
 			<div class="inner">
 				{@render children?.()}
 			</div>
@@ -94,7 +82,7 @@
 		transition-timing-function: ease-in-out;
 		transition-property: grid-template-columns, grid-template-rows;
 
-		&:has(.fullscreen [type='checkbox']:checked) {
+		&.fullscreen {
 			--primary-width: 0fr;
 			--secondary-width: 0fr;
 			--content-width: 5fr;
@@ -149,7 +137,7 @@
 		--outline-color: var(--color-focused-window);
 		position: relative;
 
-		& > .fullscreen {
+		& > .fullscreen-toggle {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -159,6 +147,7 @@
 			height: 1.5rem;
 			display: grid;
 			place-content: center;
+			cursor: pointer;
 
 			& > .icon {
 				transition-property: rotate, transform;
@@ -196,7 +185,7 @@
 		article {
 			border-radius: 0 0 var(--border-radius) var(--border-radius);
 
-			& > .fullscreen {
+			& > .fullscreen-toggle {
 				position: absolute;
 				top: 0;
 				left: auto;

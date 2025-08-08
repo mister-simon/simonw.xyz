@@ -3,21 +3,25 @@
 	import type { TreeNode } from './navigation';
 
 	let {
-		items
+		items,
+		useAriaCurrent = false
 	}: {
 		items: Record<string, TreeNode> | undefined;
+		useAriaCurrent?: boolean;
 	} = $props();
 
 	const list = $derived.by(() => {
-		return Object.keys(items ?? {})
-			.map((key) => [key, (items ?? {})[key]])
-			.filter(([key, item]) => item);
+		const listItems = items ?? {};
+
+		return Object.keys(listItems)
+			.map((key) => listItems[key])
+			.filter((item) => item);
 	});
 </script>
 
 <ul class="inner">
-	{#each list as [key, item]}
-		<ListItem {item} {key} />
+	{#each list as item}
+		<ListItem {item} {useAriaCurrent} />
 	{/each}
 </ul>
 
