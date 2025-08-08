@@ -99,9 +99,9 @@ export function getTree(): TreeNode {
 		path.replace(/^\/src\/lib\/posts\//, 'thoughts/').replace(/\.svx$/, '')
 	);
 
-	const sveltePaths = Object.keys(import.meta.glob('/src/routes/*/**/+page.svelte')).map((path) =>
-		path.replace(/^\/src\/routes\//, '')
-	);
+	const sveltePaths = Object.keys(
+		import.meta.glob(['/src/routes/*/**/+page.svelte', '!**/[post]/**'])
+	).map((path) => path.replace(/^\/src\/routes\//, ''));
 
 	// Get pages from svelte files
 	return [...sveltePaths, ...postPaths].reduce((tree, path) => {
@@ -111,10 +111,10 @@ export function getTree(): TreeNode {
 
 		parts.forEach((part, i) => {
 			let param = part.match(/^\[(.+)\]$/);
-			if (param?.length) {
-				console.log('AH', param);
-				return;
-			}
+			// if (param?.length) {
+			// 	console.log('AH', param);
+			// 	return;
+			// }
 			item = item.getChild(part) ?? item.addChild(part, new TreeNode(item));
 			item.setListing(parts.slice(0, i + 1).join('/'));
 			item.setName(part);

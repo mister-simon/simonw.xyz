@@ -15,6 +15,8 @@
 		children: Snippet;
 	} = $props();
 
+	let fullscreen = $state();
+
 	// let primary = [
 	// 	{ icon: 'pixel--home-solid', name: 'Home', url: '/home', active: true },
 	// 	{ icon: 'pixel--sparkles-solid', name: 'My Work', url: '/my-work', active: false },
@@ -29,7 +31,11 @@
 
 <div class="layout font-mono">
 	<header>
-		<h1 class="text-xl">~/{current.listing}</h1>
+		<h1 class="flex text-xl">
+			<span>~/</span><span class="overflow-x-hidden text-ellipsis whitespace-nowrap" dir="rtl"
+				>{current.listing}</span
+			>
+		</h1>
 	</header>
 	<main>
 		<nav class="primary">
@@ -39,6 +45,10 @@
 			<ListIndex items={secondary} />
 		</nav>
 		<article>
+			<label for="fullscreen" class="fullscreen">
+				<input type="checkbox" id="fullscreen" bind:this={fullscreen} />
+				{fullscreen?.checked ? 'Show' : 'Hide'} Menu
+			</label>
 			<div class="inner">
 				{@render children?.()}
 			</div>
@@ -53,6 +63,8 @@
 	.layout {
 		display: grid;
 		height: 100dvh;
+		max-width: 100vw;
+		min-width: 0;
 		grid-template-rows: auto 1fr auto;
 	}
 	main {
@@ -63,7 +75,7 @@
 
 		/* Layout */
 		--margin: 1rem;
-		--primary-width: 1fr;
+		--primary-width: 1.5fr;
 		--secondary-width: 2fr;
 		--content-width: 5fr;
 
@@ -72,9 +84,26 @@
 			var(--primary-width)
 			var(--secondary-width)
 			var(--content-width);
+
 		height: 100%;
 		width: calc(100% - var(--margin) * 2);
 		margin-inline: auto;
+
+		transition-duration: 200ms;
+		transition-timing-function: ease-in-out;
+		transition-property: grid-template-columns, grid-template-rows;
+
+		&:has(.fullscreen [type='checkbox']:checked) {
+			--primary-width: 0fr;
+			--secondary-width: 0fr;
+			--content-width: 5fr;
+
+			& .primary,
+			& .secondary {
+				overflow: hidden;
+				opacity: 0.5;
+			}
+		}
 	}
 
 	header,
@@ -82,6 +111,7 @@
 		color: var(--color-window-title);
 		padding-inline: calc(var(--spacing) * 9);
 		margin-block: calc(var(--spacing) * 1);
+		max-width: 100vw;
 	}
 
 	.primary,
@@ -108,6 +138,14 @@
 
 	article {
 		--outline-color: var(--color-focused-window);
+		position: relative;
+
+		& > .fullscreen {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+		}
 
 		& > .inner {
 			height: 100%;

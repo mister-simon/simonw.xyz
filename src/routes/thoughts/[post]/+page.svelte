@@ -3,4 +3,8 @@
 	const { PostContent } = data;
 </script>
 
-<PostContent />
+<div class="relative w-full overflow-clip">
+	<div class="mx-8 prose py-8">
+		<PostContent />
+	</div>
+</div>
