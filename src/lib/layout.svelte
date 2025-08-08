@@ -46,8 +46,9 @@
 		</nav>
 		<article>
 			<label for="fullscreen" class="fullscreen">
-				<input type="checkbox" id="fullscreen" bind:checked={fullscreen} />
-				{fullscreen ? 'Show' : 'Hide'} Menu
+				<input type="checkbox" id="fullscreen" bind:checked={fullscreen} class="hidden" />
+				<span class="icon iconify pixel--angle-left"></span>
+				<div class="sr-only">{fullscreen ? 'Show' : 'Hide'} Menu</div>
 			</label>
 			<div class="inner">
 				{@render children?.()}
@@ -103,6 +104,10 @@
 				overflow: hidden;
 				opacity: 0.5;
 			}
+
+			.icon {
+				rotate: 180deg;
+			}
 		}
 	}
 
@@ -123,6 +128,10 @@
 		scrollbar-color: var(--outline-color) transparent;
 		overflow: clip;
 		border: var(--outline-width) solid var(--outline-color);
+
+		transition-duration: 200ms;
+		transition-timing-function: ease-in-out;
+		transition-property: opacity;
 	}
 
 	.secondary {
@@ -145,6 +154,19 @@
 			top: 0;
 			left: 0;
 			z-index: 1;
+			background-color: var(--color-focused-window);
+			width: 1.5rem;
+			height: 1.5rem;
+			display: grid;
+			place-content: center;
+
+			& > .icon {
+				transition-property: rotate, transform;
+				transition-duration: 200ms;
+				transition-timing-function: ease-in-out;
+				width: 1.5rem;
+				height: 1.5rem;
+			}
 		}
 
 		& > .inner {
@@ -181,6 +203,9 @@
 				right: 1rem;
 				z-index: 1;
 			}
+		}
+		.icon {
+			transform: rotate(90deg);
 		}
 	}
 </style>
