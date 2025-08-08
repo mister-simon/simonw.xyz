@@ -15,7 +15,7 @@
 		children: Snippet;
 	} = $props();
 
-	let fullscreen = $state();
+	let fullscreen = $state(false);
 
 	// let primary = [
 	// 	{ icon: 'pixel--home-solid', name: 'Home', url: '/home', active: true },
@@ -46,8 +46,8 @@
 		</nav>
 		<article>
 			<label for="fullscreen" class="fullscreen">
-				<input type="checkbox" id="fullscreen" bind:this={fullscreen} />
-				{fullscreen?.checked ? 'Show' : 'Hide'} Menu
+				<input type="checkbox" id="fullscreen" bind:checked={fullscreen} />
+				{fullscreen ? 'Show' : 'Hide'} Menu
 			</label>
 			<div class="inner">
 				{@render children?.()}
@@ -173,6 +173,14 @@
 		}
 		article {
 			border-radius: 0 0 var(--border-radius) var(--border-radius);
+
+			& > .fullscreen {
+				position: absolute;
+				top: 0;
+				left: auto;
+				right: 1rem;
+				z-index: 1;
+			}
 		}
 	}
 </style>
