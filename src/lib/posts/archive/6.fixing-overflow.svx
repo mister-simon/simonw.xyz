@@ -18,7 +18,7 @@ Let's get stuck into debugging <!-- :content-link{to="doing-more-stuff"} -->[thi
 ## Immediate tangent... In writing up the intro above, I learnt several things:
 
 1. Nuxt Content's [Vue Components](https://content.nuxt.com/usage/markdown#vue-components) have to be placed in the `components/content` directory if they're not global components. I assumed that `<NuxtLink />` would be a global component... But apparently not. I suppose this comes down to the whole auto-import stuff that happens behind the scenes not happening for this sort of parsed / generated markup.
-2. Once again I've run into something completely undocumented... If you use the [inline component]{https://content.nuxt.com/usage/markdown#vue-components} markup and you want to pass something into the component slot, there is no documentation on how to do that.
+2. Once again I've run into something completely undocumented... If you use the [inline component](https://content.nuxt.com/usage/markdown#vue-components) markup and you want to pass something into the component slot, there is no documentation on how to do that.
    - I discovered through gut feel that the markup is actually this:
      ```md
      Nice :content-link{to="/"}[example link] mate.
@@ -36,7 +36,7 @@ Ok... Back on topic. What is happening with the code / text overflow.
 
 I ran a quick test by adding a white border to all of the article contents and removing everything relating to prose styling. I've also added `max-width: fit-content` to the `pre.shiki` tags. We get something that looks like this:
 
-![A visualisation of the space taken up by the longest code block](/assets/content/fixing-overflow-visualisation.png)<!-- {.bordered} --> -->
+![A visualisation of the space taken up by the longest code block](/assets/content/fixing-overflow-visualisation.png)<!-- {.bordered} -->
 
 The screenshot shows a point at which the width of the prose content section is approaching the natural width of the longest code block in the article.
 

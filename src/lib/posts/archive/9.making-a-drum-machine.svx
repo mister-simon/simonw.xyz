@@ -34,7 +34,7 @@ I've also come across a bunch of [extremely helpful code examples from MDN](http
 
 After posting that link I spent a long time really scrutinising the examples and drawing inspiration from them. As a result I've put together what I think the node graph is going to look like for this. It's likely to change, no doubt, but this feels reasonable for now.
 
-![3 rows of input sources (hihat, snare, kick), nodes process the audio, merge the tracks, process the merged channels, then output to a destination node](/assets/content/web-audio-api-node-flow.png)<!-- {.rounded-lg .bg-neutral-300 .p-4} --> -->
+![3 rows of input sources (hihat, snare, kick), nodes process the audio, merge the tracks, process the merged channels, then output to a destination node](/assets/content/web-audio-api-node-flow.png)<!-- {.rounded-lg .bg-neutral-300 .p-4} -->
 
 So, each input source will be trimmed using an [AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer). The buffered audio will be connected to a stack of nodes ([GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode) for volume + mute, [StereoPannerNode](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode), [DynamicsCompressorNode](https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode) perhaps [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode), etc). Each track will then be connected together via a Channel Merger. The merged audio will then pass through a [GainNode](https://developer.mozilla.org/en-US/docs/Web/API/GainNode) node for master volume + mute settings, then finally piped out to the [AudioDestinationNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioDestinationNode).
 

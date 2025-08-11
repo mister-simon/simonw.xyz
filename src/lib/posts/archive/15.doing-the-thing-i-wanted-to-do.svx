@@ -34,7 +34,7 @@ This following image is going to be in the breakout section. I'm going to apply 
 Okay, so there's some pretty major issues with this. The first being that setting the container of all of our flow text content to grid forces all text element margins not to collapse. This in turn ruins all the nice things set up for us by tailwind's typography module.
 
 
-The next issue is that we're actually fitting the breakout to the content that is doing the breaking. Meaning - the default breakout width isn't actually 100% of the available area. It's just whatever area the breaking content wants - think "fit-content". I'll have to experiment with this some more. The obvious downside of this is that any breakout text content will cause the breakout section to inflate to fill the available width entirely. Maybe I want a separate rule for text breakout? Not sure.[]{.breakout}
+The next issue is that we're actually fitting the breakout to the content that is doing the breaking. Meaning - the default breakout width isn't actually 100% of the available area. It's just whatever area the breaking content wants - think "fit-content". I'll have to experiment with this some more. The obvious downside of this is that any breakout text content will cause the breakout section to inflate to fill the available width entirely. Maybe I want a separate rule for text breakout? Not sure.[]<!-- {.breakout} -->
 
 I also don't have complete control over where the breakout happens yet. I'm not sure if there's some hidden extra markdown syntax to add classes to paragraphs, but I'll have to work that out another day.
 

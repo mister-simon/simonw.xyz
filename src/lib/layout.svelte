@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import ListIndex from './list-index.svelte';
 	import type { TreeNode } from './navigation';
+	import { page } from '$app/state';
 
 	let {
 		primary,
@@ -16,6 +17,18 @@
 	} = $props();
 
 	let fullscreen = $state(false);
+	let articleInner: HTMLDivElement | null = $state(null);
+
+	let url = new URL(page.url);
+	$effect(() => {
+		const newUrl = new URL(page.url);
+
+		if (newUrl.pathname !== url.pathname && articleInner) {
+			articleInner.scrollTo(0, 0);
+		}
+
+		url = newUrl;
+	});
 </script>
 
 <div class="layout font-mono">
@@ -38,7 +51,7 @@
 				<span class="icon iconify pixel--angle-left"></span>
 				<div class="sr-only">{fullscreen ? 'Show' : 'Hide'} Menu</div>
 			</button>
-			<div class="inner">
+			<div class="inner" bind:this={articleInner}>
 				{@render children?.()}
 			</div>
 		</article>

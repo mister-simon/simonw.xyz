@@ -107,7 +107,7 @@ That went well! Who knew that just doing things yourself would make things easie
 
 Moving on, I applied the new code to the blog index page, rejigged some stuff, and now that I'm taking control of how I'm rendering things a little more directly I decided to add some small badges and dividers to add a bit of flare to the articles:
 
-![The sidebar looks much the same, but there are now dividers between articles, and badge styled headings for newest and older articles](/assets/content/back-and-sick-progress.png)<!-- {.rounded-lg .bg-neutral-300 .p-4} --> -->
+![The sidebar looks much the same, but there are now dividers between articles, and badge styled headings for newest and older articles](/assets/content/back-and-sick-progress.png)<!-- {.rounded-lg .bg-neutral-300 .p-4} -->
 
 ## Checking things off
 

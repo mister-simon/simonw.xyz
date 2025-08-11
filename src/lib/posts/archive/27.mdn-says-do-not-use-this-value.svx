@@ -1,0 +1,32 @@
+---
+title: "DO NOT USE THIS VALUE"
+description: "This warning on MDN tickled me and I wanted to share it."
+date: '2024-07-10'
+navigation:
+  title: "DO NOT USE THIS VALUE"
+  icon: '⚠'
+---
+
+**Do not use this value...**
+
+<!--more-->
+
+I was browsing some of the mdn docs, looking up random css references. Sometimes you find interesting things there that you might not "just know about" in your day-to-day work.
+
+The "zoom" css property caught my eye, as I thought that was an old property noone uses and noone should use unless you're resetting very old IE versions.
+
+But apparently it could be a useful alternative to css transforms if you actually want the page to reflow with the change in size.
+
+Anyway, there's one value you mustn't use: [zoom: reset](https://developer.mozilla.org/en-US/docs/Web/CSS/zoom#reset)
+
+> Do not (de)magnify this element if the user applies non-pinch-based zooming (e.g. by pressing <kbd>Ctrl</kbd> + <kbd>-</kbd> or <kbd>Ctrl</kbd> + <kbd>+</kbd> keyboard shortcuts) to the document. **Do not use** this value, *use the standard `unset` value instead*.
+
+I really enjoyed the use of both bold and italics to drive the point home. They're not wrong, more people should consider the `unset` value of css properties more often as they can save you some headaches.
+
+---
+
+I'm finishing up a project and starting another one at the moment, so that's nice. I'd still like some more time to give this site some love... We're approaching the point with this blog where we need pagination and could probably do with some way to tag topics on posts.
+
+... We'll get there.
+
+BYE

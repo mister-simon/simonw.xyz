@@ -139,7 +139,7 @@ export class TreeNode {
 export function sortMenu(menu: TreeNode[]) {
 	return menu.sort(function (a, b) {
 		if (a.order === b.order) {
-			return (a.listing ?? '').localeCompare(b.listing ?? '');
+			return (a.listing ?? '').localeCompare(b.listing ?? '', 'en-GB', { numeric: true });
 		}
 
 		return a.order - b.order;
