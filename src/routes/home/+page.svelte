@@ -8,7 +8,7 @@
 
 <div class="relative w-full overflow-clip">
 	<div class="mx-8 prose py-8">
-		<h1>Some inner content</h1>
+		<h1 id="hi">Some inner content</h1>
 		<p class="lead">
 			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit assumenda dignissimos, ratione
 			non voluptas et deleniti quisquam suscipit porro dolorum, sed, consequatur quam neque deserunt

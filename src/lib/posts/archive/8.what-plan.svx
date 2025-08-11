@@ -76,7 +76,7 @@ There's still a decent amount of complexity there. But it's a system that can be
 
 Earlier this morning I went around my house filming things that could be used as drum samples...
 
-<video src="/assets/drum-machine/bass.mp4" controls></video>
+<!-- <video src="/assets/drum-machine/bass.mp4" controls></video> -->
 
 So the sound in this isn't great. So I think I want to pre-process this a little bit. Using Audacity I've added some compression and EQ:
 
@@ -84,7 +84,7 @@ So the sound in this isn't great. So I think I want to pre-process this a little
 
 Here's the result:
 
-<audio src="/assets/drum-machine/bass.mp3" controls></audio>
+<!-- <audio src="/assets/drum-machine/bass.mp3" controls></audio> -->
 
 I want to be able to overlay this improved audio onto the original video. I wonder if you can do that using video / audio tracks just using the html elements. Seemingly the answer is [yes and no](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/audioTracks). It doesn't seem super straightforward and isn't supported by anyone.
 

@@ -81,3 +81,41 @@
 		--tw-prose-td-borders: var(--color-unfocused-window);
 	}
 }
+
+@layer components {
+	pre > code {
+		counter-reset: step;
+		counter-increment: step calc(var(--line-number-start, 1) - 1);
+
+		&:has(.line:nth-child(10)) {
+			--line-number-width: 2;
+		}
+
+		&:has(.line:nth-child(100)) {
+			--line-number-width: 3;
+		}
+
+		&:has(.line:nth-child(1000)) {
+			--line-number-width: 4;
+		}
+
+		& .line::before {
+			content: counter(step);
+			counter-increment: step;
+			max-height: 1lh;
+			width: calc(var(--line-number-width, 1) * 1em);
+			overflow: clip;
+			text-overflow: ellipsis;
+
+			margin: 0;
+			padding: 0;
+			padding-right: 0.5rem;
+			margin-right: 0.5rem;
+			display: inline-block;
+			text-align: right;
+
+			color: rgb(from var(--color-0D) r g b / 0.5);
+			border-right: 1px solid currentColor;
+		}
+	}
+}

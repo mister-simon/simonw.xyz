@@ -12,3 +12,9 @@ excerpt: "This is the first post. That's pretty good."
 
 # Hello there
 
+```svelte
+<script>
+const meep = $derived("heyoooo");
+</script>
+<p>{meep}</p>
+```
