@@ -79,6 +79,8 @@
 		--tw-prose-pre-bg: var(--color-alternate-surface);
 		--tw-prose-th-borders: var(--color-focused-window);
 		--tw-prose-td-borders: var(--color-unfocused-window);
+		--tw-prose-kbd: var(--color-alternate-text);
+		--tw-prose-kbd-shadows: 255 221 238; /* --color-07 */
 	}
 }
 
