@@ -189,6 +189,7 @@
 		}
 		.primary,
 		.secondary {
+			--is-vertical: 1;
 			writing-mode: vertical-rl;
 		}
 
