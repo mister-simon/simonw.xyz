@@ -6,6 +6,7 @@ draft: true
 navigation:
   title: "Email Thoughts"
   icon: '✉️'
+archived: true
 ---
 
 Thinking about how I use email... How I sign up for services. What information the world gets about me. The world can't be trusted, so what can you do?

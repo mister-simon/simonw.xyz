@@ -5,6 +5,7 @@ date: '2024-02-07'
 navigation:
   title: "Making a Drum Machine"
   icon: '🥁'
+archived: true
 ---
 
 Yesterday I decided to make a drum machine. Hopefully this component will become part of the site's 404 page. Let's get to building.

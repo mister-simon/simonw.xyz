@@ -5,6 +5,7 @@ date: '2024-08-30'
 navigation:
   title: "A Smol Fix"
   icon: '🤏'
+archived: true
 ---
 
 Fixing the grid issues on this blog via smarter people than I...

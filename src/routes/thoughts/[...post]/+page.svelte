@@ -1,9 +1,8 @@
 <script>
 	let { data } = $props();
 	const { PostContent } = $derived(data);
-	const { title, excerpt, date, updated, coverImage, coverWidth, coverHeight, tags } = $derived(
-		data.meta
-	);
+	const { title, excerpt, date, updated, coverImage, coverWidth, coverHeight, tags, archived } =
+		$derived(data.meta);
 </script>
 
 <svelte:head>
@@ -48,6 +47,9 @@
 			{/if}
 		</div>
 		<div class="mx-auto prose py-8 prose-h1:text-center">
+			{#if archived ?? false}
+				<h1>{title}</h1>
+			{/if}
 			<PostContent />
 		</div>
 	</div>

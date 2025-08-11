@@ -5,6 +5,7 @@ date: '2024-02-29'
 navigation:
   title: "Still poorly"
   icon: '😷'
+archived: true
 ---
 
 Well... I'm still not well. It's approaching 3 weeks and my consistent cough is at least shifting form again away from rattly chesty discomfort to something on the drier side. Great. I've spent a lot of time doing nothing, and I'm tired of it. So perhaps today things can happen again.

@@ -5,6 +5,7 @@ date: '2024-06-27'
 navigation:
   title: "It's warm"
   icon: '☀️'
+archived: true
 ---
 
 It's been very hot in the past couple of weeks. I was thinking earlier about the Trolls in the discworld series of books, where their cognitive abilities are proportional to how cold their brains get... That's how I've felt this week - and it's been warm.

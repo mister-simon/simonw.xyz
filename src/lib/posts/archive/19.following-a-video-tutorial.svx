@@ -5,6 +5,7 @@ date: '2024-04-15'
 navigation:
   title: "Let's learn next.js too"
   icon: '⏭'
+archived: true
 ---
 
 I've had a vague interest in React. I've also built this whole site up using Nuxt and vercel, so it stands to reason that I could learn a thing or two from Next.JS. So... Let's do that with the help of Theo Browne / Theo T3.gg. 

@@ -5,6 +5,7 @@ date: '2024-01-29'
 navigation:
   title: 'Bouncing Around'
   icon: '🏀'
+archived: true
 ---
 
 Today I kept a sort of stream of consciousness flow to writing about the things I was reading about. It's pretty chaotic, but I learnt quite a lot and covered a lot of ground.

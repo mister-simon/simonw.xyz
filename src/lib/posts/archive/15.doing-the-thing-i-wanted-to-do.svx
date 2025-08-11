@@ -5,6 +5,7 @@ date: '2024-04-05'
 navigation:
   title: "30 Minutes a Day"
   icon: '⏱'
+archived: true
 ---
 
 Yesterday I mentioned wanting to spend a little time more regularly to get some stuff done on my personal projects. So, let's start that today. I'll stop what I'm doing here at about 11.30. Let's go.

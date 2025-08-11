@@ -6,6 +6,7 @@ navigation:
   title: "Dissecting Laravel Docs"
   icon: '🔍'
 draft: true
+archived: true
 ---
  
 I'm interested in the design of things because it's not my strong suit. Let's study, shall we?

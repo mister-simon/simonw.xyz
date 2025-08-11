@@ -5,6 +5,7 @@ date: '2024-01-30'
 navigation:
   title: 'Blog Improvements'
   icon: '↗'
+archived: true
 ---
 
 Actually making progress improving this blog section. More focussed on improving functionality and understanding the Nuxt Content module than researching stuff today.

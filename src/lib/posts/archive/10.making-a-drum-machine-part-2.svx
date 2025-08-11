@@ -5,6 +5,7 @@ date: '2024-02-08'
 navigation:
   title: "Making a Drum Machine Part 2"
   icon: '🪘'
+archived: true
 ---
 
 We did some more research yesterday and started defining the drum machine's layout and node graph.

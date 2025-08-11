@@ -5,6 +5,7 @@ date: '2024-04-04'
 navigation:
   title: "Checking In"
   icon: '👀'
+archived: true
 ---
 
 Time for another tiny update. I'm 31 years old now! That's something. I'll write about some other things too.

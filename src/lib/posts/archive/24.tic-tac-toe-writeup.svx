@@ -5,6 +5,7 @@ date: '2024-05-03'
 navigation:
   title: "Choices I Made In Tic Tac Toe"
   icon: '❌'
+archived: true
 ---
 
 So, I mentioned in the previous post where I made a tic-tac-toe game, that I made some choices that I thought were interesting and that I might write some things about those choices. So here we go!

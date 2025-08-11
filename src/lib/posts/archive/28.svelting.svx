@@ -5,6 +5,7 @@ date: '2024-07-29'
 navigation:
   title: "Svelting"
   icon: '§'
+archived: true
 ---
 
 It's good! Let's try and break down why.

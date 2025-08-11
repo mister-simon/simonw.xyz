@@ -5,6 +5,7 @@ date: '2024-02-01'
 navigation:
   title: 'My Phone Broke'
   icon: '📵'
+archived: true
 ---
 
 I was just enjoying my BSL lesson... Trying to take some notes in my Obsidian vault. I put my phone down on the side of my chair for a moment. It slipped off. Falling a whole 45cm onto the carpetted floor. Dramatically bonking down and turning off. It never turned back on.

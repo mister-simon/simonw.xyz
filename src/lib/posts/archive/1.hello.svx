@@ -5,6 +5,7 @@ date: '2024-01-26'
 navigation:
   title: 'Hello'
   icon: '🙋'
+archived: true
 ---
 My intention here is mostly to try and document / link out to other useful articles that I come across in my day-to-day.
 <!--more-->

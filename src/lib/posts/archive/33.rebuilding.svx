@@ -5,6 +5,7 @@ date: '2024-12-10'
 navigation:
   title: "Rebuilding"
   icon: '🧱'
+archived: true
 ---
 
 My output here has been patchy for many reasons. One of which is simply that I would rather be working on other things. Maybe when I have time this should be one of those things.

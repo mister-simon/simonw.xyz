@@ -5,6 +5,7 @@ date: '2024-01-31'
 navigation:
   title: 'More Improvements'
   icon: '✍️'
+archived: true
 ---
 
 Started the day by fixing a handful of bugs on the site, mostly around styling...

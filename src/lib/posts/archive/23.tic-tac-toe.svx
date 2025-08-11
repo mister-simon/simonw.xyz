@@ -5,6 +5,7 @@ date: '2024-05-01'
 navigation:
   title: "Tic Tac Toe"
   icon: '⭕'
+archived: true
 ---
 
 Maybe I should try to make a game real quick.

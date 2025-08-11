@@ -5,6 +5,7 @@ date: '2024-02-22'
 navigation:
   title: "I'm Back. I'm Sick."
   icon: '🤒'
+archived: true
 ---
 
 I've had a horrible hacking cough for the past week. But that didn't stop me going skiing and hiking in Switzerland, so why should it stop me from doing some nonsense here?

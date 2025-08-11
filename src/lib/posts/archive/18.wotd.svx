@@ -5,6 +5,7 @@ date: '2024-04-12'
 navigation:
   title: "WOTD"
   icon: '💭'
+archived: true
 ---
 
 I've been interested in words for a long time. Most of my life. I don't always have time to indulge a new word these days, but I thought I'd make an exception today.

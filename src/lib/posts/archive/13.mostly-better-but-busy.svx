@@ -5,6 +5,7 @@ date: '2024-03-11'
 navigation:
   title: "Better but Busy"
   icon: '😌'
+archived: true
 ---
 
 In the last 2 days I've started to feel better. I'm busy with some other work now so I've had to take a step back from my musing and tinkering here... So this is just a little update for my own benefit.

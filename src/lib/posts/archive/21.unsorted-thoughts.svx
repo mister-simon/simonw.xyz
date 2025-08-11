@@ -5,6 +5,7 @@ date: '2024-04-25'
 navigation:
   title: "Unsorted Thoughts"
   icon: '💭'
+archived: true
 ---
 
 Some things that cross my mind while I try to keep focussed on work...

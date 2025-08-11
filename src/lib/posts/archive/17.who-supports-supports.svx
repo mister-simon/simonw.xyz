@@ -5,6 +5,7 @@ date: '2024-04-10'
 navigation:
   title: "Who Supports Supports?"
   icon: '🤝'
+archived: true
 ---
 
 It has often been said that if you want to use a particular bit of modern CSS, you might want to use the `@supports` feature query. But... Which browsers support that?

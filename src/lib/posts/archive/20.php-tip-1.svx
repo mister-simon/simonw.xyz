@@ -5,6 +5,7 @@ date: '2024-04-24'
 navigation:
   title: "PHP Tip 1"
   icon: '🐘'
+archived: true
 ---
 
 You can destructure arrays into variables within a foreach loop. `[$huh] = ['oh', 'really?'];`

@@ -5,6 +5,7 @@ date: '2024-04-08'
 navigation:
   title: "CSS Mistakes"
   icon: '⧮'
+archived: true
 ---
 
 I just wanted to take a moment to look at the incomplete list of known mistakes in the design of CSS.

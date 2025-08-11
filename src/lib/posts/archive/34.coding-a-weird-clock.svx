@@ -5,6 +5,7 @@ date: '2025-02-19'
 navigation:
   title: "Coding a Weird Clock"
   icon: '🕰'
+archived: true
 ---
  
 I used to make flash animations. Back then I used my limited knowledge to make some weird clocks. Later I learned about JS and Canvas, and made more weird clocks. Now I am older, and in my spare time sometimes I make weird clocks. Go figure.

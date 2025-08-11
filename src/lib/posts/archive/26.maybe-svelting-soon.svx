@@ -5,6 +5,7 @@ date: '2024-07-02'
 navigation:
   title: "Maybe Svelting Soon"
   icon: '§'
+archived: true
 ---
 
 I've been doing some work with next.js and that experience has made me want to check out sveltekit.

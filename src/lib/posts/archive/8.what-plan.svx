@@ -5,6 +5,7 @@ date: '2024-02-06'
 navigation:
   title: "What plan?"
   icon: '❔'
+archived: true
 ---
 
 Yesterday I decided I would finish fixing the blog's article sorting... But I just don't feel like doing that today. I have a different idea, and right now I want to pursue that creative impulse.

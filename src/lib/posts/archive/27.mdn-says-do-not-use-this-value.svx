@@ -5,6 +5,7 @@ date: '2024-07-10'
 navigation:
   title: "DO NOT USE THIS VALUE"
   icon: '⚠'
+archived: true
 ---
 
 **Do not use this value...**

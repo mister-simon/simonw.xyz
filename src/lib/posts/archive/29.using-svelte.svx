@@ -5,6 +5,7 @@ date: '2024-08-29'
 navigation:
   title: "Use:ing Svelte"
   icon: ':'
+archived: true
 ---
 
 I need to use a bunch of intersection observers - so let's make an action to wrap that.

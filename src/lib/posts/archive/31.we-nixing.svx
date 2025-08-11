@@ -5,6 +5,7 @@ date: '2024-10-30'
 navigation:
   title: "Nixing things up"
   icon: '⎔'
+archived: true
 ---
 
 Thoughts from my initial foray into using nixos...

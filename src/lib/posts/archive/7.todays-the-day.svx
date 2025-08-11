@@ -5,6 +5,7 @@ date: '2024-02-05'
 navigation:
   title: "Let's Sort Sorting"
   icon: '🔀'
+archived: true
 ---
 
 The thoughts and things index page has been displaying those thoughts and things in chronological order... That would make sense if you were reading my thoughts from start to end like a book. But perhaps you just want to know the most recent nugget of knowledge I've imparted. Let's fix that.

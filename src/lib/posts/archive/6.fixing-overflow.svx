@@ -5,6 +5,7 @@ date: '2024-02-02'
 navigation:
   title: 'Fixing Code Overflow'
   icon: '🪚'
+archived: true
 ---
 
 Checking out a previous post containing code blocks on my phone I realised there was a lot of overflow happening. Let's fix that.
