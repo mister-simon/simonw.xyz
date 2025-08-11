@@ -1,0 +1,38 @@
+---
+title: "A Fresh Start"
+date: "08-08-2025"
+updated: null
+tags:
+  - "sveltekit"
+# coverImage: /example-banner.svg
+coverWidth: 1500
+coverHeight: 500
+excerpt: "The start of a new era for this little blog."
+---
+
+# A Fresh Start
+
+I wrote quite a lot last year, and now it's in the [archive](/thoughts/archive). This is a fresh start!
+
+Now we're working with Svelte, and writing using [mdsvex](https://mdsvex.pngwn.io/). It's been relatively smooth sailing so far compared with my early work on the Nuxt version of my site, where I spent days battling content queries and code highlighting.
+
+## There's lots to do on the blog
+
+- Page tagging
+- Index pages for everything, including tags
+- Next / Previous post buttons for easy traversal
+- Wrangling cover images into check
+- Improved content layout options (breakout / lightboxes? / copy code btns / etc)
+- Anchor links surrounding content headings
+- Improve external link handling (_blank, noopener, etc)
+- Default sorting of thoughts by latest first...?
+
+## There's lots to do elsewhere
+
+- Content for all the top level pages... I've gone down a bit of a rabbit-hole with the Thoughts section
+- Refactoring the navigation system... I'll need to think about this a lot, as I want to make it a lot more flexible, but for now it's workable.
+- Keyboard shortcuts, though that's pretty low on the priority list.
+
+## There's issues
+
+... And that's a good thing! I should be running this show via github issues to keep me on track somewhat. This will be a good week for making progress over here I think.
