@@ -2,9 +2,17 @@
 	import type { TreeNode } from './navigation';
 
 	let { item, useAriaCurrent = false }: { item: TreeNode; useAriaCurrent: boolean } = $props();
+
+	let li: HTMLLIElement | null = $state(null);
+
+	$effect(() => {
+		if (item.active) {
+			li?.scrollIntoView();
+		}
+	});
 </script>
 
-<li class="max-h-full overflow-hidden text-ellipsis">
+<li class="max-h-full overflow-hidden text-ellipsis" bind:this={li}>
 	<a
 		href={item.url}
 		class={[
