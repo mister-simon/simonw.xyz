@@ -46,7 +46,7 @@
 				<p>Updated: {updated}</p>
 			{/if}
 		</div>
-		<div class="mx-auto prose py-8 prose-h1:text-center">
+		<div class="prose py-8 prose-h1:text-center">
 			{#if archived ?? false}
 				<h1>{title}</h1>
 			{/if}

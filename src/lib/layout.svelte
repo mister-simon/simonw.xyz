@@ -40,14 +40,22 @@
 		</p>
 	</header>
 	<main class={[fullscreen && 'fullscreen']}>
-		<nav class="primary" inert={fullscreen}>
-			<ListIndex items={primary} />
-		</nav>
-		<nav class="secondary" inert={fullscreen}>
-			<ListIndex items={secondary} useAriaCurrent={true} />
+		<nav class="menus" id="menus">
+			<div class="primary" inert={fullscreen}>
+				<ListIndex items={primary} />
+			</div>
+			<div class="secondary" inert={fullscreen}>
+				<ListIndex items={secondary} useAriaCurrent={true} />
+			</div>
 		</nav>
 		<article>
-			<button type="button" onclick={() => (fullscreen = !fullscreen)} class="fullscreen-toggle">
+			<button
+				type="button"
+				onclick={() => (fullscreen = !fullscreen)}
+				class="fullscreen-toggle"
+				aria-controls="menus"
+				aria-expanded={!fullscreen}
+			>
 				<span class="icon iconify pixel--angle-left"></span>
 				<div class="sr-only">{fullscreen ? 'Show' : 'Hide'} Menu</div>
 			</button>
@@ -91,8 +99,8 @@
 		width: calc(100% - var(--margin) * 2);
 		margin-inline: auto;
 
-		transition-duration: 200ms;
-		transition-timing-function: ease-in-out;
+		transition-duration: 100ms;
+		transition-timing-function: linear;
 		transition-property: grid-template-columns, grid-template-rows;
 
 		&.fullscreen {
@@ -110,6 +118,12 @@
 				rotate: 180deg;
 			}
 		}
+	}
+
+	.menus {
+		display: grid;
+		grid-column: span 2;
+		grid-template: subgrid / subgrid;
 	}
 
 	header,
@@ -130,8 +144,8 @@
 		overflow: clip;
 		border: var(--outline-width) solid var(--outline-color);
 
-		transition-duration: 200ms;
-		transition-timing-function: ease-in-out;
+		transition-duration: 100ms;
+		transition-timing-function: linear;
 		transition-property: opacity;
 	}
 
@@ -149,6 +163,7 @@
 	article {
 		--outline-color: var(--color-focused-window);
 		position: relative;
+		container-type: inline-size;
 
 		& > .fullscreen-toggle {
 			position: absolute;
@@ -164,18 +179,24 @@
 
 			& > .icon {
 				transition-property: rotate, transform;
-				transition-duration: 200ms;
-				transition-timing-function: ease-in-out;
+				transition-duration: 100ms;
+				transition-timing-function: linear;
 				width: 1.5rem;
 				height: 1.5rem;
 			}
 		}
 
 		& > .inner {
+			margin-inline: auto;
+			width: 100%;
 			height: 100%;
-			max-width: 100%;
 			overflow: auto;
 			z-index: 0;
+
+			@container (width > 1200px) {
+				border-inline: solid 1px var(--outline-color);
+				width: min(max(75cqi, 1200px), 1400px);
+			}
 		}
 	}
 
@@ -187,6 +208,11 @@
 				var(--secondary-width)
 				var(--content-width);
 		}
+		.menus {
+			grid-column: auto;
+			grid-row: span 2;
+		}
+
 		.primary,
 		.secondary {
 			--is-vertical: 1;
