@@ -63,13 +63,41 @@
 </div>
 
 <style>
+	@property --spin-bg-rotation {
+		syntax: '<angle>';
+		inherits: false;
+		initial-value: 0deg;
+	}
+
+	@keyframes spin-bg {
+		from {
+			--spin-bg-rotation: 0deg;
+		}
+		to {
+			--spin-bg-rotation: 360deg;
+		}
+	}
+
 	.layout {
 		display: grid;
 		height: 100dvh;
 		max-width: 100vw;
 		min-width: 0;
 		grid-template-rows: auto 1fr auto;
+
+		--layout-transition-duration: 200ms;
+		--layout-transition-timing: linear;
+
+		animation: spin-bg infinite linear 600s;
+
+		background: repeating-conic-gradient(
+			from var(--spin-bg-rotation, 0deg) at 50% 150%,
+			transparent 0 9.9deg,
+			rgb(from var(--color-black) r g b / 0.33) 10.1deg 19.9deg,
+			transparent 20.1deg
+		);
 	}
+
 	main {
 		/* Shared vars */
 		--outline-color: var(--color-unfocused-window);
@@ -78,6 +106,7 @@
 
 		/* Layout */
 		--margin: 1rem;
+
 		--primary-width: 1.5fr;
 		--secondary-width: 2fr;
 		--content-width: 5fr;
@@ -92,8 +121,8 @@
 		width: calc(100% - var(--margin) * 2);
 		margin-inline: auto;
 
-		transition-duration: 100ms;
-		transition-timing-function: linear;
+		transition-duration: var(--layout-transition-duration);
+		transition-timing-function: var(--layout-transition-timing);
 		transition-property: grid-template-columns, grid-template-rows;
 
 		&.fullscreen {
@@ -137,8 +166,11 @@
 		overflow: clip;
 		border: var(--outline-width) solid var(--outline-color);
 
-		transition-duration: 100ms;
-		transition-timing-function: linear;
+		background: rgb(from var(--color-00) r g b / 0.7);
+		backdrop-filter: blur(0.5rem);
+
+		transition-duration: var(--layout-transition-duration);
+		transition-timing-function: var(--layout-transition-timing);
 		transition-property: opacity;
 	}
 
@@ -172,8 +204,8 @@
 
 			& > .icon {
 				transition-property: rotate, transform;
-				transition-duration: 100ms;
-				transition-timing-function: linear;
+				transition-duration: var(--layout-transition-duration);
+				transition-timing-function: var(--layout-transition-timing);
 				width: 1.5rem;
 				height: 1.5rem;
 			}
