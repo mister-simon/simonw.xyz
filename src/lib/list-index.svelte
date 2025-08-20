@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ListItem from './list-item.svelte';
-	import type { TreeNode } from './navigation';
+	import type { TreeNode } from './TreeNode';
 
 	let {
 		items,

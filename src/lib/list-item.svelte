@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TreeNode } from './navigation';
+	import type { TreeNode } from './TreeNode';
 
 	let { item, useAriaCurrent = false }: { item: TreeNode; useAriaCurrent: boolean } = $props();
 
@@ -25,7 +25,7 @@
 			<span class={['iconify size-[1lh] shrink-0', item.icon]}></span>
 		{/if}
 		<span class="shrink">
-			{item.name}
+			{item.displayName}
 		</span>
 	</a>
 </li>

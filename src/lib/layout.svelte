@@ -1,9 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import ListIndex from './list-index.svelte';
-	import type { TreeNode } from './navigation';
-	import { page } from '$app/state';
 	import { onNavigate } from '$app/navigation';
+	import type { TreeNode } from './TreeNode';
 
 	let {
 		primary,
