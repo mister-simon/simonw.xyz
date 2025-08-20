@@ -3,6 +3,7 @@
 	import ListIndex from './list-index.svelte';
 	import type { TreeNode } from './navigation';
 	import { page } from '$app/state';
+	import { onNavigate } from '$app/navigation';
 
 	let {
 		primary,
@@ -19,15 +20,8 @@
 	let fullscreen = $state(false);
 	let articleInner: HTMLDivElement | null = $state(null);
 
-	let url = new URL(page.url);
-	$effect(() => {
-		const newUrl = new URL(page.url);
-
-		if (newUrl.pathname !== url.pathname && articleInner) {
-			articleInner.scrollTo(0, 0);
-		}
-
-		url = newUrl;
+	onNavigate(({ from, to }) => {
+		if (to?.url !== from?.url) articleInner?.scrollTo(0, 0);
 	});
 </script>
 
