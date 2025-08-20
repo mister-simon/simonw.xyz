@@ -90,10 +90,11 @@
 
 		animation: spin-bg infinite linear 600s;
 
+		--color-stripe: color-mix(in oklab, var(--color-00), #000 25%);
 		background: repeating-conic-gradient(
 			from var(--spin-bg-rotation, 0deg) at 50% 150%,
 			transparent 0 9.9deg,
-			rgb(from var(--color-black) r g b / 0.33) 10.1deg 19.9deg,
+			var(--color-stripe) 10.1deg 19.9deg,
 			transparent 20.1deg
 		);
 	}
@@ -167,7 +168,7 @@
 		border: var(--outline-width) solid var(--outline-color);
 
 		background: rgb(from var(--color-00) r g b / 0.7);
-		backdrop-filter: blur(0.5rem);
+		backdrop-filter: blur(1rem);
 
 		transition-duration: var(--layout-transition-duration);
 		transition-timing-function: var(--layout-transition-timing);
