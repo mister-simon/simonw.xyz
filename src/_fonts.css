@@ -1,0 +1,47 @@
+@layer base {
+	@font-face {
+		font-family: 'Monaspace Argon';
+		src:
+			url('/assets/fonts/monaspace/MonaspaceArgonVarVF[wght,wdth,slnt].woff2') format('woff2'),
+			url('/assets/fonts/monaspace/MonaspaceArgonVarVF[wght,wdth,slnt].woff') format('woff');
+		font-display: swap;
+		font-weight: 200 800;
+		font-style: oblique -11deg 0deg;
+	}
+	@font-face {
+		font-family: 'Monaspace Krypton';
+		src:
+			url('/assets/fonts/monaspace/MonaspaceKryptonVarVF[wght,wdth,slnt].woff2') format('woff2'),
+			url('/assets/fonts/monaspace/MonaspaceKryptonVarVF[wght,wdth,slnt].woff') format('woff');
+		font-display: swap;
+		font-weight: 200 800;
+		font-style: oblique -11deg 0deg;
+	}
+	@font-face {
+		font-family: 'Monaspace Neon';
+		src:
+			url('/assets/fonts/monaspace/MonaspaceNeonVarVF[wght,wdth,slnt].woff2') format('woff2'),
+			url('/assets/fonts/monaspace/MonaspaceNeonVarVF[wght,wdth,slnt].woff') format('woff');
+		font-display: swap;
+		font-weight: 200 800;
+		font-style: oblique -11deg 0deg;
+	}
+	@font-face {
+		font-family: 'Monaspace Radon';
+		src:
+			url('/assets/fonts/monaspace/MonaspaceRadonVarVF[wght,wdth,slnt].woff2') format('woff2'),
+			url('/assets/fonts/monaspace/MonaspaceRadonVarVF[wght,wdth,slnt].woff') format('woff');
+		font-display: swap;
+		font-weight: 200 800;
+		font-style: oblique -11deg 0deg;
+	}
+	@font-face {
+		font-family: 'Monaspace Xenon';
+		src:
+			url('/assets/fonts/monaspace/MonaspaceXenonVarVF[wght,wdth,slnt].woff2') format('woff2'),
+			url('/assets/fonts/monaspace/MonaspaceXenonVarVF[wght,wdth,slnt].woff') format('woff');
+		font-display: swap;
+		font-weight: 200 800;
+		font-style: oblique -11deg 0deg;
+	}
+}

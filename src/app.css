@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './_fonts.css';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 @plugin "@iconify/tailwind4" {
@@ -48,6 +49,10 @@
 	--color-popup-warning-border: var(--color-03);
 	--color-popup-incomplete: var(--color-01);
 	--color-popup-complete: var(--color-02);
+
+	/* Fonts */
+	--font-mono: 'Monaspace Neon', monospace;
+	--font-mono-accent: 'Monaspace Xenon', var(--font-mono);
 }
 
 @layer base {
@@ -57,6 +62,41 @@
 		display: grid;
 		width: 100%;
 		height: 100%;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	.prose :where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		font-family: var(--font-mono-accent);
+		text-underline-offset: 0.3em;
+
+		--font-weight: 550;
+		--font-width: 105;
+		font-variation-settings:
+			'wght' var(--font-weight, 400),
+			'wdth' var(--font-width, 100),
+			'slnt' var(--font-slant, 0);
+	}
+
+	.font-mono {
+		font-variation-settings:
+			'wght' var(--font-weight, 400),
+			'wdth' var(--font-width, 100),
+			'slnt' var(--font-slant, 0);
+		font-feature-settings:
+			'calt' var(--texture-healing, 1),
+			'liga' var(--ligatures, 1),
+			'ss01' var(--ligatures, 1),
+			'ss02' var(--ligatures, 1),
+			'ss03' var(--ligatures, 1),
+			'ss04' var(--ligatures, 1),
+			'ss05' var(--ligatures, 1),
+			'ss06' var(--ligatures, 1),
+			'ss07' var(--ligatures, 1),
+			'ss08' var(--ligatures, 1);
 	}
 }
 

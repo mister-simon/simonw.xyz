@@ -22,7 +22,7 @@
 		aria-current={useAriaCurrent && item.active && 'page'}
 	>
 		{#if item.icon}
-			<span class={['iconify size-[1lh] shrink-0', item.icon]}></span>
+			<span class={['iconify size-[1lh] shrink-0 self-start', item.icon]}></span>
 		{/if}
 		<span class="shrink">
 			{item.displayName}
