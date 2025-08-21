@@ -242,7 +242,7 @@
 		.primary,
 		.secondary {
 			--is-vertical: 1;
-			writing-mode: vertical-rl;
+			writing-mode: sideways-rl;
 		}
 
 		.primary {
@@ -261,6 +261,27 @@
 		}
 		.icon {
 			transform: rotate(90deg);
+		}
+	}
+
+	@media (max-aspect-ratio: 1) and (height < 900px) {
+		main {
+			--primary-width: 4ch;
+		}
+	}
+	@media (max-aspect-ratio: 1) and (height < 500px) {
+		main {
+			--secondary-width: 3.25ch;
+		}
+	}
+	@media (min-aspect-ratio: 1) and (width < 900px) {
+		main {
+			--primary-width: 4ch;
+		}
+	}
+	@media (min-aspect-ratio: 1) and (width < 500px) {
+		main {
+			--secondary-width: 3.25ch;
 		}
 	}
 </style>

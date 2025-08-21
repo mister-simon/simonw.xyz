@@ -11,7 +11,7 @@
 	} = $props();
 </script>
 
-<ul class="inner">
+<ul class="inner @container">
 	{#each items as item}
 		<ListItem {item} {useAriaCurrent} />
 	{/each}

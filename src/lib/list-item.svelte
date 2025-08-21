@@ -24,13 +24,19 @@
 		{#if item.icon}
 			<span class={['iconify size-[1lh] shrink-0 self-start', item.icon]}></span>
 		{/if}
-		<span class="shrink">
+		<span class="name shrink">
 			{item.displayName}
 		</span>
 	</a>
 </li>
 
 <style>
+	@container (inline-size <= 6ch) {
+		.name {
+			@apply sr-only;
+		}
+	}
+
 	.iconify {
 		rotate: calc(var(--is-vertical, 0) * 90deg);
 	}
