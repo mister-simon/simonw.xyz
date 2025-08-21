@@ -31,7 +31,7 @@
 </li>
 
 <style>
-	@container (inline-size <= 6ch) {
+	@container (inline-size <= 13ch) {
 		.name {
 			@apply sr-only;
 		}
