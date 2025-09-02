@@ -3,7 +3,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import Layout from '$lib/layout.svelte';
 	import { page } from '$app/state';
-	import { getNavData } from '$lib/navigation';
+	import { getNavData } from '$lib/navigation/navigation';
 
 	let { children } = $props();
 	let navData = $derived(getNavData(page.url.pathname));

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import ListIndex from '$lib/list-index.svelte';
-	import { getNavData, sortMenu } from '$lib/navigation';
+	import ListIndex from '$lib/navigation/list-index.svelte';
+	import { getNavData, sortMenu } from '$lib/navigation/navigation';
 
 	let { current } = $derived(getNavData(page.url.pathname));
 	let children = $derived.by(() => {
