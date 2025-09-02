@@ -1,5 +1,5 @@
 import { page } from '$app/state';
-import { TreeNode } from './TreeNode';
+import { TreeNode } from '$lib/navigation/TreeNode';
 
 export function sortMenu(menu: TreeNode[]) {
 	return menu.sort(function (a, b) {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TreeNode } from './TreeNode';
+	import type { TreeNode } from '$lib/navigation/TreeNode';
 
 	let { item, useAriaCurrent = false }: { item: TreeNode; useAriaCurrent: boolean } = $props();
 
