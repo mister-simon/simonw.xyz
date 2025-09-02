@@ -7,9 +7,48 @@ tags:
 # coverImage: /example-banner.svg
 # coverWidth: 1500
 # coverHeight: 500
-excerpt: "I've put a lot of work into this site. It's got some interesting features."
+excerpt: "This portfolio, with design inspiration from TUI applications and file explorers, made with SvelteKit."
+links:
+  - title: Github
+    url: https://github.com/mister-simon/simonw.xyz
+    detail: Check out the source code on github
 ---
+<script>
+  import PortfolioLinks from '$lib/portfolio/portfolio-links.svelte';
+</script>
 
 # Simonw.xyz - This Site
 
-- [Github](https://github.com/mister-simon/simonw.xyz) - Check out the source code on github
+A personal portfolio inspired by TUI applications and file managers. Made with *Sveltekit*, *tailwind*, *mdsvex*.
+
+## Objectives
+
+- Create something a bit different - but still familiar
+- Flexible minimal design, TUI / Pixel art inspired
+- Friendly to employers, curious devs, clients, search engines
+- Space for professional content
+- Space for fun side-projects and any other write-ups
+- Use Stylix to generate a 16 colour base palette
+
+## Timeline
+
+- Research + gathering inspiration
+- Conceptualising + designing
+- Pallete generation
+- Blank canvas (empty SvelteKit project)
+- Mocking up the base layout (3 columns)
+- Exploring server code to back the navigation system using vite's `import.meta.glob` to gather contents
+- Scaffolding site structure
+- Refining the node tree system used to populate the navigation panes
+- Refining the layout to handle smaller screen / portrait
+- Implementing a full-screen toggle mode, to hide nav panels
+- Adding more visual appeal with pixelised icons
+- Improving typographic consistency using Monaspace fonts
+- Integrating markdown files into navigation population
+- Beginning this document...
+
+
+
+--- 
+
+<PortfolioLinks {links} />
