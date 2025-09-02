@@ -59,6 +59,14 @@ export class TreeNode {
 			return `${this.name}/`;
 		}
 
+		if (this.#name?.endsWith('+page.svelte')) {
+			return this.#name.replace(/\+page.svelte$/, 'Index');
+		}
+
+		if (this.#name?.endsWith('.svx')) {
+			return this.#name.replace(/\.svx$/, '');
+		}
+
 		return this.name;
 	}
 

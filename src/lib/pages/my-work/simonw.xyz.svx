@@ -1,2 +1,15 @@
-# Simonw.xyz - This very site
+---
+title: "simonw.xyz"
+date: "21-08-2025"
+updated: null
+tags:
+  - "portfolio"
+# coverImage: /example-banner.svg
+# coverWidth: 1500
+# coverHeight: 500
+excerpt: "I've put a lot of work into this site. It's got some interesting features."
+---
 
+# Simonw.xyz - This Site
+
+- [Github](https://github.com/mister-simon/simonw.xyz) - Check out the source code on github
