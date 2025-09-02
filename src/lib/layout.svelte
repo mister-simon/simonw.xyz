@@ -28,7 +28,7 @@
 	<header>
 		<p class="flex text-xl">
 			<span>~/</span><span class="overflow-x-hidden text-ellipsis whitespace-nowrap" dir="rtl"
-				>{current.listing}</span
+				>{current.displayListing}</span
 			>
 		</p>
 	</header>

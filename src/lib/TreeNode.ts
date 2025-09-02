@@ -54,13 +54,23 @@ export class TreeNode {
 		return this.#parent?.children;
 	}
 
+	get displayListing() {
+		return this.pathToRoot()
+			.map((node) => node.displayName)
+			.join('');
+	}
+
 	get displayName() {
 		if (Object.keys(this.#children).length && this.name?.match(/\..+$/) === null) {
 			return `${this.name}/`;
 		}
 
+		if (this.#name?.endsWith('+error.svelte')) {
+			return 'error';
+		}
+
 		if (this.#name?.endsWith('+page.svelte')) {
-			return this.#name.replace(/\+page.svelte$/, 'Index');
+			return 'index';
 		}
 
 		if (this.#name?.endsWith('.svx')) {
@@ -147,5 +157,11 @@ export class TreeNode {
 				{} as { [key: string]: ReturnType<TreeNode['tree']> }
 			)
 		};
+	}
+
+	pathToRoot(previousNodes: TreeNode[] = []): TreeNode[] {
+		const nodes = [this, ...previousNodes];
+
+		return this.#parent ? this.#parent.pathToRoot(nodes) : nodes;
 	}
 }
