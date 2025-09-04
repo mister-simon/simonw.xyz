@@ -23,7 +23,7 @@
 
 		<p>I made this little ascii art of the thing I've been using as a logo for... A while now:</p>
 		<pre
-			class="not-prose my-4 inline-block aspect-square overflow-clip rounded-full font-mono leading-[1.125] tracking-normal"
+			class="not-prose my-4 inline-block overflow-clip rounded-full font-mono leading-[1.250] tracking-normal [--font-width:110.3]"
 			aria-hidden="true">{data.art}</pre>
 		<table>
 			<thead>

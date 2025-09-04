@@ -82,7 +82,7 @@ export class TreeNode {
 
 	get icon() {
 		const specialIcons = {
-			home: 'pixel--home-solid',
+			about: 'pixel--home-solid',
 			'my-work': 'pixel--sparkles-solid',
 			thoughts: 'pixel--book-heart-solid',
 			contact: 'pixel--user-solid',
@@ -108,7 +108,7 @@ export class TreeNode {
 	get order() {
 		const specialOrder = {
 			'../': 0,
-			home: 100,
+			about: 100,
 			'my-work': 200,
 			thoughts: 300,
 			contact: 400,
