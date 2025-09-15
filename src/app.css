@@ -81,11 +81,12 @@
 			'slnt' var(--font-slant, 0);
 	}
 
-	.font-mono {
+	.font-mono,
+	.font-variations {
 		font-variation-settings:
-			'wght' var(--font-weight, 400),
-			'wdth' var(--font-width, 100),
-			'slnt' var(--font-slant, 0);
+			'wght' var(--font-weight),
+			'wdth' var(--font-width),
+			'slnt' var(--font-slant);
 		font-feature-settings:
 			'calt' var(--texture-healing, 1),
 			'liga' var(--ligatures, 1),
