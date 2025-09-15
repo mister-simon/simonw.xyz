@@ -1,6 +1,9 @@
 import { page } from '$app/state';
 import { TreeNode } from '$lib/navigation/TreeNode';
 
+/**
+ * Sort a list of treenodes using natural string ordering.
+ */
 export function sortMenu(menu: TreeNode[]) {
 	return menu.sort(function (a, b) {
 		if (a.order === b.order) {
@@ -12,7 +15,7 @@ export function sortMenu(menu: TreeNode[]) {
 }
 
 /**
- * Create a list of page urls
+ * Generate a complete tree structure of pages and other dynamic content
  */
 export function getTree(): TreeNode {
 	const postPaths = Object.keys(import.meta.glob('$lib/pages/**/*.svx')).map((path) =>
@@ -38,6 +41,9 @@ export function getTree(): TreeNode {
 	}, new TreeNode());
 }
 
+/**
+ * Generate the data to navigate from a given path
+ */
 export function getNavData(pathname: string) {
 	const root = getTree();
 
