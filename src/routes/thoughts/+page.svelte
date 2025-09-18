@@ -4,7 +4,7 @@
 
 <div class="relative w-full overflow-clip">
 	<div class="mx-8 prose py-8">
-		<h2>Thoughts</h2>
+		<h1>Thoughts</h1>
 		<p>
 			Sometimes the things I think about fall out of my head, via my keyboard, into this little
 			repository of intrigues.

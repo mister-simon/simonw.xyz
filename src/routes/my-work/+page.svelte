@@ -11,7 +11,7 @@
 
 <div class="relative w-full overflow-clip">
 	<div class="mx-8 prose py-8">
-		<h2>My Work</h2>
+		<h1>My Work</h1>
 		{#each works as item}
 			<PortfolioItem {...item} />
 		{/each}
