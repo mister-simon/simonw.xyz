@@ -1,5 +1,5 @@
 import { mdsvex } from 'mdsvex';
-import highlighter from './highlighter.ts';
+import highlighter from './highlighter.js';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutoLinkHeadings from 'rehype-autolink-headings';

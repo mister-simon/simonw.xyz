@@ -5,7 +5,7 @@ import { escapeSvelte } from 'mdsvex';
 
 import theme from 'shiki/themes/material-theme-ocean.mjs';
 
-async function highlighter(code: string, lang: string | null | undefined) {
+async function highlighter(code, lang) {
 	const shiki = await getSingletonHighlighter({
 		themes: [theme],
 		langs: Object.keys(bundledLanguages)
