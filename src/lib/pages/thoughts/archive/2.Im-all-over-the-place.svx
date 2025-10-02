@@ -32,7 +32,9 @@ I've skimmed the homepage of most of the items on their list. So it's really bee
 
 For the next part of my day, I'm going to be reading over the free parts of [Every Layout](https://every-layout.dev/)! It's effectively the Design Patterns book for CSS. I've already taken a look through some of it, but it's time to take a deeper dive:
 
-## [The Stack](https://every-layout.dev/layouts/stack/)
+## The Stack
+
+**[The Stack](https://every-layout.dev/layouts/stack/)**
 
 - Nothing too shocking here. It's a smart pattern that most people should know, and is likely to be used by many via the [tailwind space utility classes](https://tailwindcss.com/docs/space).
 - Worth noting the use of logical properties (`margin-block-start`) as the modern standard for handling layout in a direction agnostic manner.
@@ -40,7 +42,9 @@ For the next part of my day, I'm going to be reading over the free parts of [Eve
 - They link out to [24 Ways - Article on Flow](https://24ways.org/2018/managing-flow-and-rhythm-with-css-custom-properties/) which highlights using variables to control the spacing around child elements more dynamically.
 - It's not overly highlighted in either article, but the use of `em` allows spacing to also be dynamically applied based on child components' font sizes. I.e. Simply by using `em` your header and paragraph flow / typography balance will be better as the spacing applied will be relative to their font sizes without having to do any additional work.
 
-## [The Sidebar](https://every-layout.dev/layouts/sidebar/)
+## The Sidebar
+
+**[The Sidebar](https://every-layout.dev/layouts/sidebar/)**
 
 - A solid point is raised about the overreliance on media queries to handle content layout. That is, the content is no longer defining it's own layout.
 
