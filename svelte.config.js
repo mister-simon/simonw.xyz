@@ -7,7 +7,21 @@ const config = {
 	// Consult https://svelte.dev/docs/kit/integrations
 	// for more information about preprocessors
 	preprocess: [vitePreprocess(), markdownPreprocessor],
-	kit: { adapter: adapter() },
+	kit: {
+		adapter: adapter({
+			routes: {
+				exclude: [
+					"<build>",
+					"<files>",
+					"/about/*",
+					"/contact/*",
+					"/my-work/*",
+					"/thoughts/*",
+					// "<prerendered>",
+				]
+			}
+		})
+	},
 	extensions: ['.svelte', '.svx']
 };
 
