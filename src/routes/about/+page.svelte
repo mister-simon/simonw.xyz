@@ -14,8 +14,8 @@
 			old ~ <em>{new Date().getFullYear() - 2007} years ago</em>.
 		</p>
 		<p>
-			Simon grew up with the early web and cares deeply about it's <strong>future</strong>. We
-			should all be trying to make the internet <strong>useful</strong>,
+			Simon grew up with the early web and cares deeply about its <strong>future</strong>. We should
+			all be trying to make the internet <strong>useful</strong>,
 			<strong>accessible</strong>, and <strong>inclusive</strong>... More <strong>human</strong>.
 		</p>
 	</div>
