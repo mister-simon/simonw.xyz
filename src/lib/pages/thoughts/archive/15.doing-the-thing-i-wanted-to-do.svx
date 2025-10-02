@@ -20,7 +20,7 @@ I've done a little bit of research and testing on this sort of thing recently, u
 
 I'll want to set something up like this:
 
-![A diagram of a 5 column grid layout. Labelled A,B,C,B,A. The middle column contains text flow content. An image and accompanying text breaks out into the B region. And A acts as a flexible buffer around the breakout area.](/assets/content/grid-breakout.png)<!-- {.bordered.bg-neutral-300} -->
+![A diagram of a 5 column grid layout. Labelled A,B,C,B,A. The C column contains text. Wider content breaks into the B column.](/assets/content/grid-breakout.png)<!-- {.bordered.bg-neutral-300} -->
 
 ## Aaaaand action
 
@@ -28,7 +28,7 @@ We have a plan. Let's make it happen. I've already used 20 minutes with writing 
 
 This following image is going to be in the breakout section. I'm going to apply a breakout tag using markdown extended syntax `{.breakout}`. Except that nothing will happen until I've updated the grid layout for my prose content section.
 
-![Drum machine eq example image](/assets/content/drum-machine-bass-eq.png)<!-- {.breakout.mx-auto} -->
+![Drum machine eq example](/assets/content/drum-machine-bass-eq.png)<!-- {.breakout.mx-auto} -->
 
 ## We did it
 
