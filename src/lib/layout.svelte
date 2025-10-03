@@ -67,7 +67,7 @@
 		<footer class="flex items-center">
 			<p class="shrink-0 grow text-right">&copy; Simon W</p>
 		</footer>
-		<img src="/assets/dumb-frame-idea-2.webp" alt="" />
+		<img src="/assets/dumb-frame-idea-3.webp" alt="" />
 	</div>
 </div>
 
@@ -89,27 +89,32 @@
 
 	.frame {
 		overflow: clip;
-		background-color: var(--color-stone-950);
-		/* background-image: conic-gradient(
-			var(--color-red-950),
-			var(--color-amber-950),
-			var(--color-teal-950),
-			var(--color-sky-950),
-			var(--color-purple-950),
-			var(--color-red-950)
-		); */
+		background-color: var(--color-stone-500);
+		background-image:
+			conic-gradient(
+				rgb(from var(--color-red-950) r g b / 0.25),
+				rgb(from var(--color-amber-950) r g b / 0.25),
+				rgb(from var(--color-teal-950) r g b / 0.25),
+				rgb(from var(--color-sky-950) r g b / 0.25),
+				rgb(from var(--color-purple-950) r g b / 0.25),
+				rgb(from var(--color-red-950) r g b / 0.25)
+			),
+			linear-gradient(to right, black 1rem, transparent 0),
+			linear-gradient(to left, black 1rem, transparent 0),
+			linear-gradient(to top, black 1rem, transparent 0),
+			linear-gradient(to bottom, black 1rem, transparent 0),
+			linear-gradient(to top, black, transparent);
 	}
 
 	.layout {
-		transform: perspective(400px) translateX(-14%) translateZ(-300px) rotateY(-10deg) rotate(-1deg);
-		scale: 1.4;
+		transform: perspective(20vmax) translateX(-5vw) translateZ(-5vmax) rotateY(-5deg) rotate(-1deg);
 
 		display: grid;
 		height: 100dvh;
 		max-width: 100vw;
 		min-width: 0;
 		grid-template-rows: auto 1fr auto;
-		margin-inline: auto;
+		margin-right: auto;
 
 		--layout-transition-duration: 200ms;
 		--layout-transition-timing: linear;
@@ -124,7 +129,7 @@
 			transparent 20.1deg
 		);
 		background-color: var(--color-default-surface);
-		border-radius: 1rem;
+		/* border-radius: 0.2rem; */
 
 		container-type: size;
 
@@ -147,18 +152,29 @@
 		}
 		/* glass effect? */
 
+		&::before {
+			content: '';
+			/* filter: blur(1rem); */
+
+			position: absolute;
+			top: -1rem;
+			left: -1rem;
+			width: calc(100% + 2rem);
+			height: calc(100% + 2rem);
+			z-index: -1;
+
+			border: 1rem solid black;
+		}
+
 		& > img {
 			--inner-width: 1588 /* px */;
 			--outer-width: 1756 /* px */;
 			--inner-height: 892 /* px */;
 			--outer-height: 1323 /* px */;
-			--wdiff: calc(var(--outer-width) / var(--inner-width));
-			--hdiff: calc(var(--outer-height) / var(--inner-height));
-			width: calc(100cqw * var(--wdiff));
-			height: calc(100cqh * var(--hdiff));
-
-			/* width: 100cqw;
-			height: 100cqh; */
+			--wratio: calc(var(--outer-width) / var(--inner-width));
+			--hratio: calc(var(--outer-height) / var(--inner-height));
+			width: calc(100cqw * var(--wratio));
+			height: calc(100cqh * var(--hratio));
 
 			position: absolute;
 			top: -22%;
