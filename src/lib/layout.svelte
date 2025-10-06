@@ -1,8 +1,10 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+	import { type Snippet } from 'svelte';
 	import type { TreeNode } from '$lib/navigation/TreeNode';
 	import { onNavigate } from '$app/navigation';
 	import ListIndex from '$lib/navigation/list-index.svelte';
+	import getFrameContext from '$lib/contexts/frame.svelte';
+	import { page } from '$app/state';
 
 	let {
 		primary,
@@ -19,13 +21,28 @@
 	let fullscreen = $state(false);
 	let articleInner: HTMLDivElement | null = $state(null);
 
+	const frameContext = getFrameContext();
+	if (page.url.pathname === '/about/gear.svx') {
+		frameContext.val = 'gear';
+	}
+
 	onNavigate(({ from, to }) => {
-		if (to?.url !== from?.url) articleInner?.scrollTo(0, 0);
+		if (to?.url === from?.url) {
+			return;
+		}
+
+		articleInner?.scrollTo(0, 0);
+
+		frameContext.val = null;
+
+		if (to?.url?.pathname === '/about/gear.svx') {
+			frameContext.val = 'gear';
+		}
 	});
 </script>
 
 <div class="frame">
-	<div class="layout font-mono">
+	<div class={['layout font-mono', frameContext.isGear ? 'gear' : '']}>
 		<header>
 			<p class="flex text-xl">
 				<span>~/</span><span class="overflow-x-hidden text-ellipsis whitespace-nowrap" dir="rtl"
@@ -107,7 +124,8 @@
 	}
 
 	.layout {
-		transform: perspective(20vmax) translateX(-5vw) translateZ(-5vmax) rotateY(-5deg) rotate(-1deg);
+		transform: perspective(20vmax);
+		transition: transform 1s ease-in-out;
 
 		display: grid;
 		height: 100dvh;
@@ -140,22 +158,22 @@
 			background-color: rgba(255, 238, 238, 0.6);
 			content: '';
 			filter: blur(10cqmax);
+			mix-blend-mode: overlay;
 			position: absolute;
+			pointer-events: none;
 
 			left: 25%;
 			top: 50%;
 			width: 10cqw;
 			height: 80cqh;
 
-			transform: translateY(-50%) skewY(-10deg);
+			transform: translateY(-50%) skewY(-10deg) rotate(10deg);
 			z-index: 1;
 		}
 		/* glass effect? */
 
 		&::before {
 			content: '';
-			/* filter: blur(1rem); */
-
 			position: absolute;
 			top: -1rem;
 			left: -1rem;
@@ -176,12 +194,26 @@
 			width: calc(100cqw * var(--wratio));
 			height: calc(100cqh * var(--hratio));
 
+			opacity: 0;
+			transition: opacity 100ms ease-out;
+			transition-delay: 1s;
+
 			position: absolute;
 			top: -22%;
 			left: -6%;
 			max-width: none;
 
 			pointer-events: none;
+		}
+
+		&:is(.gear) {
+			transform: perspective(20vmax) translateX(-5vw) translateX(-2cqw) translateZ(-5vmax)
+				rotateY(-5deg) rotate(-1deg);
+
+			& > img {
+				opacity: 1;
+				transition-delay: 0ms;
+			}
 		}
 	}
 

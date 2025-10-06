@@ -1,0 +1,40 @@
+---
+title: "Simon's Gear"
+date: "06-10-2025"
+updated: null
+tags:
+  - "gear"
+# coverImage: /example-banner.svg
+# coverWidth: 1500
+# coverHeight: 500
+excerpt: "Things Simon uses in the day to day"
+---
+# Gear and Goodies
+
+My setup doesn't change too frequently because I like to make the best of what I've got. This means curating those things carefully and dropping whatever falls out of use.
+
+## Desktop Machine
+
+My desktop PC `leafsprite` sits on my desk top (Flexispot E7 with 160x80cm Bamboo Top). When speccing out the machine, I wasn't specifically looking for RGB gamer-mode kit, but somehow I ended up with RGB on a bunch of key components. It's fine! Here are some specs:
+
+-  Mobo ➜ GigaByte Aorus X570 AORUS ELITE
+-  CPU ➜ AMD Ryzen 5600X
+- 󰢮 GPU ➜ Asus GeForce RTX 3070
+-  RAM ➜ Crucial Ballistix RGB 3600MHz 16gb
+- 󰟨 PSU ➜ EVGA SuperNOVA 750 G5
+- 󰍛 Memory ➜
+    - Crucial P5 Plus 2TB M.2
+    - Samsung 970 EVO Plus 1TB M.2
+    - Some random old SSD - 250gb
+    - Some random old HDD - 1TB
+- 󰇅 Case ➜ Be quiet! Black Pure Base 500DX
+
+## Laptop
+
+Dell Inc. XPS Type XPS 15 9500:
+
+-  CPU ➜ Intel Core i9
+- 󰢮 GPU ➜ NVIDIA GeForce GTX 1650 Ti Mobile
+- 󰢮 GPU ➜ Intel UHD Graphics
+-  Monitor ➜ 3840x2400 (15.73 inches, 287.82 ppi)
+- Blah blah...
