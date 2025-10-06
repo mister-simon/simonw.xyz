@@ -126,6 +126,7 @@
 	.layout {
 		transform: perspective(20vmax);
 		transition: transform 1s ease-in-out;
+		will-change: transform;
 
 		display: grid;
 		height: 100dvh;
@@ -147,30 +148,8 @@
 			transparent 20.1deg
 		);
 		background-color: var(--color-default-surface);
-		/* border-radius: 0.2rem; */
 
 		container-type: size;
-
-		/* glass effect? */
-		box-shadow: 0 0 18px 3px rgba(0, 0, 0, 0.3);
-
-		&::after {
-			background-color: rgba(255, 238, 238, 0.6);
-			content: '';
-			filter: blur(10cqmax);
-			mix-blend-mode: overlay;
-			position: absolute;
-			pointer-events: none;
-
-			left: 25%;
-			top: 50%;
-			width: 10cqw;
-			height: 80cqh;
-
-			transform: translateY(-50%) skewY(-10deg) rotate(10deg);
-			z-index: 1;
-		}
-		/* glass effect? */
 
 		&::before {
 			content: '';
@@ -205,6 +184,27 @@
 
 			pointer-events: none;
 		}
+
+		/* glass effect? */
+		box-shadow: 0 0 18px 3px rgba(0, 0, 0, 0.3);
+
+		&::after {
+			background-color: rgba(255, 238, 238, 0.6);
+			content: '';
+			filter: blur(10cqmax);
+			mix-blend-mode: overlay;
+			position: absolute;
+			pointer-events: none;
+
+			left: 25%;
+			top: 50%;
+			width: 10cqw;
+			height: 80cqh;
+
+			transform: translateY(-50%) skewY(-10deg) rotate(10deg);
+			z-index: 1;
+		}
+		/* glass effect? */
 
 		&:is(.gear) {
 			transform: perspective(20vmax) translateX(-5vw) translateX(-2cqw) translateZ(-5vmax)
