@@ -4,10 +4,12 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutoLinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
+import rehypeToc from "@jsdevtools/rehype-toc";
+import sectionize from "@hbsnow/rehype-sectionize";
 
 const remarkPlugins = [remarkGfm];
 const rehypePlugins = [
-	rehypeSlug,
+	[rehypeSlug],
 	[rehypeAutoLinkHeadings, { behavior: 'wrap' }],
 	[
 		rehypeExternalLinks,
@@ -15,7 +17,11 @@ const rehypePlugins = [
 			rel: 'nofollow noopener',
 			target: '_blank'
 		}
-	]
+	],
+	[sectionize, {
+		enableRootSection: true
+	}],
+	[rehypeToc]
 ];
 
 const markdownPreprocessor = mdsvex({

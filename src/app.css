@@ -207,3 +207,5 @@
 		mask-repeat: repeat-x, repeat-x, no-repeat;
 	}
 }
+
+@import './_blog.css';

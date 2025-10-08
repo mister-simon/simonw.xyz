@@ -1,0 +1,25 @@
+@layer components {
+	.blog-content {
+		display: grid;
+		grid-template-columns: var(--max-width-prose, 65ch) var(--max-width-toc, auto);
+		gap: 1rem;
+
+		& > nav {
+			order: 1;
+			position: sticky;
+			top: 0;
+			font-size: 0.9em;
+			text-wrap: pretty;
+		}
+
+		& > nav > ol {
+			border-left: var(--color-0A) 2px solid;
+		}
+
+		@container (width < 95ch) {
+			& > nav {
+				display: none;
+			}
+		}
+	}
+}
