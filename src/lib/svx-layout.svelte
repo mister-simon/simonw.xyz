@@ -26,13 +26,6 @@
 
 <div class="relative w-full overflow-clip">
 	<div class="mask-pixels-btm bg-alternate-surface text-alternate-text [--mask-height:4rem]">
-		<div class="px-16">
-			<p>Published: {date}</p>
-			{#if updated}
-				<p>Updated: {updated}</p>
-			{/if}
-		</div>
-
 		{#if coverImage}
 			<figure
 				class="max-h-[50cqh] w-full overflow-clip bg-alternate-surface text-alternate-text"
@@ -56,6 +49,18 @@
 				{/if}
 			</section>
 			<PostContent />
+		</div>
+	</div>
+
+	<div
+		class="mask-pixels-top bg-alternate-surface
+pt-(--mask-height) [--mask-height:1rem]"
+	>
+		<div class="px-16 py-4">
+			<p>Published: {date}</p>
+			{#if updated}
+				<p>Updated: {updated}</p>
+			{/if}
 		</div>
 	</div>
 </div>
