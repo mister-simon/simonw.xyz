@@ -4,6 +4,9 @@ date: "06-10-2025"
 updated: null
 tags:
   - "gear"
+coverImage: /assets/content/p60-optimized.webp
+coverWidth: 4032
+coverHeight: 3024
 excerpt: "Things Simon uses in the day to day"
 ---
 # Gear and Goodies

@@ -25,31 +25,36 @@
 </svelte:head>
 
 <div class="relative w-full overflow-clip">
-	{#if coverImage}
-		<figure
-			class="w-full overflow-clip bg-alternate-surface text-alternate-text"
-			style="aspect-ratio: {coverWidth} / {coverHeight};"
-		>
-			<img
-				src={coverImage}
-				width={coverWidth}
-				height={coverHeight}
-				alt=""
-				class="size-full object-cover"
-			/>
-		</figure>
-	{/if}
-	<div class="mx-8">
-		<div class="rounded-b-2xl bg-alternate-surface px-4 text-alternate-text">
+	<div class="mask-pixels-btm bg-alternate-surface text-alternate-text [--mask-height:4rem]">
+		<div class="px-16">
 			<p>Published: {date}</p>
 			{#if updated}
 				<p>Updated: {updated}</p>
 			{/if}
 		</div>
+
+		{#if coverImage}
+			<figure
+				class="max-h-[50cqh] w-full overflow-clip bg-alternate-surface text-alternate-text"
+				style="aspect-ratio: {coverWidth} / {coverHeight};"
+			>
+				<img
+					src={coverImage}
+					width={coverWidth}
+					height={coverHeight}
+					alt=""
+					class="size-full object-cover"
+				/>
+			</figure>
+		{/if}
+	</div>
+	<div class="mx-8">
 		<div class="blog-content prose max-w-none py-8 prose-h1:text-center prose-ol:pl-10">
-			{#if archived ?? false}
-				<h1>{title}</h1>
-			{/if}
+			<section>
+				{#if archived ?? false}
+					<h1>{title}</h1>
+				{/if}
+			</section>
 			<PostContent />
 		</div>
 	</div>
