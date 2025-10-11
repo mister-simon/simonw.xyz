@@ -13,9 +13,6 @@ links:
     url: https://github.com/mister-simon/simonw.xyz
     detail: Check out the source code on github
 ---
-<script>
-  import PortfolioLinks from '$lib/portfolio/portfolio-links.svelte';
-</script>
 
 # Simonw.xyz - This Site
 
@@ -47,8 +44,10 @@ A personal portfolio inspired by TUI applications and file managers. Made with *
 - Integrating markdown files into navigation population
 - Beginning this document...
 
+---
 
-
---- 
+<script>
+  import PortfolioLinks from '$lib/portfolio/portfolio-links.svelte';
+</script>
 
 <PortfolioLinks {links} />

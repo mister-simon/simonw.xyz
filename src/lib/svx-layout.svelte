@@ -43,11 +43,11 @@
 	</div>
 	<div class="mx-8">
 		<div class="blog-content prose max-w-none py-8 prose-h1:text-center prose-ol:pl-10">
-			<section>
-				{#if archived ?? false}
+			{#if archived ?? false}
+				<section>
 					<h1>{title}</h1>
-				{/if}
-			</section>
+				</section>
+			{/if}
 			<PostContent />
 		</div>
 	</div>

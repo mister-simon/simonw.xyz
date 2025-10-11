@@ -1,14 +1,15 @@
 @layer components {
 	.blog-content {
 		display: grid;
-		grid-template-columns: auto var(--max-width-prose, 65ch) var(--max-width-toc, auto);
-		gap: 1rem;
+		grid-template-columns: auto min(100%, var(--max-width-prose, 65ch)) var(--max-width-toc, auto);
+		column-gap: 1rem;
 
-		& > section {
+		& > :not(nav) {
 			grid-column: 2;
 		}
 		& > nav {
 			grid-column: 3;
+			grid-row: 1 / -1;
 		}
 
 		& > nav {
