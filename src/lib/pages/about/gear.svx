@@ -76,7 +76,7 @@ I use NixOS (btw) for both my main machines. I also dual boot with Windows on my
 
 ## Code
 
-itor** I'm stuck on VSCode, despite efforts here and there to move away from it. Occasionally Vscodium instead - but I usually end up back on mainline vscode because I just want to get stuff done.
+Unfortunately it's VSCode, despite efforts here and there to move away from it. Occasionally Vscodium instead - but I usually end up back on mainline vscode because I just want to get stuff done.
 
 I've tried moving to nvim and had a pretty good time with helix when I want to try modal editing with a somewhat "out-of-the-box" experience, but I've never been able to get things set up in a way that feels like it'll stick.
 
