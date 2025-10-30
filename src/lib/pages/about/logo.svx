@@ -1,0 +1,44 @@
+---
+title: "Simon's Work"
+date: "30-10-2025"
+updated: null
+tags:
+  - "work"
+# coverImage: /assets/simonwxyz-optimised.svg
+coverWidth: 512
+coverHeight: 512
+excerpt: "Simon's freelance business"
+---
+<script>
+  import logoImg from "$lib/assets/simonwxyz-optimised.svg";
+  import logoCutoutImg from "$lib/assets/simonwxyz-cutout-optimised.svg";
+</script>
+
+# The Simonw.xyz Logo
+
+![]({logoImg})
+
+## Foreground: The symbol
+
+This symbol combines these two characters `/>`. In HTML this is the signal that the current element should be self closing. In overlapping those characters slightly, they combine into a much more interesting singular symbol with a real sense of energy and movement.
+
+The font used for this is [Mononoki](https://madmalik.github.io/mononoki/) by Matthias Tellen. It's one of a few monospaced programming fonts I use daily. The proportions of the characters and the quality of the linework is exactly what I was looking for.
+
+Some features of the symbol:
+
+- Web dev theme with the /> shape
+- X, Y, and S/Z shapes
+- An implied movement, as of a person running to the right
+- A black outline affixes the symbol to the backdrop and facilitates a monochrome option, when the white fill is not possible or effective.
+
+## Background: The black circle
+
+This anchors everything in space, effectively setting the weight and impact of the logo. I chose to allow the symbol to break out of the space. There's some symbolism there, but it also just helps to balance the lines, while accentuating the `/` line.
+
+I experimented with a few shapes, and the circle simply felt the best to me.
+
+# The Monochrome Version
+
+![]({logoCutoutImg})
+
+By punching out the white section of the full colour version we end up with a very clean looking single colour variant of the logo.
