@@ -24,7 +24,7 @@
 	{/if}
 </svelte:head>
 
-<div class="relative w-full overflow-clip">
+<div class="relative flex min-h-full w-full flex-col overflow-clip">
 	<div class="mask-pixels-btm bg-alternate-surface text-alternate-text [--mask-height:4rem]">
 		{#if coverImage}
 			<figure
@@ -41,7 +41,8 @@
 			</figure>
 		{/if}
 	</div>
-	<div class="mx-8">
+
+	<div class="mx-8 grow">
 		<div class="blog-content prose max-w-none py-8 prose-h1:text-center prose-ol:pl-10">
 			{#if archived ?? false}
 				<section>
@@ -52,9 +53,9 @@
 		</div>
 	</div>
 
-	<div
-		class="mask-pixels-top bg-alternate-surface
-pt-(--mask-height) [--mask-height:1rem]"
+	<footer
+		class="mask-pixels-top mt-auto
+bg-alternate-surface pt-(--mask-height) [--mask-height:1rem]"
 	>
 		<div class="px-16 py-4">
 			<p>Published: {date}</p>
@@ -62,5 +63,5 @@ pt-(--mask-height) [--mask-height:1rem]"
 				<p>Updated: {updated}</p>
 			{/if}
 		</div>
-	</div>
+	</footer>
 </div>

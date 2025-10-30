@@ -22,9 +22,7 @@
 
 	<div class="grid-stack mt-auto grid">
 		<div class="mask-pixels-top bg-alternate-surface/50"></div>
-		<figure
-			class="bg-radial-br z-10 ml-auto aspect-square w-[50cqmin] from-alternate-surface pt-[5px] pl-[5px]"
-		>
+		<figure class="clip-br z-10 ml-auto aspect-square w-[50cqmin] bg-alternate-surface pt-3 pl-3">
 			<picture>
 				<img
 					src="/assets/simon-cat-optimized.webp"
