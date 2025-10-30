@@ -6,7 +6,7 @@
 	<title>About - Simonw.xyz</title>
 </svelte:head>
 
-<div class="grid-stack relative grid size-full">
+<div class="relative grid size-full">
 	<div class="relative z-10 mx-8 prose shrink-0 py-8">
 		<h1>Who is Simon?</h1>
 		<p class="text-lg">
@@ -22,7 +22,9 @@
 
 	<div class="grid-stack mt-auto grid">
 		<div class="mask-pixels-top bg-alternate-surface/50"></div>
-		<figure class="ml-auto aspect-square w-[50cqmin]">
+		<figure
+			class="bg-radial-br z-10 ml-auto aspect-square w-[50cqmin] from-alternate-surface pt-[5px] pl-[5px]"
+		>
 			<picture>
 				<img
 					src="/assets/simon-cat-optimized.webp"
