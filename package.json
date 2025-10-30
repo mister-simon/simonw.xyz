@@ -19,6 +19,7 @@
 		"@iconify/tailwind4": "^1.0.6",
 		"@shikijs/transformers": "^3.14.0",
 		"@sveltejs/adapter-auto": "^6.1.1",
+		"@sveltejs/adapter-netlify": "^5.2.4",
 		"@sveltejs/adapter-node": "^5.4.0",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.48.3",

@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-cloudflare';
+import adapter from '@sveltejs/adapter-netlify';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import markdownPreprocessor from './mdsvex.js';
 
@@ -9,17 +9,8 @@ const config = {
 	preprocess: [vitePreprocess(), markdownPreprocessor],
 	kit: {
 		adapter: adapter({
-			routes: {
-				exclude: [
-					"<build>",
-					"<files>",
-					"/about/*",
-					"/contact/*",
-					"/my-work/*",
-					"/thoughts/*",
-					// "<prerendered>",
-				]
-			}
+			edge: false,
+			split: false,
 		})
 	},
 	extensions: ['.svelte', '.svx']
