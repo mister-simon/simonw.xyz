@@ -1,8 +1,7 @@
 <script>
 	let { data } = $props();
 	const { PostContent } = $derived(data);
-	const { title, excerpt, date, updated, coverImage, coverWidth, coverHeight, tags, archived } =
-		$derived(data.meta);
+	const { title, excerpt, date, updated, cover, tags, archived } = $derived(data.meta);
 </script>
 
 <svelte:head>
@@ -16,25 +15,25 @@
 		<meta name="twitter:description" content={excerpt} />
 	{/if}
 
-	{#if coverImage}
-		<meta property="og:image" content={coverImage} />
-		<meta property="og:image:width" content={coverWidth} />
-		<meta property="og:image:height" content={coverHeight} />
-		<meta name="twitter:image" content={coverImage} />
+	{#if cover}
+		<meta property="og:image" content={cover.src} />
+		<meta property="og:image:width" content={cover.width} />
+		<meta property="og:image:height" content={cover.height} />
+		<meta name="twitter:image" content={cover} />
 	{/if}
 </svelte:head>
 
 <div class="relative flex min-h-full w-full flex-col overflow-clip">
 	<div class="mask-pixels-btm bg-alternate-surface text-alternate-text [--mask-height:4rem]">
-		{#if coverImage}
+		{#if cover}
 			<figure
 				class="max-h-[50cqh] w-full overflow-clip bg-alternate-surface text-alternate-text"
-				style="aspect-ratio: {coverWidth} / {coverHeight};"
+				style="aspect-ratio: {cover.width} / {cover.height};"
 			>
 				<img
-					src={coverImage}
-					width={coverWidth}
-					height={coverHeight}
+					src={cover.src}
+					width={cover.width}
+					height={cover.height}
 					alt=""
 					class="size-full object-cover"
 				/>

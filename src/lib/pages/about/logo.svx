@@ -4,9 +4,6 @@ date: "30-10-2025"
 updated: null
 tags:
   - "work"
-# coverImage: /assets/simonwxyz-optimised.svg
-coverWidth: 512
-coverHeight: 512
 excerpt: "Simon's freelance business"
 ---
 <script>
