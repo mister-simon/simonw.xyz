@@ -2,6 +2,7 @@
 title: "simonw.xyz"
 date: "21-08-2025"
 updated: null
+section: "featured"
 tags:
   - "portfolio"
 cover:
@@ -18,6 +19,7 @@ links:
   - title: Github
     url: https://github.com/mister-simon/simonw.xyz
     detail: Check out the source code on github
+    external: true
 ---
 
 # Simonw.xyz - This Site

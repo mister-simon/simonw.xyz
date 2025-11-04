@@ -35,14 +35,17 @@
 					width={cover.width}
 					height={cover.height}
 					alt=""
-					class="size-full object-cover"
+					class="size-full object-cover object-(--position,center)"
+					style:--position={cover.objectPosition}
 				/>
 			</figure>
 		{/if}
 	</div>
 
 	<div class="mx-8 grow">
-		<div class="blog-content prose max-w-none py-8 prose-h1:text-center prose-ol:pl-10">
+		<div
+			class="blog-content prose max-w-none py-8 prose-h1:text-center prose-h1:leading-relaxed prose-ol:pl-10"
+		>
 			{#if archived ?? false}
 				<section>
 					<h1>{title}</h1>

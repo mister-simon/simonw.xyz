@@ -6,7 +6,7 @@
 	class="group relative isolate grid overflow-clip rounded-lg border-2 border-alternate-text bg-alternate-surface no-underline hover:border-focused-window"
 >
 	{#if data.img}
-		<figure class="mask-pixels-btm m-0!">
+		<figure class="mask-pixels-btm m-0! max-h-[50svh]">
 			<img
 				src={data.img.src}
 				alt={data.img.alt}
@@ -16,9 +16,9 @@
 			/>
 		</figure>
 	{/if}
-	<div class={[data.img && '-mt-16 pt-0', 'z-10 p-8']}>
-		<h2 class="my-0! -ml-4 inline-block bg-alternate-surface px-4 pb-4">{data.title}</h2>
+	<div class={[data.img && '-mt-16 pt-0', 'z-10 grid justify-start p-8']}>
+		<h2 class="my-0! mr-auto -ml-4 bg-alternate-surface px-4 pt-2 pb-4">{data.title}</h2>
 		<p>{data.excerpt}</p>
-		<a href={url} class="after:absolute after:inset-0">Full Case Study</a>
+		<a href={url} class="mt-auto after:absolute after:inset-0">Full Case Study</a>
 	</div>
 </article>

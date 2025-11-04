@@ -1,7 +1,12 @@
 <script>
-	let { title, detail, url } = $props();
+	let { title, detail, url, external } = $props();
 </script>
 
-<a href={url} class="no-underline">
+<a
+	href={url}
+	target={external && '_blank'}
+	rel={external && 'nofollow noopener'}
+	class={external && 'external-link'}
+>
 	<strong>{title}</strong> - {detail}
 </a>

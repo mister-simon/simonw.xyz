@@ -1,0 +1,55 @@
+---
+title: "What is a Professional?"
+date: "21-08-2025"
+updated: null
+section: "creative"
+tags:
+  - "portfolio"
+  - "creative"
+cover:
+  src: /assets/content/what-is-a-professional.png
+  width: 2560
+  height: 1440
+  objectPosition: top
+img:
+  src: /assets/content/what-is-a-professional.png
+  alt: "A simply drawn figure in a hat stands on the left, on the right on a black background reads: Welcome to my TEDTalk... What even is a professional"
+  transformOrigin: "100% 80%"
+  hoverScale: 1.5
+excerpt: "An experiment in scroll-driven storytelling."
+links:
+  - title: View the Site
+    url: https://v1.simonw.xyz/totally-pro
+    detail:
+    external: true
+---
+
+# What Even is a Professional?
+
+## The Aim
+
+This page implements an effect you could call scroll-driven storytelling. Specifically, my goal was to sync a static image in a column with a series of freely scrolling browser height text slides on the right.
+
+Initially I set out to implement the effect entirely with CSS only. I had some moderate success but to really sell the effect I chose to use a small amount of JS to mark slides as active.
+
+The final problem to solve was how this could be made fully responsive. On mobile we switch to a single column layout, place the image into the background, as a textbox scrolls up the screen over the top:
+
+![a narrower mobile view showing the character in the background with a textbox in front](/assets/content/what-is-a-professional-mobile.png)
+
+## The Content
+
+The content is a somewhat tongue in cheek look at a TedTalk. Examining what professionalism means to me in the web development world.
+
+I chose to keep the visual style very simple. No distractions keeps the focus on the text and image pairs.
+
+Finally, to add a little extra energy a few animations are sprinkled in to give each part some character.
+
+
+
+---
+
+<script>
+  import PortfolioLinks from '$lib/portfolio/portfolio-links.svelte';
+</script>
+
+<PortfolioLinks {links} />

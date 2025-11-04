@@ -1,0 +1,114 @@
+---
+title: "Septembit '24 Gallery"
+date: "04-11-2025"
+updated: null
+section: "creative"
+tags:
+  - "portfolio"
+  - "creative"
+cover:
+  src: /assets/content/septembit24.simonw.xyz.png
+  width: 2736
+  height: 1824
+img:
+  src: /assets/content/septembit24.simonw.xyz.png
+  alt: "A four colour pixel artwork, with 27 smaller canvases and 3 larger ones, with the heading Monster Maker above it all"
+  transformOrigin: "top"
+  hoverScale: 1.5
+excerpt: "A gallery for my Septembit 30 day Pixel art challenge."
+links:
+  - title: The Gallery Site
+    url: https://septembit24.simonw.xyz
+    detail: View the Site
+    external: true
+  - title: Github
+    url: https://github.com/mister-simon/septembit-2024
+    detail: Check out the source code on github
+    external: true
+---
+
+# Septembit 2024 - A 30 Day Pixel Art Challenge
+
+## What was Septembit?
+
+In short, this challenge had us creating one pixel artwork every day of September, using a four colour pallete, a template to define canvas sizes, and a list of prompts. The broad theme was "Monster Maker" - putting people in mind of pokemon or perhaps something spookier.
+
+## My Approach
+
+I gave this challenge a shot with next to no prior experience creating pixel art, and it was an absolute blast. Not only that, but I chose to animate every single day's prompt. Massively increasing the workload and creative effort to succeed.
+
+With the completion of each day I realised there was potential to tell something of a story - taking inspiration from a pokedex. So each monster has a name and a short summary.
+
+## The Showcase
+
+That brings us to the creation of the website. It needed a few things:
+
+- The right style:
+  - Pixel fonts
+  - A matching colour scheme
+- An intro
+- A clickable overview
+- Pixel perfect image rendering
+- Sane content handling:
+  - 30 different images
+  - Each with metadata (day, name, prompt, canvas size)
+  - Special cases for 3 final works (linked prompts, larger canvas size)
+
+## Problem Solving Highlights
+
+### Image rendering
+
+Knowing that all images must be pixel art, it was a simple CSS fix to prevent upscaling artefacts:
+
+```css
+img {
+  image-rendering: pixelated
+}
+```
+
+### The overview
+
+I created a grid of transparent square jump links, positioned across the overview canvas. To avoid having to manually calculate the absolute positioning, instead each link is given a `--row` and `--col` variable, which is used to calculate the position instead:
+
+```css
+top: calc(var(--top) + ((var(--size) + var(--gap-y)) * var(--row)));
+left: calc(var(--left) + ((var(--size) + var(--gap-x)) * var(--col)));
+```
+
+### Fonts
+
+The fonts used are the same ones used in the initial prompt, downloaded and embedded onto the site. It had been a while since I'd had to manually set up a `@font-face` declaration.
+
+- [Kiwi Soda](https://fontenddev.com/fonts/kiwi-soda/)
+- [Gamer](https://www.dafont.com/gamer-2.font)
+
+### The Monster-dex
+
+The project uses SvelteKit, so I was able to easily load in all the images via an import glob: `const bitImgs = import.meta.glob('./bits/*.gif')`. An entry for each day was written up and exported from a simple generator function. Finally being through a loop and rendered out with a svelte component.
+
+### SSG
+
+Without any need for any dynamic server interactions, the whole single page site could be statically output. Resulting in an extremely simple, fast loading, small bundle.
+
+## Conclusion
+
+This was a huge success. It came together over the course of a few evenings, in keeping with the spirit of the challenge I chose to get the job done rather than agonizing over every little detail. While there are some things I might've reworked and styled differently, the fact that it's done is more important.
+
+Successes:
+
+- Got it done quick
+- Showcased creativity while following a theme
+- Created a minimal but effective design
+- The site's extremely small SSG bundle size
+- No JS used client side - CSS gets the job done
+- Use of svelte components and data driven output to save time and keep code clean
+
+
+
+---
+
+<script>
+  import PortfolioLinks from '$lib/portfolio/portfolio-links.svelte';
+</script>
+
+<PortfolioLinks {links} />
