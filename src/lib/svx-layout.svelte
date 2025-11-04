@@ -19,7 +19,7 @@
 		<meta property="og:image" content={cover.src} />
 		<meta property="og:image:width" content={cover.width} />
 		<meta property="og:image:height" content={cover.height} />
-		<meta name="twitter:image" content={cover} />
+		<meta name="twitter:image" content={cover.src} />
 	{/if}
 </svelte:head>
 
