@@ -4,9 +4,15 @@ date: "21-08-2025"
 updated: null
 tags:
   - "portfolio"
-# coverImage: /example-banner.svg
-# coverWidth: 1500
-# coverHeight: 500
+cover:
+  src: /assets/content/simonwxyz-screenshot.png
+  width: 2736
+  height: 1824
+img:
+  src: /assets/content/simonwxyz-screenshot.png
+  alt: "A screenshot of the homepage of the site"
+  transformOrigin: "bottom right"
+  hoverScale: 3
 excerpt: "This portfolio, with design inspiration from TUI applications and file explorers, made with SvelteKit."
 links:
   - title: Github

@@ -4,9 +4,6 @@ date: "08-08-2025"
 updated: null
 tags:
   - "sveltekit"
-# coverImage: /example-banner.svg
-coverWidth: 1500
-coverHeight: 500
 excerpt: "The start of a new era for this little blog."
 ---
 
