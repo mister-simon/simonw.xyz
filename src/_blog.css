@@ -7,6 +7,7 @@
 		& > :not(nav) {
 			grid-column: 2;
 		}
+
 		& > nav {
 			grid-column: 3;
 			grid-row: 1 / -1;
@@ -24,6 +25,10 @@
 		& > nav > ol {
 			padding-block: 0.1em;
 			border-left: var(--color-0A) 2px solid;
+		}
+
+		& > nav > ol:empty {
+			display: none;
 		}
 
 		@container (width < 95ch) {
