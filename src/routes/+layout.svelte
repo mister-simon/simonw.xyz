@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import '@fontsource/mononoki';
 	import favicon from '$lib/assets/favicon.svg';
 	import Layout from '$lib/layout.svelte';
 	import { page } from '$app/state';

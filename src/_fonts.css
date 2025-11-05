@@ -1,5 +1,5 @@
 @layer base {
-	@font-face {
+	/* @font-face {
 		font-family: 'Monaspace Argon';
 		src:
 			url('/assets/fonts/monaspace/MonaspaceArgonVarVF[wght,wdth,slnt].woff2') format('woff2'),
@@ -16,7 +16,7 @@
 		font-display: swap;
 		font-weight: 200 800;
 		font-style: oblique -11deg 0deg;
-	}
+	} */
 	@font-face {
 		font-family: 'Monaspace Neon';
 		src:
@@ -26,7 +26,7 @@
 		font-weight: 200 800;
 		font-style: oblique -11deg 0deg;
 	}
-	@font-face {
+	/* @font-face {
 		font-family: 'Monaspace Radon';
 		src:
 			url('/assets/fonts/monaspace/MonaspaceRadonVarVF[wght,wdth,slnt].woff2') format('woff2'),
@@ -34,7 +34,7 @@
 		font-display: swap;
 		font-weight: 200 800;
 		font-style: oblique -11deg 0deg;
-	}
+	} */
 	@font-face {
 		font-family: 'Monaspace Xenon';
 		src:

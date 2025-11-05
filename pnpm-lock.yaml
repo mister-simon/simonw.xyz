@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/mononoki':
+        specifier: ^5.2.5
+        version: 5.2.5
       '@iconify-json/bi':
         specifier: ^1.2.6
         version: 1.2.6
@@ -463,6 +466,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/mononoki@5.2.5':
+    resolution: {integrity: sha512-sTHgfpalruDdThonH0GSIBzFqXm2/T0iCuegLrL15ql9XtpGk+aBsmvcnfwnffHQoGaP1QHQMb3Dt9daZ2Nncg==}
 
   '@iconify-json/bi@1.2.6':
     resolution: {integrity: sha512-fWfLr1/+DJDe8+rIUXxMwvmWBZFlxRtM59sYnrezJ2xX87QKyXVw3QuforJ4kF2Orrz85J+JTRG6305vaJ7flA==}
@@ -2375,6 +2381,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.4':
     optional: true
+
+  '@fontsource/mononoki@5.2.5': {}
 
   '@iconify-json/bi@1.2.6':
     dependencies:

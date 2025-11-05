@@ -53,6 +53,7 @@
 	/* Fonts */
 	--font-mono: 'Monaspace Neon', monospace;
 	--font-mono-accent: 'Monaspace Xenon', var(--font-mono);
+	--font-mono-headings: 'Mononoki', var(--font-mono);
 }
 
 @layer base {
@@ -68,7 +69,12 @@
 	h2,
 	h3,
 	h4,
-	h5,
+	h5 {
+		&,
+		.prose & :where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+			font-family: var(--font-mono-headings);
+		}
+	}
 	.prose :where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 		font-family: var(--font-mono-accent);
 		text-underline-offset: 0.3em;
