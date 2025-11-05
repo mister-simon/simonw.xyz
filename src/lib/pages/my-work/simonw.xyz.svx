@@ -24,33 +24,35 @@ links:
 
 # Simonw.xyz - This Site
 
-A personal portfolio inspired by TUI applications and file managers. Made with *Sveltekit*, *tailwind*, *mdsvex*.
+Well, this is very meta isn't it?
 
-## Objectives
+This site is an ongoing process... A place to get creative, showcase my work, create a presence, a one-stop source of truth for all things Simon and Simon's work.
 
-- Create something a bit different - but still familiar
-- Flexible minimal design, TUI / Pixel art inspired
-- Friendly to employers, curious devs, clients, search engines
-- Space for professional content
-- Space for fun side-projects and any other write-ups
-- Use Stylix to generate a 16 colour base palette
+So this particular document will need rewriting a few times, no doubt.
 
-## Timeline
+## Design and Development
 
-- Research + gathering inspiration
-- Conceptualising + designing
-- Pallete generation
-- Blank canvas (empty SvelteKit project)
-- Mocking up the base layout (3 columns)
-- Exploring server code to back the navigation system using vite's `import.meta.glob` to gather contents
-- Scaffolding site structure
-- Refining the node tree system used to populate the navigation panes
-- Refining the layout to handle smaller screen / portrait
-- Implementing a full-screen toggle mode, to hide nav panels
-- Adding more visual appeal with pixelised icons
-- Improving typographic consistency using Monaspace fonts
-- Integrating markdown files into navigation population
-- Beginning this document...
+This portfolio takes inspiration from TUI applications and file explorers and is made with *Sveltekit*, *tailwind*, *mdsvex*. Each section of the site effectively represents a folder, with an index page and a series of additional content files.
+
+Currently, the index page is a `+page.svelte` file, representing the actual location of a page in the directory based router. Then a series of `.svx` pages can be pulled in and served from a `[...post]/` route folder.
+
+This took a lot of initial setup, but I can now easily add new pages (and subfolders), without much hassle.
+
+## Fun things
+
+- **[/about/gear](/about/gear.svx)** - I got a little silly with this page. I thought it would be fun to see if I could have the user view the site on a piece of my gear: my laptop. So right there and then, sat at my kitchen table, I took a photo of my laptop and cut out the screen using Krita. Following that, I warped the photo such that the rectangle of the screen was more-or-less square, then reapplied the perspective transformation to the entire page's layout while using the un-perspective'd image as a frame... This was silly. But sometimes you just need to have some fun.
+- **[/my-work](/my-work)** - It's been fun to reflect on some of the things I've made which show some creativity, ingenuity, and craft. This section really grew organically, and I'm really pleased with how the index page has come together. The `svx` pages use frontmatter, and that metadata is gathered up by the server to generate the index page. It took a bit of wrangling to get it working perfectly - and prerendering makes the output lightning-fast.
+- **[/contact](/contact)** - For the first time ever probably this is the location which points to all the places I'm likely to be found on the internet. Complete with aliased email address to avoid spam, external link icons, and quippy one-liners about each link.
+- **Colour Scheme** - A 16 colour scheme generated with Stylix.
+- **Fullscreen-ish Mode** - Click the little arrow in the corner to expand the content column. This idea came to me after a friend had a look at the site and made some helpful suggestions about the balance of content.
+- **Portrait Mode** - If you're on a mobile, a 3 column navigation layout isn't going to fit... Unlessssss~ ... So yeah, I made the first 2 columns flip their orientation.
+- **Full Responsiveness** - Not only that, but the entire layout can go through several container query based breakpoints to make sure you're seeing as much of the UI as will reasonably fit on your device. It's an approach you don't really see anywhere else yet but it was really fun to figure out. Have a play around with your window size and see what happens.
+
+## There's more to come
+
+I'd love to work on some new posts in the [thoughts/](/thoughts) section. There's lots of other features I'd like to add. In particular I'd like to return to the TUI vibe by adding some keyboard shortcuts all over the place and a command pallete.
+
+Thanks for checking the site out 💖
 
 ---
 
