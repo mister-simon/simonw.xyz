@@ -6,7 +6,11 @@
 	<title>About - Simonw.xyz</title>
 </svelte:head>
 
-<div class="relative grid size-full">
+<div class="relative isolate grid size-full">
+	<div
+		class="absolute inset-0 -z-10 size-full bg-linear-30 from-transparent via-transparent to-black/20 mask-[url(/logo-mono.svg)] mask-size-[100px] mask-center"
+	></div>
+
 	<div class="relative z-10 mx-8 prose shrink-0 py-8">
 		<h1>Who is Simon?</h1>
 		<p class="text-lg">
