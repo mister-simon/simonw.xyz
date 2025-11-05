@@ -37,7 +37,13 @@
 
 <div class="relative w-full overflow-clip">
 	<div class="mx-8 prose max-w-none py-8">
-		<h1>My Work</h1>
+		<div class="max-w-prose">
+			<h1>My Work</h1>
+			<p>
+				Here you'll find a showcase of a few client works, creative projects, and experiments I've
+				worked on over the years.
+			</p>
+		</div>
 		{#await works then sections}
 			{@render section({
 				title: 'Featured',

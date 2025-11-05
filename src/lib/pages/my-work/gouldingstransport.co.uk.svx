@@ -1,0 +1,99 @@
+---
+title: "Gouldings Transport"
+date: "05-11-2025"
+updated: null
+section: "featured"
+tags:
+  - "portfolio"
+cover:
+  src: /assets/content/gouldingstransport-landing.png
+  width: 1393
+  height: 761
+img:
+  src: /assets/content/gouldingstransport-landing.png
+  alt: "A screenshot of the homepage of the site"
+  transformOrigin: "center left"
+  hoverScale: 1.5
+excerpt: "A complete design and development job for a UK transport company."
+links:
+  - title: Gouldings Transport Services
+    url: https://www.gouldingstransport.co.uk/
+    detail: View the Site
+    external: true
+---
+
+# Gouldings Transport Services
+
+## Overview
+
+This was a fun client project which really tested my design and development skills.
+
+I was up front with the client that while I'm a very confident developer, most of my previous client work has been done in collaboration with a design team. This one would have me creating a design from scratch with minimal client provided assets. Getting stuck into the project I was excited to learn something new and do the best I could.
+
+My aim was to create a light, inviting design, which would use visual transport metaphors to draw the user through the page and towards key CTA buttons and information. As such, I leaned heavily on dotted lines and arrows to create flow and layout opportunities. Finally sprinkling in scroll-driven and intersection observer animations to grab attention and create interest.
+
+Here's a short preview clip of the site:
+
+<video controls loop poster="/assets/content/gouldingstransport-landing.png" width="1920" height="1080">
+    <source src="https://cdn.simonw.xyz/gouldings-preview.mp4"
+        type="video/mp4" />
+    <source src="https://cdn.simonw.xyz/gouldings-preview.webm"
+        type="video/webm" />
+</video>
+
+## The Process
+
+1. An initial consultaton to gather requirements and offer some basic design options
+2. A quote and estimated shedule of work
+3. Several rounds of design work and feedback
+4. Straight to work, initially focusing on the absolute basics
+5. A couple of check-in meetings at key preview milestones
+6. Polish - the addition of more animations and effects, final finessing of mobile experience, and a thorough checking over of meta and accessibility requirements
+7. Deployment!
+
+All in all the process took a couple of months, allowing for client feedback, etc.
+
+# Technical / fun stuff
+
+## The stack
+
+From the start we planned out a single page app, fully static generated. I also wanted to experiment and find a framework to support that. I had previously worked with Nuxt (Vue), but having lost several fights to Nuxt I decided to choose a new opponent... Eventually settling on Next.js (React).
+
+I had pretty limited previous experience with React at that point, so I had to give it my all. In the end, I learnt a lot, and there's a lot to be admired in the react ecosystem and the ways next.js works. It got the job done, but it certainly directed my trajectory firmly out towards SvelteKit for future projects.
+
+## Fun buttons
+
+![A couple of buttons with a cartoony 3D effect](/assets/content/gouldingstransport-buttons.png)
+
+These buttons are entirely build with CSS (aside from the icon) and fluid with the size of their content. I wanted to get these buttons just right - in particular I wanted to avoid any gaps in the outline when the top layer "rises".
+
+In the end this was achieved with a series of box shadows with gradual calculated offsets based on the `--btn-hover-depth`. You can even set the hover depth to a really high value and while it might look a little silly, there are still no real gaps in the outline effect:
+
+![The button top extending way above its base without gaps appearing in the outline](/assets/content/gouldingstransport-button-hover.png)
+
+## Scroll driven animations
+
+Each section points at the next section with an arrow, occasionally overlapping the following section. To really sell the effect of movement I used scroll driven animations extend the arrows towards their targets as you move through the page. This affect is surprisingly subtle, but I'm really pleased with how it turned out.
+
+The arrows were all comprised of three parts:
+
+- The tail - An `<img>` tag of a little circle
+- The body - A repeating background image of a single dashed line
+- The head - An `<img>` tag of an arrow head
+
+By setting the arrows up this way, I could easily remove the head or tail and resize the line to any length I wanted.
+
+## Other details and features
+
+- **The scroll gallery** - Creating a parallaxing collage effect purely with css scroll animations
+- **Image LQIPs** - All images on the page use blurred low quality versions to instantly load in ahead of full quality versions
+- **Enter animations** - Certain animations are triggered with intersection observers on their first enterance to the viewport.
+- **Mobile / tablet layouts** - Knowing that a large amount of traffic would be coming through handheld devices, it was important that all of the complex layouts and arrows would still work flawlessly for those screen sizes. Everything on the site was designed with responsiveness built in with only a one breakpoint to reflow the layout for mobile.
+
+---
+
+<script>
+  import PortfolioLinks from '$lib/portfolio/portfolio-links.svelte';
+</script>
+
+<PortfolioLinks {links} />
