@@ -13,7 +13,7 @@ excerpt: "Simon's freelance business"
 
 # The Simonw.xyz Logo
 
-![]({logoImg})
+![]({logoImg})<!--rehype:style=background:#fff3;border-radius:1rem&class=p-8-->
 
 ## Foreground: The symbol
 
@@ -36,6 +36,6 @@ I experimented with a few shapes, and the circle simply felt the best to me.
 
 # The Monochrome Version
 
-![]({logoCutoutImg})
+![]({logoCutoutImg})<!--rehype:style=border-radius:1rem&class=p-8 bg-alternate-surface-->
 
 By punching out the white section of the full colour version we end up with a very clean looking single colour variant of the logo.

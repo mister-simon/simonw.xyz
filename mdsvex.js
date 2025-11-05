@@ -5,6 +5,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutoLinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypeToc from "@jsdevtools/rehype-toc";
+import rehypeAttrs from 'rehype-attr';
 
 const remarkPlugins = [remarkGfm];
 const rehypePlugins = [
@@ -53,6 +54,7 @@ const rehypePlugins = [
 			return out;
 		}
 	}],
+	[rehypeAttrs, { properties: 'attr' }],
 	[rehypeToc],
 ];
 
