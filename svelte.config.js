@@ -6,6 +6,9 @@ import markdownPreprocessor from './mdsvex.js';
 const config = {
 	// Consult https://svelte.dev/docs/kit/integrations
 	// for more information about preprocessors
+	compilerOptions: {
+		experimental: { async: true },
+	},
 	preprocess: [vitePreprocess(), markdownPreprocessor],
 	kit: {
 		adapter: adapter({
