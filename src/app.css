@@ -229,6 +229,10 @@
 		mask-position: bottom, top, center;
 		mask-repeat: repeat-x, repeat-x, no-repeat;
 	}
+
+	.sideways-rl {
+		writing-mode: sideways-rl;
+	}
 }
 
 @import './_blog.css';
