@@ -11,7 +11,7 @@
 		class="absolute inset-0 -z-10 size-full bg-linear-30 from-transparent via-transparent to-black/20 mask-[url(/logo-mono.svg)] mask-size-[100px] mask-center"
 	></div>
 
-	<div class="relative z-10 mx-8 prose shrink-0 py-8">
+	<div class="relative z-10 mx-8 prose shrink-0 py-8 text-balance">
 		<h1>Who is Simon?</h1>
 		<p class="text-lg">
 			<strong>Simon W</strong> has been a <strong>Web Developer</strong> since he was about 14 years
@@ -21,6 +21,10 @@
 			Simon grew up with the early web and cares deeply about its <strong>future</strong>. We should
 			all be trying to make the internet <strong>useful</strong>,
 			<strong>accessible</strong>, and <strong>inclusive</strong>... More <strong>human</strong>.
+		</p>
+		<p>
+			While you're here why not take a look at some of <a href="/my-work">my work</a> or read
+			<a href="/thoughts">my thoughts</a>.
 		</p>
 	</div>
 

@@ -34,7 +34,7 @@ My aim was to create a light, inviting design, which would use visual transport 
 
 Here's a short preview clip of the site:
 
-<video controls loop poster="/assets/content/gouldingstransport-landing.png" width="1920" height="1080">
+<video controls loop poster="/assets/content/gouldingstransport-landing.png" width="1920" height="1080" muted>
     <source src="https://cdn.simonw.xyz/gouldings-preview.mp4"
         type="video/mp4" />
     <source src="https://cdn.simonw.xyz/gouldings-preview.webm"
