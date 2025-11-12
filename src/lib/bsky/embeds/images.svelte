@@ -9,8 +9,12 @@
 	class="images mx-4 mb-4 grid gap-0.5 overflow-clip rounded-lg border-2 border-popup-urgent-border bg-popup-urgent-border"
 >
 	{#each embed.images as image}
-		<a href={image.fullsize} target="_blank" rel="noopener noreferrer">
-			<img src={image.thumb} alt={image.alt} class="size-full object-cover" />
+		<a href={image.fullsize} target="_blank" rel="noopener noreferrer" class="group overflow-clip">
+			<img
+				src={image.thumb}
+				alt={image.alt}
+				class="size-full object-cover group-hover:scale-125 motion-safe:transition-transform"
+			/>
 		</a>
 	{/each}
 </div>
