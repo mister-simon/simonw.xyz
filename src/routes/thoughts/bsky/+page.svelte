@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ProfileViewDetailed } from '@atproto/api/dist/client/types/app/bsky/actor/defs';
-	import AtprotoRichtext from '$lib/atproto-richtext.svelte';
+	import Post from '$lib/bsky/post.svelte';
 
 	let { data: pageData } = $props();
 	const profile = $derived(pageData.profile);
@@ -50,39 +50,9 @@
 	<h2 class="mx-8 mt-12 text-center text-3xl text-balance">Posts and Reposts</h2>
 
 	{#await feed then { data: feed }}
-		<div class="m-8 grid gap-8">
+		<div class="m-8 space-y-8">
 			{#each feed.feed as { post }}
-				<article>
-					<blockquote
-						class="relative flex rounded-lg border-2 border-popup-incomplete bg-popup-surface-color"
-					>
-						<div class="mx-auto prose grow p-8">
-							{#if post.record.text}
-								<AtprotoRichtext text={String(post.record.text)} />
-							{/if}
-						</div>
-						<div class="relative flex">
-							<a
-								href={`https://bsky.app/profile/${post.author.handle}/post/${post.uri.split('/').pop()}`}
-								target="_blank"
-								class="group grid place-content-center overflow-clip border-l-2 border-popup-incomplete bg-popup-incomplete p-8 text-center after:absolute after:inset-0 hover:bg-default-surface hover:text-default-text"
-							>
-								<span
-									class="icon iconify size-8 origin-bottom-left transition-transform duration-500 pixel--bluesky group-hover:-skew-x-12"
-									>View on Bsky</span
-								>
-							</a>
-						</div>
-					</blockquote>
-					{#if post?.record?.createdAt}
-						<div class="prose ml-auto">
-							<p class="text-right text-sm">
-								<a href={`https://bsky.app/profile/${post.author.handle}`}>@{post.author.handle}</a>
-								({new Date(String(post.record.createdAt)).toLocaleDateString()})
-							</p>
-						</div>
-					{/if}
-				</article>
+				<Post {post} />
 			{/each}
 		</div>
 	{/await}
