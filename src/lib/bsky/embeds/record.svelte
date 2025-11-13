@@ -5,4 +5,6 @@
 	const { embed, post }: { embed: AppBskyEmbedRecord.View; post: PostView } = $props();
 </script>
 
-<div>This is a record</div>
+<!-- <div class="mx-4 mb-4 grid gap-0.5 overflow-clip rounded-lg border-2 border-popup-urgent-border">
+	Record without media
+</div> -->

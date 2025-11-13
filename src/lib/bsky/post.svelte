@@ -47,7 +47,7 @@
 	</div>
 	<div class="overflow-clip rounded-lg border-2 border-popup-incomplete bg-popup-surface-color">
 		<blockquote>
-			<div class="mx-auto prose grow p-8">
+			<div class="mx-auto prose grow p-8 text-pretty">
 				{#if post.record.text}
 					<BskyRichtext text={String(post.record.text)} />
 				{/if}
