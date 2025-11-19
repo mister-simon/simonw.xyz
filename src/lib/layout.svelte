@@ -5,6 +5,8 @@
 	import ListIndex from '$lib/navigation/list-index.svelte';
 	import getFrameContext from '$lib/contexts/frame.svelte';
 	import { page } from '$app/state';
+	import Time from './time.svelte';
+	import Timezone from './timezone.svelte';
 
 	let {
 		primary,
@@ -81,7 +83,8 @@
 				one sentence.
 			</p>
 		</div>
-		<footer class="flex items-center">
+		<footer class="flex items-center justify-between gap-8">
+			<p class="text-sm max-[35ch]:hidden"><Time /> <Timezone /></p>
 			<p class="shrink-0 grow text-right">&copy; Simon W</p>
 		</footer>
 		<img src="/assets/dumb-frame-idea-3.webp" alt="" />
