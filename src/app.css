@@ -169,7 +169,7 @@
 			content: counter(step);
 			counter-increment: step;
 			max-height: 1lh;
-			width: calc(var(--line-number-width, 1) * 1.2em);
+			width: calc(1ch + (var(--line-number-width, 1) * 1em));
 			overflow: clip;
 			text-overflow: ellipsis;
 
