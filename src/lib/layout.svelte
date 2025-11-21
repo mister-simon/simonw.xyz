@@ -54,7 +54,7 @@
 		</header>
 		<main class={[fullscreen && 'fullscreen']}>
 			<nav class="menus" id="menus">
-				<div class="primary" inert={fullscreen}>
+				<div class="primary">
 					<ListIndex items={primary} />
 				</div>
 				<div class="secondary" inert={fullscreen}>
@@ -229,8 +229,12 @@
 		/* Layout */
 		--margin: 1rem;
 
-		--primary-width: 1.5fr;
-		--secondary-width: 2fr;
+		--primary-width: 1.4fr;
+		--primary-width-collapsed: 4ch;
+
+		--secondary-width: 1.5fr;
+		--secondary-width-collapsed: 3.25ch;
+
 		--content-width: 5fr;
 
 		display: grid;
@@ -248,15 +252,15 @@
 		transition-property: grid-template-columns, grid-template-rows;
 
 		&.fullscreen {
-			--primary-width: 0fr;
-			--secondary-width: 0fr;
-			--content-width: 5fr;
+			--primary-width: var(--primary-width-collapsed);
+			--secondary-width: 0;
+			--content-width: auto;
 
-			& .primary,
+			/* & .primary,
 			& .secondary {
 				overflow: hidden;
 				opacity: 0.5;
-			}
+			} */
 
 			.icon {
 				rotate: 180deg;
@@ -387,22 +391,22 @@
 
 	@media (max-aspect-ratio: 1) and (height < 900px) {
 		main {
-			--primary-width: 4ch;
+			--primary-width: var(--primary-width-collapsed);
 		}
 	}
 	@media (max-aspect-ratio: 1) and (height < 500px) {
 		main {
-			--secondary-width: 3.25ch;
+			--secondary-width: var(--secondary-width-collapsed);
 		}
 	}
 	@media (min-aspect-ratio: 1) and (width < 900px) {
 		main {
-			--primary-width: 4ch;
+			--primary-width: var(--primary-width-collapsed);
 		}
 	}
 	@media (min-aspect-ratio: 1) and (width < 500px) {
 		main {
-			--secondary-width: 3.25ch;
+			--secondary-width: var(--secondary-width-collapsed);
 		}
 	}
 </style>
