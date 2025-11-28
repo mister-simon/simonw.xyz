@@ -82,6 +82,7 @@ export class TreeNode {
 
 	get icon() {
 		const specialIcons = {
+			'../': 'pixel--folder-open',
 			about: 'pixel--home-solid',
 			'my-work': 'pixel--sparkles-solid',
 			thoughts: 'pixel--book-heart-solid',

@@ -1,16 +1,40 @@
 @layer components {
 	.blog-content {
+		--breakout-col: auto;
+		--content-col: min(100%, var(--max-width-prose, 65ch));
+		--nav-col: var(--max-width-toc, auto);
+
 		display: grid;
-		grid-template-columns: auto min(100%, var(--max-width-prose, 65ch)) var(--max-width-toc, auto);
 		column-gap: 1rem;
 
-		& > :not(nav) {
-			grid-column: 2;
+		grid-template-columns: var(--content-col);
+		justify-content: stretch;
+
+		/* If a toc exists, then allocate space for it */
+		&:where(:has(> nav)) {
+			grid-template-columns: auto var(--content-col) var(--nav-col);
+
+			& > :not(nav) {
+				grid-column: 2;
+			}
+
+			& > .shiki,
+			& > .breakout {
+				grid-column: 1 / span 2;
+			}
+		}
+
+		&:not(:has(> nav)),
+		&:where(:has(> nav > ol:empty)) {
+			& > .shiki,
+			& > .breakout {
+				grid-column: 1 / -1;
+			}
 		}
 
 		& > nav {
 			grid-column: 3;
-			grid-row: 1 / -1;
+			grid-row: 999 / -1;
 		}
 
 		& > nav {
@@ -32,8 +56,18 @@
 		}
 
 		@container (width < 95ch) {
+			grid-template-columns: auto var(--content-col) auto;
+			column-gap: 0;
+
 			& > nav {
 				display: none;
+			}
+			& > :not(nav) {
+				grid-column: 2;
+			}
+			& > .shiki,
+			& > .breakout {
+				grid-column: 1 / -1;
 			}
 		}
 	}

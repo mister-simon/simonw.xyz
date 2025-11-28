@@ -169,14 +169,14 @@
 			content: counter(step);
 			counter-increment: step;
 			max-height: 1lh;
-			width: calc(var(--line-number-width, 1) * 1em);
+			width: calc(1ch + (var(--line-number-width, 1) * 1em));
 			overflow: clip;
 			text-overflow: ellipsis;
 
 			margin: 0;
 			padding: 0;
-			padding-right: 0.5rem;
-			margin-right: 0.5rem;
+			padding-right: 0.75rem;
+			margin-right: 0.75rem;
 			display: inline-block;
 			text-align: right;
 
