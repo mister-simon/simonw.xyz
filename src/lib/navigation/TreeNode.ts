@@ -86,6 +86,7 @@ export class TreeNode {
 			about: 'pixel--home-solid',
 			'my-work': 'pixel--sparkles-solid',
 			thoughts: 'pixel--book-heart-solid',
+			bsky: 'pixel--bluesky',
 			contact: 'pixel--user-solid',
 			'+page.svelte': 'pixel--code-block',
 			'+error.svelte': 'pixel--exclamation-triangle-solid'
@@ -112,6 +113,7 @@ export class TreeNode {
 			about: 100,
 			'my-work': 200,
 			thoughts: 300,
+			bsky: 350,
 			contact: 400,
 			'+page.svelte': 500,
 			'+error.svelte': 600

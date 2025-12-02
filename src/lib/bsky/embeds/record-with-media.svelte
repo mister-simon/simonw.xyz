@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { type AppBskyEmbedRecordWithMedia } from '@atproto/api';
+	import type { AppBskyEmbedRecordWithMedia } from '@atproto/api';
 	import { isViewRecord } from '@atproto/api/dist/client/types/app/bsky/embed/record';
-	import { type PostView } from '@atproto/api/dist/client/types/app/bsky/feed/defs';
+	import type { PostView } from '@atproto/api/dist/client/types/app/bsky/feed/defs';
 	import Post from '../post.svelte';
 
 	const { embed, post }: { embed: AppBskyEmbedRecordWithMedia.View; post: PostView } = $props();
-	const media = $derived(embed.media);
+
 	const postView = $derived.by(() => {
 		if (!isViewRecord(embed.record.record)) {
 			return null;
