@@ -3,10 +3,10 @@
 	import type { TreeNode } from '$lib/navigation/TreeNode';
 	import { onNavigate } from '$app/navigation';
 	import ListIndex from '$lib/navigation/list-index.svelte';
-	import getFrameContext from '$lib/contexts/frame.svelte';
 	import { page } from '$app/state';
 	import Time from './time.svelte';
 	import Timezone from './timezone.svelte';
+	import { createFrameContext, getFrameContext, setFrameContext } from './contexts/frame.svelte';
 
 	let {
 		primary,
@@ -23,10 +23,8 @@
 	let fullscreen = $state(false);
 	let articleInner: HTMLDivElement | null = $state(null);
 
-	const frameContext = getFrameContext();
-	if (page.url.pathname === '/about/gear.svx') {
-		frameContext.val = 'gear';
-	}
+	const frameContext = createFrameContext();
+	frameContext.match(page.url.pathname);
 
 	onNavigate(({ from, to }) => {
 		if (to?.url === from?.url) {
@@ -35,11 +33,8 @@
 
 		articleInner?.scrollTo(0, 0);
 
-		frameContext.val = null;
-
-		if (to?.url?.pathname === '/about/gear.svx') {
-			frameContext.val = 'gear';
-		}
+		frameContext.value = null;
+		frameContext.match(to?.url?.pathname);
 	});
 </script>
 

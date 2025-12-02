@@ -1,29 +1,29 @@
-import { setContext, getContext, hasContext } from 'svelte';
-
-const KEY = Symbol('frame');
+import { createContext } from 'svelte';
 
 class FrameContext {
-	#val: String | null = $state(null);
+	#value: String | null = $state(null);
 
-	get val() {
-		return this.#val;
+	get value() {
+		return this.#value;
 	}
 
-	set val(val: String | null) {
-		this.#val = val;
+	set value(value: String | null) {
+		this.#value = value;
 	}
 
 	get isGear() {
-		return this.#val === 'gear';
+		return this.#value === 'gear';
+	}
+
+	match(path: null|undefined|string) {
+		if (path === '/about/gear.svx') {
+			this.value = 'gear';
+		}
 	}
 }
 
-export default function getFrameContext(): FrameContext {
-	if (hasContext(KEY)) {
-		return getContext(KEY);
-	}
+export const [getFrameContext, setFrameContext] = createContext<FrameContext>();
 
-	const context = new FrameContext();
-	setContext(KEY, context);
-	return context;
+export function createFrameContext() {
+	return setFrameContext(new FrameContext());
 }
