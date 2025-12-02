@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>Atproto Test - Simonw.xyz</title>
+	<title>Bluesky Feed - Simonw.xyz</title>
 </svelte:head>
 
 {#snippet userCard({
